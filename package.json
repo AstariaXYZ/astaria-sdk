@@ -18,19 +18,11 @@
     "test:watch": "tsdx test --watchAll",
     "test:coverage": "tsdx test --coverage",
     "lint": "tsdx lint",
-    "prepare": "tsdx build",
+    "prepare": "tsdx build && husky install",
     "size": "size-limit",
     "analyze": "size-limit --why",
     "typechain:compile": "typechain --target ethers-v5 --out-dir './src/contracts' './abi/*.json'",
     "postinstall": "npm run typechain:compile"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": [
-        "tsdx lint",
-        "tsdx test"
-      ]
-    }
   },
   "prettier": {
     "arrowParens": "always",
@@ -73,6 +65,7 @@
   },
   "lint-staged": {
     "*.{ts,tsx}": [
+      "tsdx lint",
       "eslint --cache --fix",
       "prettier --write ."
     ]

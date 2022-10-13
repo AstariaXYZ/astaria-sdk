@@ -1,5 +1,4 @@
 import { BigNumber } from 'ethers'
-export * from './contracts'
 
 declare var __DEV__: boolean
 
