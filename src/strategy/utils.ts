@@ -1,7 +1,7 @@
-import { BigNumber, utils, providers, } from 'ethers'
+import { BigNumber, utils, providers } from 'ethers'
 import invariant from 'tiny-invariant'
 import { Collateral, Collection, Strategy, StrategyLeafType } from '../types'
-import { keccak256 } from 'ethers/lib/utils' 
+import { keccak256 } from 'ethers/lib/utils'
 
 export const hashCollateral = (collateral: Collateral): string => {
   invariant(collateral, 'hashCollateral: collateral must be defined')
@@ -35,15 +35,7 @@ export const hashCollection = (collection: Collection): string => {
   invariant(collection, 'hashCollection: collection must be defined')
 
   const encode = utils.defaultAbiCoder.encode(
-    [
-      'uint8',
-      'address',
-      'address',
-      'uint256',
-      'uint256',
-      'uint256',
-      'uint256',
-    ],
+    ['uint8', 'address', 'address', 'uint256', 'uint256', 'uint256', 'uint256'],
     [
       collection.type,
       collection.token,
@@ -148,19 +140,25 @@ export const prepareLeaves = (csv: Array<Collateral | Collection>) => {
   return leaves
 }
 
-export const signRoot = async (strategy: Strategy, provider: providers.JsonRpcProvider, root: string, verifyingContract: string, chainId: number) => {
+export const signRoot = async (
+  strategy: Strategy,
+  provider: providers.JsonRpcProvider,
+  root: string,
+  verifyingContract: string,
+  chainId: number
+) => {
   const typedData = {
     types: {
       EIP712Domain: [
-        {name: "version", type: "string"},
-        {name: "chainId", type: "uint256"},
-        {name: "verifyingContract", type: "address"},
+        { name: 'version', type: 'string' },
+        { name: 'chainId', type: 'uint256' },
+        { name: 'verifyingContract', type: 'address' },
       ],
       StrategyDetails: [
-        {name: "nonce", type: "uint256"},
-        {name: "deadline", type: "uint256"},
-        {name: "root", type: "bytes32"},
-      ]
+        { name: 'nonce', type: 'uint256' },
+        { name: 'deadline', type: 'uint256' },
+        { name: 'root', type: 'bytes32' },
+      ],
     },
     primaryType: 'StrategyDetails' as const,
     domain: {
@@ -169,18 +167,18 @@ export const signRoot = async (strategy: Strategy, provider: providers.JsonRpcPr
       verifyingContract: verifyingContract,
     },
     message: {
-      'nonce': strategy.nonce.toHexString(),
-      'deadline': strategy.expiration.toHexString(),
-      'root': root
-    }
+      nonce: strategy.nonce.toHexString(),
+      deadline: strategy.expiration.toHexString(),
+      root: root,
+    },
   }
 
-  const signer = provider.getSigner();
-  const account = await signer.getAddress();
-  
-  const signature = await signer.provider.send("eth_signTypedData_v4", [
+  const signer = provider.getSigner()
+  const account = await signer.getAddress()
+
+  const signature = await signer.provider.send('eth_signTypedData_v4', [
     account,
-    typedData
+    typedData,
   ])
 
   return utils.splitSignature(signature)
