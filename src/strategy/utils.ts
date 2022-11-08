@@ -16,6 +16,7 @@ import {
   StrategyLeafType,
   IPFSStrategyPayload,
   TypedData,
+  UniV3Collateral,
 } from '../types'
 const ethSigUtil = require('eth-sig-util')
 const stringify = require('json-stringify-deterministic')
@@ -49,6 +50,53 @@ export const hashCollateral = (collateral: Collateral): string => {
   return keccak256(encode)
 }
 
+export const hashUniV3Collateral = (collateral: UniV3Collateral): string => {
+  invariant(collateral, 'hashCollateral: collateral must be defined')
+
+  let encode = defaultAbiCoder.encode(
+    [
+      'uint8',
+      'address',
+      'address',
+
+      'address',
+      'address',
+      'uint24',
+      'int24',
+      'int24',
+      'uint128',
+      'uint256',
+      'uint256',
+
+      'uint256',
+      'uint256',
+      'uint256',
+      'uint256',
+    ],
+    [
+      collateral.type,
+      collateral.token,
+      collateral.borrower,
+
+      collateral.token0,
+      collateral.token1,
+      collateral.fee,
+      collateral.tickLower,
+      collateral.tickUpper,
+      collateral.minLiquidity,
+      collateral.amount0Min,
+      collateral.amount1Min,
+
+      collateral.lien.amount,
+      collateral.lien.rate,
+      collateral.lien.duration,
+      collateral.lien.maxPotentialDebt,
+    ]
+  )
+
+  return keccak256(encode)
+}
+
 export const hashCollection = (collection: Collection): string => {
   invariant(collection, 'hashCollection: collection must be defined')
 
@@ -68,14 +116,14 @@ export const hashCollection = (collection: Collection): string => {
   return keccak256(encode)
 }
 
-export type ParsedStrategyRow = Array<Collateral | Collection>
+export type ParsedStrategyRow = Array<Collateral | Collection | UniV3Collateral>
 
 export interface StrategyObjectFactory<RowType> {
   (rowData: string): RowType
 }
 
 export const createCollateralOrCollection: StrategyObjectFactory<
-  Collateral | Collection
+  Collateral | Collection | UniV3Collateral
 > = (rowData) => {
   const row: any = RE_STRATEGY_ROW.exec(rowData)?.groups
 
@@ -108,12 +156,33 @@ export const createCollateralOrCollection: StrategyObjectFactory<
         },
       }
     }
+
+    case StrategyLeafType.UniV3Collateral: {
+      return {
+        type: StrategyLeafType.Collection,
+        token: getAddress(row.token.toLowerCase()),
+        borrower: getAddress(row.borrower.toLowerCase()),
+        token0: BigNumber.from(String(row.token0)),
+        token1: BigNumber.from(String(row.token1)),
+        fee: BigNumber.from(String(row.fee)),
+        tickLower: BigNumber.from(String(row.tickLower)),
+        tickUpper: BigNumber.from(String(row.tickUpper)),
+        minLiquidity: BigNumber.from(String(row.minLiquidity)),
+        amount0Min: BigNumber.from(String(row.amount0Min)),
+        amount1Min: BigNumber.from(String(row.amount1Min)),
+        lien: {
+          amount: BigNumber.from(String(row.amount)),
+          rate: BigNumber.from(String(row.rate)),
+          duration: BigNumber.from(String(row.duration)),
+          maxPotentialDebt: BigNumber.from(String(row.maxPotentialDebt)),
+        },
+      }
+    }
   }
 
   throw Error('invalid row')
 }
-
-export const RE_STRATEGY_ROW = /^(?<type>\d+)[,]{1}(?<token>0x[a-fA-F0-9]{40})[,]{1}(?<tokenId>\d{0,78})[,]{0,1}(?<borrower>0x[a-fA-F0-9]{40})[,]{1}(?<amount>\d{0,78})[,]{1}(?<rate>\d{0,78})[,]{1}(?<duration>\d{1,20})[,]{1}(?<maxPotentialDebt>\d{0,78})$/
+export const RE_STRATEGY_ROW = /^(?<type>\d+)[,]{1}(?<token>0x[a-fA-F0-9]{40})[,]{1}(?<tokenId>\d{0,78})[,]{0,1}(?<borrower>0x[a-fA-F0-9]{40})[,]{1}((?<token0>0x[a-fA-F0-9]{40})[,]{1}(?<token1>0x[a-fA-F0-9]{40})[,]{1}(?<fee>\d{1,8})[,]{1}(?<tickLower>\d{1,8})[,]{1}(?<tickUpper>\d{1,8})[,]{1}(?<minLiquidity>\d{1,39})[,]{1}(?<amount0Min>\d{0,78})[,]{1}(?<amount1Min>\d{0,78})[,]{1}){0,1}(?<amount>\d{0,78})[,]{1}(?<rate>\d{0,78})[,]{1}(?<duration>\d{1,20})[,]{1}(?<maxPotentialDebt>\d{0,78})$/
 
 const validateCollateralOrCollectionRow = (row: string): boolean =>
   row.length > 0 && RE_STRATEGY_ROW.test(row)
@@ -139,8 +208,10 @@ export const validate: ValidateStrategyCSV = (csv: string) => {
 }
 
 // hashes the parameters of the terms and collateral to produce a single bytes32 value to act as the root
-export const prepareLeaves = (csv: Array<Collateral | Collection>) => {
-  csv.forEach((row: Collateral | Collection) => {
+export const prepareLeaves = (
+  csv: Array<Collateral | Collection | UniV3Collateral>
+) => {
+  csv.forEach((row: Collateral | Collection | UniV3Collateral) => {
     switch (row.type) {
       case StrategyLeafType.Collection: {
         row.leaf = hashCollection(row)
@@ -149,6 +220,11 @@ export const prepareLeaves = (csv: Array<Collateral | Collection>) => {
 
       case StrategyLeafType.Collateral: {
         row.leaf = hashCollateral(row)
+        break
+      }
+
+      case StrategyLeafType.UniV3Collateral: {
+        row.leaf = hashUniV3Collateral(row)
         break
       }
     }
