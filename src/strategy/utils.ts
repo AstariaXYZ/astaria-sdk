@@ -126,7 +126,6 @@ export const createCollateralOrCollection: StrategyObjectFactory<
   Collateral | Collection | UniV3Collateral
 > = (rowData) => {
   const row: any = RE_STRATEGY_ROW.exec(rowData)?.groups
-
   switch (parseInt(row.type, 10)) {
     case StrategyLeafType.Collateral: {
       return {
@@ -159,11 +158,11 @@ export const createCollateralOrCollection: StrategyObjectFactory<
 
     case StrategyLeafType.UniV3Collateral: {
       return {
-        type: StrategyLeafType.Collection,
+        type: StrategyLeafType.UniV3Collateral,
         token: getAddress(row.token.toLowerCase()),
         borrower: getAddress(row.borrower.toLowerCase()),
-        token0: BigNumber.from(String(row.token0)),
-        token1: BigNumber.from(String(row.token1)),
+        token0: getAddress(row.token0.toLowerCase()),
+        token1: getAddress(row.token1.toLowerCase()),
         fee: BigNumber.from(String(row.fee)),
         tickLower: BigNumber.from(String(row.tickLower)),
         tickUpper: BigNumber.from(String(row.tickUpper)),
@@ -182,7 +181,7 @@ export const createCollateralOrCollection: StrategyObjectFactory<
 
   throw Error('invalid row')
 }
-export const RE_STRATEGY_ROW = /^(?<type>\d+)[,]{1}(?<token>0x[a-fA-F0-9]{40})[,]{1}(?<tokenId>\d{0,78})[,]{0,1}(?<borrower>0x[a-fA-F0-9]{40})[,]{1}((?<token0>0x[a-fA-F0-9]{40})[,]{1}(?<token1>0x[a-fA-F0-9]{40})[,]{1}(?<fee>\d{1,8})[,]{1}(?<tickLower>\d{1,8})[,]{1}(?<tickUpper>\d{1,8})[,]{1}(?<minLiquidity>\d{1,39})[,]{1}(?<amount0Min>\d{0,78})[,]{1}(?<amount1Min>\d{0,78})[,]{1}){0,1}(?<amount>\d{0,78})[,]{1}(?<rate>\d{0,78})[,]{1}(?<duration>\d{1,20})[,]{1}(?<maxPotentialDebt>\d{0,78})$/
+export const RE_STRATEGY_ROW = /^(?<type>\d+)[,]{1}(?<token>0x[a-fA-F0-9]{40})[,]{1}(?<tokenId>\d{0,78})[,]{0,1}(?<borrower>0x[a-fA-F0-9]{40})[,]{1}((?<token0>0x[a-fA-F0-9]{40})[,]{1}(?<token1>0x[a-fA-F0-9]{40})[,]{1}(?<fee>\d{1,8})[,]{1}(?<tickLower>-\d{1,8})[,]{1}(?<tickUpper>-\d{1,8})[,]{1}(?<minLiquidity>\d{1,39})[,]{1}(?<amount0Min>\d{0,78})[,]{1}(?<amount1Min>\d{0,78})[,]{1}){0,1}(?<amount>\d{0,78})[,]{1}(?<rate>\d{0,78})[,]{1}(?<duration>\d{1,20})[,]{1}(?<maxPotentialDebt>\d{0,78})$/
 
 const validateCollateralOrCollectionRow = (row: string): boolean =>
   row.length > 0 && RE_STRATEGY_ROW.test(row)
@@ -268,10 +267,6 @@ export const signRootLocal = async (
   return splitSignature(signature)
 }
 
-const hexStringToBuffer = (hex: string) => {
-  return Buffer.from(hex.replace('0x', ''), 'hex')
-}
-
 export const getTypedData = (
   strategy: Strategy,
   root: string,
@@ -303,16 +298,6 @@ export const getTypedData = (
       root: root,
     },
   }
-}
-
-const byLeafAscending = (
-  x: Collateral | Collection,
-  y: Collateral | Collection
-) => {
-  return Buffer.compare(
-    hexStringToBuffer(x.leaf as string),
-    hexStringToBuffer(y.leaf as string)
-  )
 }
 
 export const encodeIPFSStrategyPayload = (

@@ -9,7 +9,6 @@ export class StrategyTree extends MerkleTree {
 
   constructor(data: string) {
     const csv = validate(data)
-
     invariant(
       csv.length > 0,
       'StrategyTree: Provided csv string did not produce a valid StrategyTree value'

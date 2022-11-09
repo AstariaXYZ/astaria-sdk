@@ -65,7 +65,7 @@ describe('util.signRoot using remote', () => {
       vault: AddressZero,
     }
     const root =
-      '0x40c9e8c33c4cf5ff06180afea2e6a3bab45b6bfb4fafca7ec401e4201fded1a9'
+      '0x451fad0e5b357b99cdde7ebe462ef028dbd5506e1db82b5937c0ebee78dcd3f0'
 
     const sig = await signRootLocal(
       strategy,
@@ -76,7 +76,7 @@ describe('util.signRoot using remote', () => {
     )
 
     expect(sig.compact).toEqual(
-      '0x93df081d0c605b582487bf4425e0922e3faa99ebfc7a4b28d325fefac62e71a9711dc4b5f4e03220ee46e4792e6c774788d0fb70f2073589c7ac86f7842a7ea2'
+      '0x00d6bdd90151dcf83b578a735be4a2d71a46ae08bde99e9aa23d1eaf4c24fc1619987e97f52e004a642ecbc9629f3069ac78133c441ef946f988a27c44726e77'
     )
   })
   test('encoding and decoding for IPFS', async () => {
