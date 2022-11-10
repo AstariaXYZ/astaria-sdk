@@ -10,7 +10,7 @@ describe('StrategyTree', () => {
     const strategyTree = new StrategyTree(csv)
 
     expect(
-      '0x451fad0e5b357b99cdde7ebe462ef028dbd5506e1db82b5937c0ebee78dcd3f0'
+      '0x607732e33fc4861447c6f09f439ac1483bf2b72f3af691b2493aefeafa5f53c4'
     ).toEqual(strategyTree.getHexRoot())
   })
 })
