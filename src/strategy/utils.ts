@@ -34,6 +34,7 @@ export const hashCollateral = (collateral: Collateral): string => {
       'uint256',
       'uint256',
       'uint256',
+      'uint256',
     ],
     [
       collateral.type,
@@ -44,6 +45,7 @@ export const hashCollateral = (collateral: Collateral): string => {
       collateral.lien.rate,
       collateral.lien.duration,
       collateral.lien.maxPotentialDebt,
+      collateral.lien.liquidationInitialAsk,
     ]
   )
 
@@ -51,7 +53,7 @@ export const hashCollateral = (collateral: Collateral): string => {
 }
 
 export const hashUniV3Collateral = (collateral: UniV3Collateral): string => {
-  invariant(collateral, 'hashCollateral: collateral must be defined')
+  invariant(collateral, 'hashUniV3Collateral: collateral must be defined')
 
   let encode = defaultAbiCoder.encode(
     [
@@ -68,6 +70,7 @@ export const hashUniV3Collateral = (collateral: UniV3Collateral): string => {
       'uint256',
       'uint256',
 
+      'uint256',
       'uint256',
       'uint256',
       'uint256',
@@ -91,6 +94,7 @@ export const hashUniV3Collateral = (collateral: UniV3Collateral): string => {
       collateral.lien.rate,
       collateral.lien.duration,
       collateral.lien.maxPotentialDebt,
+      collateral.lien.liquidationInitialAsk,
     ]
   )
 
@@ -101,15 +105,27 @@ export const hashCollection = (collection: Collection): string => {
   invariant(collection, 'hashCollection: collection must be defined')
 
   const encode = defaultAbiCoder.encode(
-    ['uint8', 'address', 'address', 'uint256', 'uint256', 'uint256', 'uint256'],
+    [
+      'uint8',
+      'address',
+      'address',
+
+      'uint256',
+      'uint256',
+      'uint256',
+      'uint256',
+      'uint256',
+    ],
     [
       collection.type,
       collection.token,
       collection.borrower,
+
       collection.lien.amount,
       collection.lien.rate,
       collection.lien.duration,
       collection.lien.maxPotentialDebt,
+      collection.lien.liquidationInitialAsk,
     ]
   )
 
@@ -138,6 +154,9 @@ export const createCollateralOrCollection: StrategyObjectFactory<
           rate: BigNumber.from(String(row.rate)),
           duration: BigNumber.from(String(row.duration)),
           maxPotentialDebt: BigNumber.from(String(row.maxPotentialDebt)),
+          liquidationInitialAsk: BigNumber.from(
+            String(row.liquidationInitialAsk)
+          ),
         },
       }
     }
@@ -152,6 +171,9 @@ export const createCollateralOrCollection: StrategyObjectFactory<
           rate: BigNumber.from(String(row.rate)),
           duration: BigNumber.from(String(row.duration)),
           maxPotentialDebt: BigNumber.from(String(row.maxPotentialDebt)),
+          liquidationInitialAsk: BigNumber.from(
+            String(row.liquidationInitialAsk)
+          ),
         },
       }
     }
@@ -174,6 +196,9 @@ export const createCollateralOrCollection: StrategyObjectFactory<
           rate: BigNumber.from(String(row.rate)),
           duration: BigNumber.from(String(row.duration)),
           maxPotentialDebt: BigNumber.from(String(row.maxPotentialDebt)),
+          liquidationInitialAsk: BigNumber.from(
+            String(row.liquidationInitialAsk)
+          ),
         },
       }
     }
@@ -181,7 +206,7 @@ export const createCollateralOrCollection: StrategyObjectFactory<
 
   throw Error('invalid row')
 }
-export const RE_STRATEGY_ROW = /^(?<type>\d+)[,]{1}(?<token>0x[a-fA-F0-9]{40})[,]{1}(?<tokenId>\d{0,78})[,]{0,1}(?<borrower>0x[a-fA-F0-9]{40})[,]{1}((?<token0>0x[a-fA-F0-9]{40})[,]{1}(?<token1>0x[a-fA-F0-9]{40})[,]{1}(?<fee>\d{1,8})[,]{1}(?<tickLower>-\d{1,8})[,]{1}(?<tickUpper>-\d{1,8})[,]{1}(?<minLiquidity>\d{1,39})[,]{1}(?<amount0Min>\d{0,78})[,]{1}(?<amount1Min>\d{0,78})[,]{1}){0,1}(?<amount>\d{0,78})[,]{1}(?<rate>\d{0,78})[,]{1}(?<duration>\d{1,20})[,]{1}(?<maxPotentialDebt>\d{0,78})$/
+export const RE_STRATEGY_ROW = /^(?<type>\d+)[,]{1}(?<token>0x[a-fA-F0-9]{40})[,]{1}(?<tokenId>\d{0,78})[,]{0,1}(?<borrower>0x[a-fA-F0-9]{40})[,]{1}((?<token0>0x[a-fA-F0-9]{40})[,]{1}(?<token1>0x[a-fA-F0-9]{40})[,]{1}(?<fee>\d{1,8})[,]{1}(?<tickLower>-\d{1,8})[,]{1}(?<tickUpper>-\d{1,8})[,]{1}(?<minLiquidity>\d{1,39})[,]{1}(?<amount0Min>\d{0,78})[,]{1}(?<amount1Min>\d{0,78})[,]{1}){0,1}(?<amount>\d{0,78})[,]{1}(?<rate>\d{0,78})[,]{1}(?<duration>\d{1,20})[,]{1}(?<maxPotentialDebt>\d{0,78})[,]{1}(?<liquidationInitialAsk>\d{0,78})$/
 
 const validateCollateralOrCollectionRow = (row: string): boolean =>
   row.length > 0 && RE_STRATEGY_ROW.test(row)

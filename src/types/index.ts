@@ -52,6 +52,8 @@ export interface Lien {
   duration: BigNumber
   /** `uint256` - a maximum total value of all liens higher in the lien queue calculated using their rate and remaining duration. Value is `$WETH` expressed as `10**18`. A zero value indicates that the lien is in the most senior position */
   maxPotentialDebt: BigNumber
+  /** `uint256` - the value used as the starting price in the event of a liquidation dutch auction */
+  liquidationInitialAsk: BigNumber
 }
 
 /**
