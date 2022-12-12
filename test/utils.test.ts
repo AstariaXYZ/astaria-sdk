@@ -32,7 +32,7 @@ describe('util.signRoot using remote', () => {
     const verifyingContract = AddressZero
     const strategy: Strategy = {
       version: 0,
-      strategist: AddressZero,
+      delegate: AddressZero,
       expiration: BigNumber.from(0),
       nonce: BigNumber.from(0),
       vault: AddressZero,
@@ -59,7 +59,7 @@ describe('util.signRoot using remote', () => {
     const verifyingContract = AddressZero
     const strategy: Strategy = {
       version: 0,
-      strategist: AddressZero,
+      delegate: AddressZero,
       expiration: BigNumber.from(0),
       nonce: BigNumber.from(0),
       vault: AddressZero,
@@ -95,7 +95,7 @@ describe('util.signRoot using remote', () => {
     const verifyingContract = AddressZero
     const strategy: Strategy = {
       version: 0,
-      strategist: AddressZero,
+      delegate: AddressZero,
       expiration: BigNumber.from(0),
       nonce: BigNumber.from(0),
       vault: AddressZero,

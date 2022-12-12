@@ -24,11 +24,11 @@ export interface Strategy {
   /** `uint8` - Version of strategy format (`0`) */
   version: number
   /** `address` - EOA of the strategist opening the vault, cannot be reassigned */
-  strategist: string
+  //strategist: string
   /** `address` - EOA that can sign new strategy roots after Vault is initiated. Role cannot be reassigned without a new transaction. New strategies can be signed without needing a transaction. */
-  delegate?: string
+  delegate: string
   /** `boolean` - Indicates if a vault is public. Cannot be modified after vault opening. */
-  public?: boolean
+  //public?: boolean
   /** `uint256` - Date past which strategy is no longer considered valid */
   expiration: BigNumber
   /** `uint256` - Value tracked on chain starting from 0 at the Vault opening. Incrementing the nonce on chain invalidates all lower strategies */

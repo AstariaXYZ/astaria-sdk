@@ -1,0 +1,1711 @@
+{
+  "abi": [
+    {
+      "stateMutability": "payable",
+      "type": "fallback"
+    }
+  ],
+  "bytecode": {
+    "object": "0x608060405234801561001057600080fd5b50610573806100206000396000f3fe608060405260006100106000610420565b9050806001600160a01b031663f5f1f1a76040518163ffffffff1660e01b8152600401602060405180830381865afa158015610050573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906100749190610500565b6001600160a01b031663387b66296040518163ffffffff1660e01b8152600401602060405180830381865afa1580156100b1573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906100d59190610500565b6001600160a01b0316336001600160a01b0316146100f257600080fd5b806001600160a01b031663ad5c46486040518163ffffffff1660e01b8152600401602060405180830381865afa158015610130573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906101549190610500565b6001600160a01b031663d0e30db0346040518263ffffffff1660e01b81526004016000604051808303818588803b15801561018e57600080fd5b505af11580156101a2573d6000803e3d6000fd5b50505050506000816001600160a01b031663ad5c46486040518163ffffffff1660e01b8152600401602060405180830381865afa1580156101e7573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061020b9190610500565b6040516370a0823160e01b81523060048201526001600160a01b0391909116906370a0823190602401602060405180830381865afa158015610251573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906102759190610524565b905061034f826001600160a01b03166396d6401d6040518163ffffffff1660e01b8152600401602060405180830381865afa1580156102b8573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906102dc9190610500565b82846001600160a01b031663ad5c46486040518163ffffffff1660e01b8152600401602060405180830381865afa15801561031b573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061033f9190610500565b6001600160a01b03169190610445565b816001600160a01b03166341700b976040518163ffffffff1660e01b8152600401602060405180830381865afa15801561038d573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906103b19190610500565b6001600160a01b031663a6fb7bc06103c960156104c6565b836040518363ffffffff1660e01b81526004016103f0929190918252602082015260400190565b600060405180830381600087803b15801561040a57600080fd5b505af115801561041e573d6000803e3d6000fd5b005b600080610437600119368181013560f01c90030190565b929092013560601c92915050565b600060405163095ea7b360e01b8152836004820152826024820152602060006044836000895af13d15601f3d11600160005114161716915050806104c05760405162461bcd60e51b815260206004820152600e60248201526d1054141493d59157d1905253115160921b604482015260640160405180910390fd5b50505050565b6000806104dd600119368181013560f01c90030190565b929092013592915050565b6001600160a01b03811681146104fd57600080fd5b50565b60006020828403121561051257600080fd5b815161051d816104e8565b9392505050565b60006020828403121561053657600080fd5b505191905056fea2646970667358221220625060e9905a9b4f2173276d30419af451bdfe36e296495673080357f835682564736f6c63430008110033",
+    "sourceMap": "494:620:131:-:0;;;;;;;;;;;;;;;;;;;",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x608060405260006100106000610420565b9050806001600160a01b031663f5f1f1a76040518163ffffffff1660e01b8152600401602060405180830381865afa158015610050573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906100749190610500565b6001600160a01b031663387b66296040518163ffffffff1660e01b8152600401602060405180830381865afa1580156100b1573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906100d59190610500565b6001600160a01b0316336001600160a01b0316146100f257600080fd5b806001600160a01b031663ad5c46486040518163ffffffff1660e01b8152600401602060405180830381865afa158015610130573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906101549190610500565b6001600160a01b031663d0e30db0346040518263ffffffff1660e01b81526004016000604051808303818588803b15801561018e57600080fd5b505af11580156101a2573d6000803e3d6000fd5b50505050506000816001600160a01b031663ad5c46486040518163ffffffff1660e01b8152600401602060405180830381865afa1580156101e7573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061020b9190610500565b6040516370a0823160e01b81523060048201526001600160a01b0391909116906370a0823190602401602060405180830381865afa158015610251573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906102759190610524565b905061034f826001600160a01b03166396d6401d6040518163ffffffff1660e01b8152600401602060405180830381865afa1580156102b8573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906102dc9190610500565b82846001600160a01b031663ad5c46486040518163ffffffff1660e01b8152600401602060405180830381865afa15801561031b573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061033f9190610500565b6001600160a01b03169190610445565b816001600160a01b03166341700b976040518163ffffffff1660e01b8152600401602060405180830381865afa15801561038d573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906103b19190610500565b6001600160a01b031663a6fb7bc06103c960156104c6565b836040518363ffffffff1660e01b81526004016103f0929190918252602082015260400190565b600060405180830381600087803b15801561040a57600080fd5b505af115801561041e573d6000803e3d6000fd5b005b600080610437600119368181013560f01c90030190565b929092013560601c92915050565b600060405163095ea7b360e01b8152836004820152826024820152602060006044836000895af13d15601f3d11600160005114161716915050806104c05760405162461bcd60e51b815260206004820152600e60248201526d1054141493d59157d1905253115160921b604482015260640160405180910390fd5b50505050565b6000806104dd600119368181013560f01c90030190565b929092013592915050565b6001600160a01b03811681146104fd57600080fd5b50565b60006020828403121561051257600080fd5b815161051d816104e8565b9392505050565b60006020828403121561053657600080fd5b505191905056fea2646970667358221220625060e9905a9b4f2173276d30419af451bdfe36e296495673080357f835682564736f6c63430008110033",
+    "sourceMap": "494:620:131:-:0;;;600:29;647:17;662:1;647:14;:17::i;:::-;600:65;;701:14;-1:-1:-1;;;;;701:31:131;;:33;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;-1:-1:-1;;;;;701:41:131;;:43;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;-1:-1:-1;;;;;679:66:131;:10;-1:-1:-1;;;;;679:66:131;;671:75;;;;;;773:14;-1:-1:-1;;;;;773:19:131;;:21;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;-1:-1:-1;;;;;752:53:131;;813:9;752:73;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;831:15;849:14;-1:-1:-1;;;;;849:19:131;;:21;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;:46;;-1:-1:-1;;;849:46:131;;889:4;849:46;;;1209:51:187;-1:-1:-1;;;;;849:31:131;;;;;;;1182:18:187;;849:46:131;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;831:64;;901:102;950:14;-1:-1:-1;;;;;950:29:131;;:31;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;990:7;901:14;-1:-1:-1;;;;;901:19:131;;:21;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;-1:-1:-1;;;;;901:33:131;;:102;:33;:102::i;:::-;1009:14;-1:-1:-1;;;;;1009:25:131;;:27;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;-1:-1:-1;;;;;1009:51:131;;1068:18;1083:2;1068:14;:18::i;:::-;1094:7;1009:98;;;;;;;;;;;;;;;2226:25:187;;;2282:2;2267:18;;2260:34;2214:2;2199:18;;2052:248;1009:98:131;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;354:318:0;444:11;471:14;488:25;-1:-1:-1;;3120:14:0;3116:22;;;3103:36;3098:3;3094:46;3037:121;;;;2864:310;488:25;632:22;;;;619:36;613:4;609:47;;354:318;-1:-1:-1;;354:318:0:o;4326:1454:127:-;4437:12;4564:4;4558:11;-1:-1:-1;;;4687:17:127;4680:93;4820:2;4816:1;4797:17;4793:25;4786:37;4900:6;4895:2;4876:17;4872:26;4865:42;5702:2;5699:1;5695:2;5676:17;5673:1;5666:5;5659;5654:51;5223:16;5216:24;5210:2;5192:16;5189:24;5185:1;5181;5175:8;5172:15;5168:46;5165:76;4965:754;4954:765;;;5747:7;5739:34;;;;-1:-1:-1;;;5739:34:127;;2507:2:187;5739:34:127;;;2489:21:187;2546:2;2526:18;;;2519:30;-1:-1:-1;;;2565:18:187;;;2558:44;2619:18;;5739:34:127;;;;;;;;4427:1353;4326:1454;;;:::o;835:307:0:-;925:11;952:14;969:25;-1:-1:-1;;3120:14:0;3116:22;;;3103:36;3098:3;3094:46;3037:121;;;;2864:310;969:25;1103:22;;;;1090:36;;835:307;-1:-1:-1;;835:307:0:o;14:149:187:-;-1:-1:-1;;;;;107:31:187;;97:42;;87:70;;153:1;150;143:12;87:70;14:149;:::o;168:295::-;264:6;317:2;305:9;296:7;292:23;288:32;285:52;;;333:1;330;323:12;285:52;365:9;359:16;384:49;427:5;384:49;:::i;:::-;452:5;168:295;-1:-1:-1;;;168:295:187:o;1271:184::-;1341:6;1394:2;1382:9;1373:7;1369:23;1365:32;1362:52;;;1410:1;1407;1400:12;1362:52;-1:-1:-1;1433:16:187;;1271:184;-1:-1:-1;1271:184:187:o",
+    "linkReferences": {}
+  },
+  "methodIdentifiers": {},
+  "rawMetadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"stateMutability\":\"payable\",\"type\":\"fallback\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"src/ClearingHouse.sol\":\"ClearingHouse\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[\":@rari-capital/solmate/=lib/seaport/./lib/solmate/\",\":auction/=lib/gpl/lib/auction-house/src/\",\":clones-with-immutable-args/=lib/clones-with-immutable-args/src/\",\":contracts/=lib/seaport/contracts/\",\":core/=src/\",\":ds-test/=lib/ds-test/src/\",\":eip4626/=lib/foundry_eip-4626/src/\",\":forge-std/=lib/forge-std/src/\",\":foundry_eip-4626/=lib/foundry_eip-4626/src/\",\":gpl/=lib/gpl/src/\",\":murky/=lib/seaport/./lib/murky/src/\",\":openzeppelin-contracts/=lib/seaport/lib/openzeppelin-contracts/\",\":openzeppelin/=lib/gpl/lib/openzeppelin-contracts/contracts/\",\":seaport/=lib/seaport/contracts/\",\":solmate/=lib/solmate/src/\"]},\"sources\":{\"lib/clones-with-immutable-args/src/Clone.sol\":{\"keccak256\":\"0x958f183649832a994119e7484fea15a6b7b91c7e7b1ae4f3736104cd89ae7545\",\"license\":\"BSD\",\"urls\":[\"bzz-raw://2b4bbb61023cf315287406fee6086d2c6c5b85d6b1a141a8ee10295b663712bb\",\"dweb:/ipfs/QmaJP5pKF2WoBWsMCrAZssHhDZXvpufaWmg8oYfVgWMAHq\"]},\"lib/gpl/src/interfaces/IERC4626RouterBase.sol\":{\"keccak256\":\"0xf73159f090c84e03a0a68c5cc78a0a65d71c4a27bcd5881b37a0036bb75355df\",\"license\":\"GPL-2.0-or-later\",\"urls\":[\"bzz-raw://2cea2a0802b9427bd14979aec2f869263480c138c0021c962c24eb8e650b63f4\",\"dweb:/ipfs/QmS3DbnkHmttGkcNKPvxrodHPYayUnK9Eug6yHU754gmWH\"]},\"lib/seaport/contracts/interfaces/ConduitControllerInterface.sol\":{\"keccak256\":\"0xb124e40645efdf5d92b48fd54eaeb0ba1d05fde62bf51e7684c1bc3bf5343388\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://757b4b1edb39b78b94debeb877e68036c1181a5d20d0f299c497cecc903f147d\",\"dweb:/ipfs/QmeXsKmxsMXCxGTtcRAnyuRhtkQF4V4cfXukRYSpFwFoaF\"]},\"lib/seaport/contracts/interfaces/ConsiderationInterface.sol\":{\"keccak256\":\"0x1c535d369a2eb5eb3a62783c770870274a07fbdc7c20d6f7dc75decc75930688\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://b85c960a378c3f425a1653dd8d978f2915203dfd16ec9932e4dd7b4963c17240\",\"dweb:/ipfs/QmYADawT4zzRFkkEteLTHpXdp9nrVW7ag7CvKmvQS5kYHB\"]},\"lib/seaport/contracts/lib/ConsiderationEnums.sol\":{\"keccak256\":\"0xe78faea2c9d9322ca557af34e8d576fe21dab9c995f0657d34ba6c4e94fe9c0f\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://6ebef28980d88b7707013dd98658b22d4494755f59d0b93463dba1c377a62bbb\",\"dweb:/ipfs/QmRdfKbcuCYVB3rpTbS6peRY4XnhBxQRewbxpttA4Jv9ie\"]},\"lib/seaport/contracts/lib/ConsiderationStructs.sol\":{\"keccak256\":\"0x1cf7b9e7d034197a5af36536ff8b8fea6041e8c66c1928e6d6d5e411c465b234\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://369e5901a714935a54f68c1abd1f96e901d95b51a05897cfcf2eb9e28ef57896\",\"dweb:/ipfs/QmNM5XGK419cC2xn23qgB68gbR7qqbif44QBFwKax2SBpM\"]},\"lib/solmate/src/tokens/ERC20.sol\":{\"keccak256\":\"0xcdfd8db76b2a3415620e4d18cc5545f3d50de792dbf2c3dd5adb40cbe6f94b10\",\"license\":\"AGPL-3.0-only\",\"urls\":[\"bzz-raw://57b3ab70cde374af1cf2c9888636e8de6cf660f087b1c9abd805e9271e19fa35\",\"dweb:/ipfs/QmNrLDBAHYFjpjSd12jerm1AdBkDqEYUUaXgnT854BUZ97\"]},\"lib/solmate/src/tokens/WETH.sol\":{\"keccak256\":\"0x343cf5f6b643864c5728fa9bf057c5708052402b22c5662decce94f5febff514\",\"license\":\"AGPL-3.0-only\",\"urls\":[\"bzz-raw://dc3722cf992cc13ff0728660432092d8ae6851f500b24c0aa474c45f2e8c3f2d\",\"dweb:/ipfs/QmVq7veVaBKKdm4AKQiuCXMPGHPuCcPksm7LNuA2ihpN9U\"]},\"lib/solmate/src/utils/SafeTransferLib.sol\":{\"keccak256\":\"0x333b56bef66ff71e3838910781df214acbeb6c2d6ace27a04ebb510f0e669300\",\"license\":\"AGPL-3.0-only\",\"urls\":[\"bzz-raw://3d14e68954e3a7072fa3d31e6a862d97f944114abda40dcd8c5ba017bf79ff41\",\"dweb:/ipfs/QmVfLok4Q5owoMyybxpensBvvjgUKT4kRVvM9BYuCifi5L\"]},\"src/ClearingHouse.sol\":{\"keccak256\":\"0xcb1e09c044675455a1e00743da9b02f3ac1b2cf43d24d5f4b0bc0d5bc2d0f3a4\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://4297bf847414613728e9da4b0b0d670a244e451e4a1d0a14b10dfc20086cc2c9\",\"dweb:/ipfs/QmVyGbp6Co4uirLFdKXYaXM7AkFjP4hCDF9xiUvHqWMcSz\"]},\"src/interfaces/IAstariaRouter.sol\":{\"keccak256\":\"0x5aeec48eef1461191a53d0a66f7bfcc2c4ed6a4051aa9eb51c41d850a782db1a\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://cec04f5b7d7e8ae36ea73336acec33c3826180df9ea63165794798d9f2c27414\",\"dweb:/ipfs/QmQ8xJKNMhS6jbzy3WFcXHCQkq9PfQ3LffQJe5sKJ7DHUi\"]},\"src/interfaces/IBeacon.sol\":{\"keccak256\":\"0x1dfb9ca353162c2bd9fef54d72659a652827edff3d5ddcef90010d9a59087379\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://3e8b19a00a3d203f6e3724438581d14a2fcb78f13e63cf53733ed05f9f13ee22\",\"dweb:/ipfs/QmQscTJqw1iPkk8koaPvtv7KbJUbZvZKa53EE6Fdui1fBE\"]},\"src/interfaces/ICollateralToken.sol\":{\"keccak256\":\"0xa86499b8d1c19e6e31c7d3117319407b4b4cab1477f58e02ab779cc0680db2dd\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://514710825450c39fc7e747319bed5f201305d9716ac75a3c0e7e3c55fb78acfb\",\"dweb:/ipfs/QmQQ1fxhDbfBNYAUwt81eTHQR6SzxHDjA1bnfDWWBGreKZ\"]},\"src/interfaces/IERC1155.sol\":{\"keccak256\":\"0xe25553970ad5ce41eff41f09a537fe6acb57d0cd5acf30cca8071bbca1852ff2\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://b3f8a6f908d805b7a07ebdc3abe20cf6a6225a81aa04a50a8d98a2255f4d8b4d\",\"dweb:/ipfs/QmVRFXeHwF3s1haZvHL5GzbCzGHxfRXbZRfUd6vYqgxt9a\"]},\"src/interfaces/IERC165.sol\":{\"keccak256\":\"0x64e1d4f776a4bf02f7ab4187741c2e50c767bfa04f4ef1f920edba78c2918020\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://cff6c09b4206cbf675fae7baa5e036802a16b1bad9a541db160858a5caa5b35c\",\"dweb:/ipfs/QmRCagsWpeQGomTbdHusJuNUPJnNB8HLHkB98FPU2s9Vc6\"]},\"src/interfaces/IERC20.sol\":{\"keccak256\":\"0xf60c3588615e47906292265ebdc539f36e624cc166a7e338972e8f7479b3c58e\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://d61baa7db1a5ec4126d6ab038d6975151bcb173437e51d4d141325fe99f4630c\",\"dweb:/ipfs/QmZ8mYs5xSjd3vNYZWjjBREpob2T84yu5kaHiFFXuVw1jj\"]},\"src/interfaces/IERC20Metadata.sol\":{\"keccak256\":\"0x62d41e03a486abf749e251ba2193aab6839a784134393ae4bbbda4c1158ac719\",\"urls\":[\"bzz-raw://d202de8baf11c4241da55ccd8d478aa678eacdd605c4bd7737a58233aed8b1f4\",\"dweb:/ipfs/Qmc3mcavHSqfnhTTpGo3637i9sQ2h6xAx93CrZGvRNcpUV\"]},\"src/interfaces/IERC4626.sol\":{\"keccak256\":\"0x9d349304814db66455d64a670d2097d15f31c7be256112771029b360b5e9be6e\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://6bc90db889ec013610dd9b46c078bf966bf1ff5581eed358e6939aac82153623\",\"dweb:/ipfs/QmeKm3z1YEqaWH575ee5d2E2e5J1unuS5FuxAgk3Z1awJb\"]},\"src/interfaces/IERC721.sol\":{\"keccak256\":\"0x117f31cd8994417850ae9cbdde9d160e3489438da9da529ccb3364e77094f5f2\",\"urls\":[\"bzz-raw://c5b7819472a2d9300ab01f30ce669842d3964139359eb2fcbbbfe2528caaf49e\",\"dweb:/ipfs/QmWUYVecpypq174bntvxSCKqc9UW14dECQQyu5ZfAF5ahd\"]},\"src/interfaces/IFlashAction.sol\":{\"keccak256\":\"0x3da810acaaaa871c3a774278daccaf235b312bb87a30f31747a604edf03c5fad\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://b286e0fe15c162e4c42ba4d101cc3571471d67b73177a41806c02e6c2f490403\",\"dweb:/ipfs/QmZ5doxRvrVjPsez1RSPUkNcFNsKVP77hYxENkDKGBKGTc\"]},\"src/interfaces/ILienToken.sol\":{\"keccak256\":\"0x03939fdaa03bf8d83d319d50c0867692b7f2263eff49359d4708186d2b86fbe2\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://4db50888740110bd909bdac497f2835b111aeac61e8ba0f33b79385ff28b8389\",\"dweb:/ipfs/Qmc83YKTapvzrtbzsr3KiD3sKQR5sn8ehWzMapAioPYwH5\"]},\"src/interfaces/IRoyaltyEngine.sol\":{\"keccak256\":\"0x3ce05d4eae4f2c83df25091fadb0a0ed775035d21176b8d6ee371dde86666a98\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://918dcd595146dcda873ef000974215c69456ee2fd7211ad150c73a9f6d9ffc15\",\"dweb:/ipfs/QmPHFHtXijpebjP7RrnpBWuEmFSE8ZEcHa5RAFz3BkayzE\"]},\"src/interfaces/ITransferProxy.sol\":{\"keccak256\":\"0x9397366f4f7772ca29948286fb778ddaa87bea64b75d9d6d5fa7deaa86c804e8\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://2d09184e2aaf225923dd3fb3d5455f4901060c4743b37c5e0da11cdb3801fdf1\",\"dweb:/ipfs/QmfNYLZG4jXGK8rTwz2TnXUNNAakMwMYV7aWRJMjASKAHm\"]},\"src/utils/Pausable.sol\":{\"keccak256\":\"0xab33b35b84c72ab4461d6f339712e7b06bf9d882140823c51161b2b6f7be6d2d\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://4add02c4f8ec8c7018f56678bd3a748f2b7a1883a2aaa38f397aa6f7a0f50f93\",\"dweb:/ipfs/QmYVdHE7D9rkNxA1PPQe1eyRDfGGM5TikVYJnuZqeQu6md\"]}},\"version\":1}",
+  "metadata": {
+    "compiler": {
+      "version": "0.8.17+commit.8df45f5f"
+    },
+    "language": "Solidity",
+    "output": {
+      "abi": [
+        {
+          "inputs": [],
+          "stateMutability": "payable",
+          "type": "fallback"
+        }
+      ],
+      "devdoc": {
+        "kind": "dev",
+        "methods": {},
+        "version": 1
+      },
+      "userdoc": {
+        "kind": "user",
+        "methods": {},
+        "version": 1
+      }
+    },
+    "settings": {
+      "remappings": [
+        ":@rari-capital/solmate/=lib/seaport/./lib/solmate/",
+        ":auction/=lib/gpl/lib/auction-house/src/",
+        ":clones-with-immutable-args/=lib/clones-with-immutable-args/src/",
+        ":contracts/=lib/seaport/contracts/",
+        ":core/=src/",
+        ":ds-test/=lib/ds-test/src/",
+        ":eip4626/=lib/foundry_eip-4626/src/",
+        ":forge-std/=lib/forge-std/src/",
+        ":foundry_eip-4626/=lib/foundry_eip-4626/src/",
+        ":gpl/=lib/gpl/src/",
+        ":murky/=lib/seaport/./lib/murky/src/",
+        ":openzeppelin-contracts/=lib/seaport/lib/openzeppelin-contracts/",
+        ":openzeppelin/=lib/gpl/lib/openzeppelin-contracts/contracts/",
+        ":seaport/=lib/seaport/contracts/",
+        ":solmate/=lib/solmate/src/"
+      ],
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "metadata": {
+        "bytecodeHash": "ipfs"
+      },
+      "compilationTarget": {
+        "src/ClearingHouse.sol": "ClearingHouse"
+      },
+      "libraries": {}
+    },
+    "sources": {
+      "lib/clones-with-immutable-args/src/Clone.sol": {
+        "keccak256": "0x958f183649832a994119e7484fea15a6b7b91c7e7b1ae4f3736104cd89ae7545",
+        "urls": [
+          "bzz-raw://2b4bbb61023cf315287406fee6086d2c6c5b85d6b1a141a8ee10295b663712bb",
+          "dweb:/ipfs/QmaJP5pKF2WoBWsMCrAZssHhDZXvpufaWmg8oYfVgWMAHq"
+        ],
+        "license": "BSD"
+      },
+      "lib/gpl/src/interfaces/IERC4626RouterBase.sol": {
+        "keccak256": "0xf73159f090c84e03a0a68c5cc78a0a65d71c4a27bcd5881b37a0036bb75355df",
+        "urls": [
+          "bzz-raw://2cea2a0802b9427bd14979aec2f869263480c138c0021c962c24eb8e650b63f4",
+          "dweb:/ipfs/QmS3DbnkHmttGkcNKPvxrodHPYayUnK9Eug6yHU754gmWH"
+        ],
+        "license": "GPL-2.0-or-later"
+      },
+      "lib/seaport/contracts/interfaces/ConduitControllerInterface.sol": {
+        "keccak256": "0xb124e40645efdf5d92b48fd54eaeb0ba1d05fde62bf51e7684c1bc3bf5343388",
+        "urls": [
+          "bzz-raw://757b4b1edb39b78b94debeb877e68036c1181a5d20d0f299c497cecc903f147d",
+          "dweb:/ipfs/QmeXsKmxsMXCxGTtcRAnyuRhtkQF4V4cfXukRYSpFwFoaF"
+        ],
+        "license": "MIT"
+      },
+      "lib/seaport/contracts/interfaces/ConsiderationInterface.sol": {
+        "keccak256": "0x1c535d369a2eb5eb3a62783c770870274a07fbdc7c20d6f7dc75decc75930688",
+        "urls": [
+          "bzz-raw://b85c960a378c3f425a1653dd8d978f2915203dfd16ec9932e4dd7b4963c17240",
+          "dweb:/ipfs/QmYADawT4zzRFkkEteLTHpXdp9nrVW7ag7CvKmvQS5kYHB"
+        ],
+        "license": "MIT"
+      },
+      "lib/seaport/contracts/lib/ConsiderationEnums.sol": {
+        "keccak256": "0xe78faea2c9d9322ca557af34e8d576fe21dab9c995f0657d34ba6c4e94fe9c0f",
+        "urls": [
+          "bzz-raw://6ebef28980d88b7707013dd98658b22d4494755f59d0b93463dba1c377a62bbb",
+          "dweb:/ipfs/QmRdfKbcuCYVB3rpTbS6peRY4XnhBxQRewbxpttA4Jv9ie"
+        ],
+        "license": "MIT"
+      },
+      "lib/seaport/contracts/lib/ConsiderationStructs.sol": {
+        "keccak256": "0x1cf7b9e7d034197a5af36536ff8b8fea6041e8c66c1928e6d6d5e411c465b234",
+        "urls": [
+          "bzz-raw://369e5901a714935a54f68c1abd1f96e901d95b51a05897cfcf2eb9e28ef57896",
+          "dweb:/ipfs/QmNM5XGK419cC2xn23qgB68gbR7qqbif44QBFwKax2SBpM"
+        ],
+        "license": "MIT"
+      },
+      "lib/solmate/src/tokens/ERC20.sol": {
+        "keccak256": "0xcdfd8db76b2a3415620e4d18cc5545f3d50de792dbf2c3dd5adb40cbe6f94b10",
+        "urls": [
+          "bzz-raw://57b3ab70cde374af1cf2c9888636e8de6cf660f087b1c9abd805e9271e19fa35",
+          "dweb:/ipfs/QmNrLDBAHYFjpjSd12jerm1AdBkDqEYUUaXgnT854BUZ97"
+        ],
+        "license": "AGPL-3.0-only"
+      },
+      "lib/solmate/src/tokens/WETH.sol": {
+        "keccak256": "0x343cf5f6b643864c5728fa9bf057c5708052402b22c5662decce94f5febff514",
+        "urls": [
+          "bzz-raw://dc3722cf992cc13ff0728660432092d8ae6851f500b24c0aa474c45f2e8c3f2d",
+          "dweb:/ipfs/QmVq7veVaBKKdm4AKQiuCXMPGHPuCcPksm7LNuA2ihpN9U"
+        ],
+        "license": "AGPL-3.0-only"
+      },
+      "lib/solmate/src/utils/SafeTransferLib.sol": {
+        "keccak256": "0x333b56bef66ff71e3838910781df214acbeb6c2d6ace27a04ebb510f0e669300",
+        "urls": [
+          "bzz-raw://3d14e68954e3a7072fa3d31e6a862d97f944114abda40dcd8c5ba017bf79ff41",
+          "dweb:/ipfs/QmVfLok4Q5owoMyybxpensBvvjgUKT4kRVvM9BYuCifi5L"
+        ],
+        "license": "AGPL-3.0-only"
+      },
+      "src/ClearingHouse.sol": {
+        "keccak256": "0xcb1e09c044675455a1e00743da9b02f3ac1b2cf43d24d5f4b0bc0d5bc2d0f3a4",
+        "urls": [
+          "bzz-raw://4297bf847414613728e9da4b0b0d670a244e451e4a1d0a14b10dfc20086cc2c9",
+          "dweb:/ipfs/QmVyGbp6Co4uirLFdKXYaXM7AkFjP4hCDF9xiUvHqWMcSz"
+        ],
+        "license": "UNLICENSED"
+      },
+      "src/interfaces/IAstariaRouter.sol": {
+        "keccak256": "0x5aeec48eef1461191a53d0a66f7bfcc2c4ed6a4051aa9eb51c41d850a782db1a",
+        "urls": [
+          "bzz-raw://cec04f5b7d7e8ae36ea73336acec33c3826180df9ea63165794798d9f2c27414",
+          "dweb:/ipfs/QmQ8xJKNMhS6jbzy3WFcXHCQkq9PfQ3LffQJe5sKJ7DHUi"
+        ],
+        "license": "UNLICENSED"
+      },
+      "src/interfaces/IBeacon.sol": {
+        "keccak256": "0x1dfb9ca353162c2bd9fef54d72659a652827edff3d5ddcef90010d9a59087379",
+        "urls": [
+          "bzz-raw://3e8b19a00a3d203f6e3724438581d14a2fcb78f13e63cf53733ed05f9f13ee22",
+          "dweb:/ipfs/QmQscTJqw1iPkk8koaPvtv7KbJUbZvZKa53EE6Fdui1fBE"
+        ],
+        "license": "UNLICENSED"
+      },
+      "src/interfaces/ICollateralToken.sol": {
+        "keccak256": "0xa86499b8d1c19e6e31c7d3117319407b4b4cab1477f58e02ab779cc0680db2dd",
+        "urls": [
+          "bzz-raw://514710825450c39fc7e747319bed5f201305d9716ac75a3c0e7e3c55fb78acfb",
+          "dweb:/ipfs/QmQQ1fxhDbfBNYAUwt81eTHQR6SzxHDjA1bnfDWWBGreKZ"
+        ],
+        "license": "UNLICENSED"
+      },
+      "src/interfaces/IERC1155.sol": {
+        "keccak256": "0xe25553970ad5ce41eff41f09a537fe6acb57d0cd5acf30cca8071bbca1852ff2",
+        "urls": [
+          "bzz-raw://b3f8a6f908d805b7a07ebdc3abe20cf6a6225a81aa04a50a8d98a2255f4d8b4d",
+          "dweb:/ipfs/QmVRFXeHwF3s1haZvHL5GzbCzGHxfRXbZRfUd6vYqgxt9a"
+        ],
+        "license": "MIT"
+      },
+      "src/interfaces/IERC165.sol": {
+        "keccak256": "0x64e1d4f776a4bf02f7ab4187741c2e50c767bfa04f4ef1f920edba78c2918020",
+        "urls": [
+          "bzz-raw://cff6c09b4206cbf675fae7baa5e036802a16b1bad9a541db160858a5caa5b35c",
+          "dweb:/ipfs/QmRCagsWpeQGomTbdHusJuNUPJnNB8HLHkB98FPU2s9Vc6"
+        ],
+        "license": "MIT"
+      },
+      "src/interfaces/IERC20.sol": {
+        "keccak256": "0xf60c3588615e47906292265ebdc539f36e624cc166a7e338972e8f7479b3c58e",
+        "urls": [
+          "bzz-raw://d61baa7db1a5ec4126d6ab038d6975151bcb173437e51d4d141325fe99f4630c",
+          "dweb:/ipfs/QmZ8mYs5xSjd3vNYZWjjBREpob2T84yu5kaHiFFXuVw1jj"
+        ],
+        "license": "MIT"
+      },
+      "src/interfaces/IERC20Metadata.sol": {
+        "keccak256": "0x62d41e03a486abf749e251ba2193aab6839a784134393ae4bbbda4c1158ac719",
+        "urls": [
+          "bzz-raw://d202de8baf11c4241da55ccd8d478aa678eacdd605c4bd7737a58233aed8b1f4",
+          "dweb:/ipfs/Qmc3mcavHSqfnhTTpGo3637i9sQ2h6xAx93CrZGvRNcpUV"
+        ],
+        "license": null
+      },
+      "src/interfaces/IERC4626.sol": {
+        "keccak256": "0x9d349304814db66455d64a670d2097d15f31c7be256112771029b360b5e9be6e",
+        "urls": [
+          "bzz-raw://6bc90db889ec013610dd9b46c078bf966bf1ff5581eed358e6939aac82153623",
+          "dweb:/ipfs/QmeKm3z1YEqaWH575ee5d2E2e5J1unuS5FuxAgk3Z1awJb"
+        ],
+        "license": "MIT"
+      },
+      "src/interfaces/IERC721.sol": {
+        "keccak256": "0x117f31cd8994417850ae9cbdde9d160e3489438da9da529ccb3364e77094f5f2",
+        "urls": [
+          "bzz-raw://c5b7819472a2d9300ab01f30ce669842d3964139359eb2fcbbbfe2528caaf49e",
+          "dweb:/ipfs/QmWUYVecpypq174bntvxSCKqc9UW14dECQQyu5ZfAF5ahd"
+        ],
+        "license": null
+      },
+      "src/interfaces/IFlashAction.sol": {
+        "keccak256": "0x3da810acaaaa871c3a774278daccaf235b312bb87a30f31747a604edf03c5fad",
+        "urls": [
+          "bzz-raw://b286e0fe15c162e4c42ba4d101cc3571471d67b73177a41806c02e6c2f490403",
+          "dweb:/ipfs/QmZ5doxRvrVjPsez1RSPUkNcFNsKVP77hYxENkDKGBKGTc"
+        ],
+        "license": "UNLICENSED"
+      },
+      "src/interfaces/ILienToken.sol": {
+        "keccak256": "0x03939fdaa03bf8d83d319d50c0867692b7f2263eff49359d4708186d2b86fbe2",
+        "urls": [
+          "bzz-raw://4db50888740110bd909bdac497f2835b111aeac61e8ba0f33b79385ff28b8389",
+          "dweb:/ipfs/Qmc83YKTapvzrtbzsr3KiD3sKQR5sn8ehWzMapAioPYwH5"
+        ],
+        "license": "UNLICENSED"
+      },
+      "src/interfaces/IRoyaltyEngine.sol": {
+        "keccak256": "0x3ce05d4eae4f2c83df25091fadb0a0ed775035d21176b8d6ee371dde86666a98",
+        "urls": [
+          "bzz-raw://918dcd595146dcda873ef000974215c69456ee2fd7211ad150c73a9f6d9ffc15",
+          "dweb:/ipfs/QmPHFHtXijpebjP7RrnpBWuEmFSE8ZEcHa5RAFz3BkayzE"
+        ],
+        "license": "MIT"
+      },
+      "src/interfaces/ITransferProxy.sol": {
+        "keccak256": "0x9397366f4f7772ca29948286fb778ddaa87bea64b75d9d6d5fa7deaa86c804e8",
+        "urls": [
+          "bzz-raw://2d09184e2aaf225923dd3fb3d5455f4901060c4743b37c5e0da11cdb3801fdf1",
+          "dweb:/ipfs/QmfNYLZG4jXGK8rTwz2TnXUNNAakMwMYV7aWRJMjASKAHm"
+        ],
+        "license": "UNLICENSED"
+      },
+      "src/utils/Pausable.sol": {
+        "keccak256": "0xab33b35b84c72ab4461d6f339712e7b06bf9d882140823c51161b2b6f7be6d2d",
+        "urls": [
+          "bzz-raw://4add02c4f8ec8c7018f56678bd3a748f2b7a1883a2aaa38f397aa6f7a0f50f93",
+          "dweb:/ipfs/QmYVdHE7D9rkNxA1PPQe1eyRDfGGM5TikVYJnuZqeQu6md"
+        ],
+        "license": "MIT"
+      }
+    },
+    "version": 1
+  },
+  "ast": {
+    "absolutePath": "src/ClearingHouse.sol",
+    "id": 60049,
+    "exportedSymbols": {
+      "ClearingHouse": [
+        60048
+      ],
+      "Clone": [
+        120
+      ],
+      "ERC20": [
+        56223
+      ],
+      "IAstariaRouter": [
+        69282
+      ],
+      "SafeTransferLib": [
+        57406
+      ],
+      "WETH": [
+        56866
+      ]
+    },
+    "nodeType": "SourceUnit",
+    "src": "179:936:131",
+    "nodes": [
+      {
+        "id": 59950,
+        "nodeType": "PragmaDirective",
+        "src": "179:24:131",
+        "nodes": [],
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".17"
+        ]
+      },
+      {
+        "id": 59952,
+        "nodeType": "ImportDirective",
+        "src": "205:66:131",
+        "nodes": [],
+        "absolutePath": "src/interfaces/IAstariaRouter.sol",
+        "file": "core/interfaces/IAstariaRouter.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 60049,
+        "sourceUnit": 69283,
+        "symbolAliases": [
+          {
+            "foreign": {
+              "id": 59951,
+              "name": "IAstariaRouter",
+              "nodeType": "Identifier",
+              "overloadedDeclarations": [],
+              "referencedDeclaration": 69282,
+              "src": "213:14:131",
+              "typeDescriptions": {}
+            },
+            "nameLocation": "-1:-1:-1"
+          }
+        ],
+        "unitAlias": ""
+      },
+      {
+        "id": 59954,
+        "nodeType": "ImportDirective",
+        "src": "272:45:131",
+        "nodes": [],
+        "absolutePath": "lib/solmate/src/tokens/WETH.sol",
+        "file": "solmate/tokens/WETH.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 60049,
+        "sourceUnit": 56867,
+        "symbolAliases": [
+          {
+            "foreign": {
+              "id": 59953,
+              "name": "WETH",
+              "nodeType": "Identifier",
+              "overloadedDeclarations": [],
+              "referencedDeclaration": 56866,
+              "src": "280:4:131",
+              "typeDescriptions": {}
+            },
+            "nameLocation": "-1:-1:-1"
+          }
+        ],
+        "unitAlias": ""
+      },
+      {
+        "id": 59956,
+        "nodeType": "ImportDirective",
+        "src": "318:47:131",
+        "nodes": [],
+        "absolutePath": "lib/solmate/src/tokens/ERC20.sol",
+        "file": "solmate/tokens/ERC20.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 60049,
+        "sourceUnit": 56224,
+        "symbolAliases": [
+          {
+            "foreign": {
+              "id": 59955,
+              "name": "ERC20",
+              "nodeType": "Identifier",
+              "overloadedDeclarations": [],
+              "referencedDeclaration": 56223,
+              "src": "326:5:131",
+              "typeDescriptions": {}
+            },
+            "nameLocation": "-1:-1:-1"
+          }
+        ],
+        "unitAlias": ""
+      },
+      {
+        "id": 59958,
+        "nodeType": "ImportDirective",
+        "src": "366:66:131",
+        "nodes": [],
+        "absolutePath": "lib/solmate/src/utils/SafeTransferLib.sol",
+        "file": "solmate/utils/SafeTransferLib.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 60049,
+        "sourceUnit": 57407,
+        "symbolAliases": [
+          {
+            "foreign": {
+              "id": 59957,
+              "name": "SafeTransferLib",
+              "nodeType": "Identifier",
+              "overloadedDeclarations": [],
+              "referencedDeclaration": 57406,
+              "src": "374:15:131",
+              "typeDescriptions": {}
+            },
+            "nameLocation": "-1:-1:-1"
+          }
+        ],
+        "unitAlias": ""
+      },
+      {
+        "id": 59960,
+        "nodeType": "ImportDirective",
+        "src": "433:59:131",
+        "nodes": [],
+        "absolutePath": "lib/clones-with-immutable-args/src/Clone.sol",
+        "file": "clones-with-immutable-args/Clone.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 60049,
+        "sourceUnit": 121,
+        "symbolAliases": [
+          {
+            "foreign": {
+              "id": 59959,
+              "name": "Clone",
+              "nodeType": "Identifier",
+              "overloadedDeclarations": [],
+              "referencedDeclaration": 120,
+              "src": "441:5:131",
+              "typeDescriptions": {}
+            },
+            "nameLocation": "-1:-1:-1"
+          }
+        ],
+        "unitAlias": ""
+      },
+      {
+        "id": 60048,
+        "nodeType": "ContractDefinition",
+        "src": "494:620:131",
+        "nodes": [
+          {
+            "id": 59966,
+            "nodeType": "UsingForDirective",
+            "src": "530:32:131",
+            "nodes": [],
+            "global": false,
+            "libraryName": {
+              "id": 59963,
+              "name": "SafeTransferLib",
+              "nameLocations": [
+                "536:15:131"
+              ],
+              "nodeType": "IdentifierPath",
+              "referencedDeclaration": 57406,
+              "src": "536:15:131"
+            },
+            "typeName": {
+              "id": 59965,
+              "nodeType": "UserDefinedTypeName",
+              "pathNode": {
+                "id": 59964,
+                "name": "ERC20",
+                "nameLocations": [
+                  "556:5:131"
+                ],
+                "nodeType": "IdentifierPath",
+                "referencedDeclaration": 56223,
+                "src": "556:5:131"
+              },
+              "referencedDeclaration": 56223,
+              "src": "556:5:131",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_ERC20_$56223",
+                "typeString": "contract ERC20"
+              }
+            }
+          },
+          {
+            "id": 60047,
+            "nodeType": "FunctionDefinition",
+            "src": "566:546:131",
+            "nodes": [],
+            "body": {
+              "id": 60046,
+              "nodeType": "Block",
+              "src": "594:518:131",
+              "nodes": [],
+              "statements": [
+                {
+                  "assignments": [
+                    59971
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 59971,
+                      "mutability": "mutable",
+                      "name": "ASTARIA_ROUTER",
+                      "nameLocation": "615:14:131",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 60046,
+                      "src": "600:29:131",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_IAstariaRouter_$69282",
+                        "typeString": "contract IAstariaRouter"
+                      },
+                      "typeName": {
+                        "id": 59970,
+                        "nodeType": "UserDefinedTypeName",
+                        "pathNode": {
+                          "id": 59969,
+                          "name": "IAstariaRouter",
+                          "nameLocations": [
+                            "600:14:131"
+                          ],
+                          "nodeType": "IdentifierPath",
+                          "referencedDeclaration": 69282,
+                          "src": "600:14:131"
+                        },
+                        "referencedDeclaration": 69282,
+                        "src": "600:14:131",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_IAstariaRouter_$69282",
+                          "typeString": "contract IAstariaRouter"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 59977,
+                  "initialValue": {
+                    "arguments": [
+                      {
+                        "arguments": [
+                          {
+                            "hexValue": "30",
+                            "id": 59974,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": true,
+                            "kind": "number",
+                            "lValueRequested": false,
+                            "nodeType": "Literal",
+                            "src": "662:1:131",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_rational_0_by_1",
+                              "typeString": "int_const 0"
+                            },
+                            "value": "0"
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_rational_0_by_1",
+                              "typeString": "int_const 0"
+                            }
+                          ],
+                          "id": 59973,
+                          "name": "_getArgAddress",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 17,
+                          "src": "647:14:131",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_function_internal_pure$_t_uint256_$returns$_t_address_$",
+                            "typeString": "function (uint256) pure returns (address)"
+                          }
+                        },
+                        "id": 59975,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "functionCall",
+                        "lValueRequested": false,
+                        "nameLocations": [],
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "647:17:131",
+                        "tryCall": false,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      ],
+                      "id": 59972,
+                      "name": "IAstariaRouter",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 69282,
+                      "src": "632:14:131",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_type$_t_contract$_IAstariaRouter_$69282_$",
+                        "typeString": "type(contract IAstariaRouter)"
+                      }
+                    },
+                    "id": 59976,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "typeConversion",
+                    "lValueRequested": false,
+                    "nameLocations": [],
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "632:33:131",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_IAstariaRouter_$69282",
+                      "typeString": "contract IAstariaRouter"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "600:65:131"
+                },
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "commonType": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        "id": 59989,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "expression": {
+                            "id": 59979,
+                            "name": "msg",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": -15,
+                            "src": "679:3:131",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_magic_message",
+                              "typeString": "msg"
+                            }
+                          },
+                          "id": 59980,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberLocation": "683:6:131",
+                          "memberName": "sender",
+                          "nodeType": "MemberAccess",
+                          "src": "679:10:131",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": "==",
+                        "rightExpression": {
+                          "arguments": [
+                            {
+                              "arguments": [],
+                              "expression": {
+                                "argumentTypes": [],
+                                "expression": {
+                                  "arguments": [],
+                                  "expression": {
+                                    "argumentTypes": [],
+                                    "expression": {
+                                      "id": 59983,
+                                      "name": "ASTARIA_ROUTER",
+                                      "nodeType": "Identifier",
+                                      "overloadedDeclarations": [],
+                                      "referencedDeclaration": 59971,
+                                      "src": "701:14:131",
+                                      "typeDescriptions": {
+                                        "typeIdentifier": "t_contract$_IAstariaRouter_$69282",
+                                        "typeString": "contract IAstariaRouter"
+                                      }
+                                    },
+                                    "id": 59984,
+                                    "isConstant": false,
+                                    "isLValue": false,
+                                    "isPure": false,
+                                    "lValueRequested": false,
+                                    "memberLocation": "716:16:131",
+                                    "memberName": "COLLATERAL_TOKEN",
+                                    "nodeType": "MemberAccess",
+                                    "referencedDeclaration": 69073,
+                                    "src": "701:31:131",
+                                    "typeDescriptions": {
+                                      "typeIdentifier": "t_function_external_view$__$returns$_t_contract$_ICollateralToken_$69611_$",
+                                      "typeString": "function () view external returns (contract ICollateralToken)"
+                                    }
+                                  },
+                                  "id": 59985,
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "kind": "functionCall",
+                                  "lValueRequested": false,
+                                  "nameLocations": [],
+                                  "names": [],
+                                  "nodeType": "FunctionCall",
+                                  "src": "701:33:131",
+                                  "tryCall": false,
+                                  "typeDescriptions": {
+                                    "typeIdentifier": "t_contract$_ICollateralToken_$69611",
+                                    "typeString": "contract ICollateralToken"
+                                  }
+                                },
+                                "id": 59986,
+                                "isConstant": false,
+                                "isLValue": false,
+                                "isPure": false,
+                                "lValueRequested": false,
+                                "memberLocation": "735:7:131",
+                                "memberName": "SEAPORT",
+                                "nodeType": "MemberAccess",
+                                "referencedDeclaration": 69520,
+                                "src": "701:41:131",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_function_external_view$__$returns$_t_contract$_ConsiderationInterface_$32349_$",
+                                  "typeString": "function () view external returns (contract ConsiderationInterface)"
+                                }
+                              },
+                              "id": 59987,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "kind": "functionCall",
+                              "lValueRequested": false,
+                              "nameLocations": [],
+                              "names": [],
+                              "nodeType": "FunctionCall",
+                              "src": "701:43:131",
+                              "tryCall": false,
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_contract$_ConsiderationInterface_$32349",
+                                "typeString": "contract ConsiderationInterface"
+                              }
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": [
+                              {
+                                "typeIdentifier": "t_contract$_ConsiderationInterface_$32349",
+                                "typeString": "contract ConsiderationInterface"
+                              }
+                            ],
+                            "id": 59982,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": true,
+                            "lValueRequested": false,
+                            "nodeType": "ElementaryTypeNameExpression",
+                            "src": "693:7:131",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_type$_t_address_$",
+                              "typeString": "type(address)"
+                            },
+                            "typeName": {
+                              "id": 59981,
+                              "name": "address",
+                              "nodeType": "ElementaryTypeName",
+                              "src": "693:7:131",
+                              "typeDescriptions": {}
+                            }
+                          },
+                          "id": 59988,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "kind": "typeConversion",
+                          "lValueRequested": false,
+                          "nameLocations": [],
+                          "names": [],
+                          "nodeType": "FunctionCall",
+                          "src": "693:52:131",
+                          "tryCall": false,
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        "src": "679:66:131",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      ],
+                      "id": 59978,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        -18,
+                        -18
+                      ],
+                      "referencedDeclaration": -18,
+                      "src": "671:7:131",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
+                        "typeString": "function (bool) pure"
+                      }
+                    },
+                    "id": 59990,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "nameLocations": [],
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "671:75:131",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 59991,
+                  "nodeType": "ExpressionStatement",
+                  "src": "671:75:131"
+                },
+                {
+                  "expression": {
+                    "arguments": [],
+                    "expression": {
+                      "argumentTypes": [],
+                      "expression": {
+                        "argumentTypes": [],
+                        "expression": {
+                          "arguments": [
+                            {
+                              "arguments": [
+                                {
+                                  "arguments": [
+                                    {
+                                      "arguments": [],
+                                      "expression": {
+                                        "argumentTypes": [],
+                                        "expression": {
+                                          "id": 59997,
+                                          "name": "ASTARIA_ROUTER",
+                                          "nodeType": "Identifier",
+                                          "overloadedDeclarations": [],
+                                          "referencedDeclaration": 59971,
+                                          "src": "773:14:131",
+                                          "typeDescriptions": {
+                                            "typeIdentifier": "t_contract$_IAstariaRouter_$69282",
+                                            "typeString": "contract IAstariaRouter"
+                                          }
+                                        },
+                                        "id": 59998,
+                                        "isConstant": false,
+                                        "isLValue": false,
+                                        "isPure": false,
+                                        "lValueRequested": false,
+                                        "memberLocation": "788:4:131",
+                                        "memberName": "WETH",
+                                        "nodeType": "MemberAccess",
+                                        "referencedDeclaration": 69050,
+                                        "src": "773:19:131",
+                                        "typeDescriptions": {
+                                          "typeIdentifier": "t_function_external_view$__$returns$_t_contract$_ERC20_$56223_$",
+                                          "typeString": "function () view external returns (contract ERC20)"
+                                        }
+                                      },
+                                      "id": 59999,
+                                      "isConstant": false,
+                                      "isLValue": false,
+                                      "isPure": false,
+                                      "kind": "functionCall",
+                                      "lValueRequested": false,
+                                      "nameLocations": [],
+                                      "names": [],
+                                      "nodeType": "FunctionCall",
+                                      "src": "773:21:131",
+                                      "tryCall": false,
+                                      "typeDescriptions": {
+                                        "typeIdentifier": "t_contract$_ERC20_$56223",
+                                        "typeString": "contract ERC20"
+                                      }
+                                    }
+                                  ],
+                                  "expression": {
+                                    "argumentTypes": [
+                                      {
+                                        "typeIdentifier": "t_contract$_ERC20_$56223",
+                                        "typeString": "contract ERC20"
+                                      }
+                                    ],
+                                    "id": 59996,
+                                    "isConstant": false,
+                                    "isLValue": false,
+                                    "isPure": true,
+                                    "lValueRequested": false,
+                                    "nodeType": "ElementaryTypeNameExpression",
+                                    "src": "765:7:131",
+                                    "typeDescriptions": {
+                                      "typeIdentifier": "t_type$_t_address_$",
+                                      "typeString": "type(address)"
+                                    },
+                                    "typeName": {
+                                      "id": 59995,
+                                      "name": "address",
+                                      "nodeType": "ElementaryTypeName",
+                                      "src": "765:7:131",
+                                      "typeDescriptions": {}
+                                    }
+                                  },
+                                  "id": 60000,
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "kind": "typeConversion",
+                                  "lValueRequested": false,
+                                  "nameLocations": [],
+                                  "names": [],
+                                  "nodeType": "FunctionCall",
+                                  "src": "765:30:131",
+                                  "tryCall": false,
+                                  "typeDescriptions": {
+                                    "typeIdentifier": "t_address",
+                                    "typeString": "address"
+                                  }
+                                }
+                              ],
+                              "expression": {
+                                "argumentTypes": [
+                                  {
+                                    "typeIdentifier": "t_address",
+                                    "typeString": "address"
+                                  }
+                                ],
+                                "id": 59994,
+                                "isConstant": false,
+                                "isLValue": false,
+                                "isPure": true,
+                                "lValueRequested": false,
+                                "nodeType": "ElementaryTypeNameExpression",
+                                "src": "757:8:131",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_type$_t_address_payable_$",
+                                  "typeString": "type(address payable)"
+                                },
+                                "typeName": {
+                                  "id": 59993,
+                                  "name": "address",
+                                  "nodeType": "ElementaryTypeName",
+                                  "src": "757:8:131",
+                                  "stateMutability": "payable",
+                                  "typeDescriptions": {}
+                                }
+                              },
+                              "id": 60001,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "kind": "typeConversion",
+                              "lValueRequested": false,
+                              "nameLocations": [],
+                              "names": [],
+                              "nodeType": "FunctionCall",
+                              "src": "757:39:131",
+                              "tryCall": false,
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_address_payable",
+                                "typeString": "address payable"
+                              }
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": [
+                              {
+                                "typeIdentifier": "t_address_payable",
+                                "typeString": "address payable"
+                              }
+                            ],
+                            "id": 59992,
+                            "name": "WETH",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 56866,
+                            "src": "752:4:131",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_type$_t_contract$_WETH_$56866_$",
+                              "typeString": "type(contract WETH)"
+                            }
+                          },
+                          "id": 60002,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "kind": "typeConversion",
+                          "lValueRequested": false,
+                          "nameLocations": [],
+                          "names": [],
+                          "nodeType": "FunctionCall",
+                          "src": "752:45:131",
+                          "tryCall": false,
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_contract$_WETH_$56866",
+                            "typeString": "contract WETH"
+                          }
+                        },
+                        "id": 60003,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberLocation": "798:7:131",
+                        "memberName": "deposit",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 56832,
+                        "src": "752:53:131",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_function_external_payable$__$returns$__$",
+                          "typeString": "function () payable external"
+                        }
+                      },
+                      "id": 60006,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "names": [
+                        "value"
+                      ],
+                      "nodeType": "FunctionCallOptions",
+                      "options": [
+                        {
+                          "expression": {
+                            "id": 60004,
+                            "name": "msg",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": -15,
+                            "src": "813:3:131",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_magic_message",
+                              "typeString": "msg"
+                            }
+                          },
+                          "id": 60005,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberLocation": "817:5:131",
+                          "memberName": "value",
+                          "nodeType": "MemberAccess",
+                          "src": "813:9:131",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        }
+                      ],
+                      "src": "752:71:131",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_external_payable$__$returns$__$value",
+                        "typeString": "function () payable external"
+                      }
+                    },
+                    "id": 60007,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "nameLocations": [],
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "752:73:131",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 60008,
+                  "nodeType": "ExpressionStatement",
+                  "src": "752:73:131"
+                },
+                {
+                  "assignments": [
+                    60010
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 60010,
+                      "mutability": "mutable",
+                      "name": "payment",
+                      "nameLocation": "839:7:131",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 60046,
+                      "src": "831:15:131",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      },
+                      "typeName": {
+                        "id": 60009,
+                        "name": "uint256",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "831:7:131",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 60020,
+                  "initialValue": {
+                    "arguments": [
+                      {
+                        "arguments": [
+                          {
+                            "id": 60017,
+                            "name": "this",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": -28,
+                            "src": "889:4:131",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_contract$_ClearingHouse_$60048",
+                              "typeString": "contract ClearingHouse"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_contract$_ClearingHouse_$60048",
+                              "typeString": "contract ClearingHouse"
+                            }
+                          ],
+                          "id": 60016,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "lValueRequested": false,
+                          "nodeType": "ElementaryTypeNameExpression",
+                          "src": "881:7:131",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_type$_t_address_$",
+                            "typeString": "type(address)"
+                          },
+                          "typeName": {
+                            "id": 60015,
+                            "name": "address",
+                            "nodeType": "ElementaryTypeName",
+                            "src": "881:7:131",
+                            "typeDescriptions": {}
+                          }
+                        },
+                        "id": 60018,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "typeConversion",
+                        "lValueRequested": false,
+                        "nameLocations": [],
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "881:13:131",
+                        "tryCall": false,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      ],
+                      "expression": {
+                        "arguments": [],
+                        "expression": {
+                          "argumentTypes": [],
+                          "expression": {
+                            "id": 60011,
+                            "name": "ASTARIA_ROUTER",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 59971,
+                            "src": "849:14:131",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_contract$_IAstariaRouter_$69282",
+                              "typeString": "contract IAstariaRouter"
+                            }
+                          },
+                          "id": 60012,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberLocation": "864:4:131",
+                          "memberName": "WETH",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 69050,
+                          "src": "849:19:131",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_function_external_view$__$returns$_t_contract$_ERC20_$56223_$",
+                            "typeString": "function () view external returns (contract ERC20)"
+                          }
+                        },
+                        "id": 60013,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "functionCall",
+                        "lValueRequested": false,
+                        "nameLocations": [],
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "849:21:131",
+                        "tryCall": false,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_ERC20_$56223",
+                          "typeString": "contract ERC20"
+                        }
+                      },
+                      "id": 60014,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberLocation": "871:9:131",
+                      "memberName": "balanceOf",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 55866,
+                      "src": "849:31:131",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_external_view$_t_address_$returns$_t_uint256_$",
+                        "typeString": "function (address) view external returns (uint256)"
+                      }
+                    },
+                    "id": 60019,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "nameLocations": [],
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "849:46:131",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "831:64:131"
+                },
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "arguments": [
+                          {
+                            "arguments": [],
+                            "expression": {
+                              "argumentTypes": [],
+                              "expression": {
+                                "id": 60028,
+                                "name": "ASTARIA_ROUTER",
+                                "nodeType": "Identifier",
+                                "overloadedDeclarations": [],
+                                "referencedDeclaration": 59971,
+                                "src": "950:14:131",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_contract$_IAstariaRouter_$69282",
+                                  "typeString": "contract IAstariaRouter"
+                                }
+                              },
+                              "id": 60029,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "memberLocation": "965:14:131",
+                              "memberName": "TRANSFER_PROXY",
+                              "nodeType": "MemberAccess",
+                              "referencedDeclaration": 69062,
+                              "src": "950:29:131",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_function_external_view$__$returns$_t_contract$_ITransferProxy_$70948_$",
+                                "typeString": "function () view external returns (contract ITransferProxy)"
+                              }
+                            },
+                            "id": 60030,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": false,
+                            "kind": "functionCall",
+                            "lValueRequested": false,
+                            "nameLocations": [],
+                            "names": [],
+                            "nodeType": "FunctionCall",
+                            "src": "950:31:131",
+                            "tryCall": false,
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_contract$_ITransferProxy_$70948",
+                              "typeString": "contract ITransferProxy"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_contract$_ITransferProxy_$70948",
+                              "typeString": "contract ITransferProxy"
+                            }
+                          ],
+                          "id": 60027,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "lValueRequested": false,
+                          "nodeType": "ElementaryTypeNameExpression",
+                          "src": "942:7:131",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_type$_t_address_$",
+                            "typeString": "type(address)"
+                          },
+                          "typeName": {
+                            "id": 60026,
+                            "name": "address",
+                            "nodeType": "ElementaryTypeName",
+                            "src": "942:7:131",
+                            "typeDescriptions": {}
+                          }
+                        },
+                        "id": 60031,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "typeConversion",
+                        "lValueRequested": false,
+                        "nameLocations": [],
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "942:40:131",
+                        "tryCall": false,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      {
+                        "id": 60032,
+                        "name": "payment",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 60010,
+                        "src": "990:7:131",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "expression": {
+                        "arguments": [],
+                        "expression": {
+                          "argumentTypes": [],
+                          "expression": {
+                            "id": 60021,
+                            "name": "ASTARIA_ROUTER",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 59971,
+                            "src": "901:14:131",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_contract$_IAstariaRouter_$69282",
+                              "typeString": "contract IAstariaRouter"
+                            }
+                          },
+                          "id": 60023,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberLocation": "916:4:131",
+                          "memberName": "WETH",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 69050,
+                          "src": "901:19:131",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_function_external_view$__$returns$_t_contract$_ERC20_$56223_$",
+                            "typeString": "function () view external returns (contract ERC20)"
+                          }
+                        },
+                        "id": 60024,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "functionCall",
+                        "lValueRequested": false,
+                        "nameLocations": [],
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "901:21:131",
+                        "tryCall": false,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_ERC20_$56223",
+                          "typeString": "contract ERC20"
+                        }
+                      },
+                      "id": 60025,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberLocation": "923:11:131",
+                      "memberName": "safeApprove",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 57405,
+                      "src": "901:33:131",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_nonpayable$_t_contract$_ERC20_$56223_$_t_address_$_t_uint256_$returns$__$bound_to$_t_contract$_ERC20_$56223_$",
+                        "typeString": "function (contract ERC20,address,uint256)"
+                      }
+                    },
+                    "id": 60033,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "nameLocations": [],
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "901:102:131",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 60034,
+                  "nodeType": "ExpressionStatement",
+                  "src": "901:102:131"
+                },
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "arguments": [
+                          {
+                            "hexValue": "3231",
+                            "id": 60041,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": true,
+                            "kind": "number",
+                            "lValueRequested": false,
+                            "nodeType": "Literal",
+                            "src": "1083:2:131",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_rational_21_by_1",
+                              "typeString": "int_const 21"
+                            },
+                            "value": "21"
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_rational_21_by_1",
+                              "typeString": "int_const 21"
+                            }
+                          ],
+                          "id": 60040,
+                          "name": "_getArgUint256",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 32,
+                          "src": "1068:14:131",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_function_internal_pure$_t_uint256_$returns$_t_uint256_$",
+                            "typeString": "function (uint256) pure returns (uint256)"
+                          }
+                        },
+                        "id": 60042,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "functionCall",
+                        "lValueRequested": false,
+                        "nameLocations": [],
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "1068:18:131",
+                        "tryCall": false,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      {
+                        "id": 60043,
+                        "name": "payment",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 60010,
+                        "src": "1094:7:131",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "expression": {
+                        "arguments": [],
+                        "expression": {
+                          "argumentTypes": [],
+                          "expression": {
+                            "id": 60035,
+                            "name": "ASTARIA_ROUTER",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 59971,
+                            "src": "1009:14:131",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_contract$_IAstariaRouter_$69282",
+                              "typeString": "contract IAstariaRouter"
+                            }
+                          },
+                          "id": 60037,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberLocation": "1024:10:131",
+                          "memberName": "LIEN_TOKEN",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 69056,
+                          "src": "1009:25:131",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_function_external_view$__$returns$_t_contract$_ILienToken_$70649_$",
+                            "typeString": "function () view external returns (contract ILienToken)"
+                          }
+                        },
+                        "id": 60038,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "functionCall",
+                        "lValueRequested": false,
+                        "nameLocations": [],
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "1009:27:131",
+                        "tryCall": false,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_ILienToken_$70649",
+                          "typeString": "contract ILienToken"
+                        }
+                      },
+                      "id": 60039,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberLocation": "1037:23:131",
+                      "memberName": "payDebtViaClearingHouse",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 70457,
+                      "src": "1009:51:131",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_external_nonpayable$_t_uint256_$_t_uint256_$returns$__$",
+                        "typeString": "function (uint256,uint256) external"
+                      }
+                    },
+                    "id": 60044,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "nameLocations": [],
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1009:98:131",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 60045,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1009:98:131"
+                }
+              ]
+            },
+            "implemented": true,
+            "kind": "fallback",
+            "modifiers": [],
+            "name": "",
+            "nameLocation": "-1:-1:-1",
+            "parameters": {
+              "id": 59967,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "574:2:131"
+            },
+            "returnParameters": {
+              "id": 59968,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "594:0:131"
+            },
+            "scope": 60048,
+            "stateMutability": "payable",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "abstract": false,
+        "baseContracts": [
+          {
+            "baseName": {
+              "id": 59961,
+              "name": "Clone",
+              "nameLocations": [
+                "520:5:131"
+              ],
+              "nodeType": "IdentifierPath",
+              "referencedDeclaration": 120,
+              "src": "520:5:131"
+            },
+            "id": 59962,
+            "nodeType": "InheritanceSpecifier",
+            "src": "520:5:131"
+          }
+        ],
+        "canonicalName": "ClearingHouse",
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "linearizedBaseContracts": [
+          60048,
+          120
+        ],
+        "name": "ClearingHouse",
+        "nameLocation": "503:13:131",
+        "scope": 60049,
+        "usedErrors": []
+      }
+    ],
+    "license": "UNLICENSED"
+  },
+  "id": 131
+}
