@@ -63,7 +63,7 @@ describe('util.signRoot using remote', () => {
       vault: AddressZero,
     }
     const root =
-      '0x414cd89c8a2d6724f47829348352a78687a99c57ee83a47933f2021c84f405b9'
+      '0x276a20acb0e3b40e3e98b20030585add5dd1c6c6f53b99b3bc0645809dd3eef0'
 
     const sig = await signRootLocal(
       getTypedData(strategy, root, verifyingContract, 0),
@@ -71,7 +71,7 @@ describe('util.signRoot using remote', () => {
     )
 
     expect(sig.compact).toEqual(
-      '0xfee8d5aa9e98505b528922f6549b80c098cd686882522df7c71a807e28c1c39018fb09c76031f9804b3af6a7cb0a8e50e038b48bc252c8403e59ecd2026f43b1'
+      '0xe0e39ac74826e1724bb789b2dbfb29ff923eac0bab8c9532267dd7b93af2e10020adf36573c078e9610263480e1648624729e015eab4b3db90fdc90a1af5d46a'
     )
   })
   test('encoding and decoding for IPFS', async () => {
@@ -102,7 +102,6 @@ describe('util.signRoot using remote', () => {
       signature,
       strategyTree.getCSV
     )
-
     expect(JSON.parse(strategyPayload)).toEqual(JSON.parse(expected))
   })
   test('signs merkle tree root using local then verifies', async () => {
@@ -119,7 +118,7 @@ describe('util.signRoot using remote', () => {
     }
     const expected = wallet.address.toLowerCase()
     const root =
-      '0x414cd89c8a2d6724f47829348352a78687a99c57ee83a47933f2021c84f405b9'
+      '0x276a20acb0e3b40e3e98b20030585add5dd1c6c6f53b99b3bc0645809dd3eef0'
 
     const typedData = getTypedData(strategy, root, verifyingContract, 0)
     const signature = await signRootLocal(typedData, wallet)

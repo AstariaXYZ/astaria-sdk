@@ -208,7 +208,7 @@ export const createCollateralOrCollection: StrategyObjectFactory<
   throw Error('invalid row')
 }
 export const RE_STRATEGY_ROW =
-  /^(?<type>\d+)[,]{1}(?<token>0x[a-fA-F0-9]{40})[,]{1}(?<tokenId>\d{0,78})[,]{0,1}(?<borrower>0x[a-fA-F0-9]{40})[,]{1}((?<token0>0x[a-fA-F0-9]{40})[,]{1}(?<token1>0x[a-fA-F0-9]{40})[,]{1}(?<fee>\d{1,8})[,]{1}(?<tickLower>-\d{1,8})[,]{1}(?<tickUpper>-\d{1,8})[,]{1}(?<minLiquidity>\d{1,39})[,]{1}(?<amount0Min>\d{0,78})[,]{1}(?<amount1Min>\d{0,78})[,]{1}){0,1}(?<amount>\d{0,78})[,]{1}(?<rate>\d{0,78})[,]{1}(?<duration>\d{1,20})[,]{1}(?<maxPotentialDebt>\d{0,78})[,]{1}(?<liquidationInitialAsk>\d{0,78})$/
+  /^(?<type>\d+)[,]{1}(?<token>0x[a-fA-F0-9]{40})[,]{1}((?<tokenId>\d{0,78})[,]{1}){0,1}(?<borrower>0x[a-fA-F0-9]{40})[,]{1}((?<token0>0x[a-fA-F0-9]{40})[,]{1}(?<token1>0x[a-fA-F0-9]{40})[,]{1}(?<fee>\d{1,8})[,]{1}(?<tickLower>[-]{0,1}\d{1,8})[,]{1}(?<tickUpper>[-]{0,1}\d{1,8})[,]{1}(?<minLiquidity>\d{1,39})[,]{1}(?<amount0Min>\d{1,78})[,]{1}(?<amount1Min>\d{1,78})[,]{1}){0,1}(?<amount>\d{0,78})[,]{1}(?<rate>\d{0,78})[,]{1}(?<duration>\d{1,20})[,]{1}(?<maxPotentialDebt>\d{0,78})[,]{1}(?<liquidationInitialAsk>\d{0,78})$/
 
 const validateCollateralOrCollectionRow = (row: string): boolean =>
   row.length > 0 && RE_STRATEGY_ROW.test(row)

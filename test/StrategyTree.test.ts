@@ -4,13 +4,21 @@ import { readFile } from 'fs/promises'
 import { StrategyTree } from '../src/strategy/StrategyTree'
 
 describe('StrategyTree', () => {
-  test('parses CSV into BinaryTree', async () => {
+  test('test that all leaves are marshalled into StrategyTree', async () => {
+    const csv = await readFile(join(__dirname, '__mocks__/test.csv'), 'utf8')
+
+    const strategyTree = new StrategyTree(csv)
+    const actual = strategyTree.getCSV.length
+    const expected = 5
+    expect(actual).toEqual(expected)
+  })
+  test('parses CSV into StrategyTree', async () => {
     const csv = await readFile(join(__dirname, '__mocks__/test.csv'), 'utf8')
 
     const strategyTree = new StrategyTree(csv)
 
     expect(
-      '0x414cd89c8a2d6724f47829348352a78687a99c57ee83a47933f2021c84f405b9'
+      '0x276a20acb0e3b40e3e98b20030585add5dd1c6c6f53b99b3bc0645809dd3eef0'
     ).toEqual(strategyTree.getHexRoot())
   })
 })
