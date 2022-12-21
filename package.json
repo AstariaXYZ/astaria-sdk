@@ -19,6 +19,7 @@
   "dependencies": {
     "eth-sig-util": "^3.0.1",
     "ethers": "^5.7.2",
+    "ipfs-only-hash": "^4.0.0",
     "json-stringify-deterministic": "^1.0.8",
     "merkletreejs": "^0.3.9",
     "tiny-invariant": "^1.2.0"

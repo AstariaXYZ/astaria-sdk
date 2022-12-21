@@ -16,6 +16,8 @@ import {
 } from '../src/strategy/utils'
 import { Strategy } from '../src/types'
 
+const Hash = require('ipfs-only-hash')
+
 describe('util.signRoot using remote', () => {
   test('signs merkle tree root', async () => {
     const options = {
@@ -74,13 +76,9 @@ describe('util.signRoot using remote', () => {
       '0xe0e39ac74826e1724bb789b2dbfb29ff923eac0bab8c9532267dd7b93af2e10020adf36573c078e9610263480e1648624729e015eab4b3db90fdc90a1af5d46a'
     )
   })
-  test('encoding and decoding for IPFS', async () => {
+  test('encoding and hashing for IPFS deterministically', async () => {
     const csv = await readFile(join(__dirname, '__mocks__/test.csv'), 'utf8')
-    const expected = await readFile(
-      join(__dirname, '__mocks__/encode.json'),
-      'utf8'
-    )
-
+    const expected = 'QmSsqABZ2U72yJ8riiuaK3LccmapmCYY1tY1WB1DsUowgD'
     const strategyTree = new StrategyTree(csv)
 
     const root = strategyTree.getHexRoot()
@@ -102,7 +100,8 @@ describe('util.signRoot using remote', () => {
       signature,
       strategyTree.getCSV
     )
-    expect(JSON.parse(strategyPayload)).toEqual(JSON.parse(expected))
+    const actual = await Hash.of(strategyPayload)
+    expect(actual).toEqual(expected)
   })
   test('signs merkle tree root using local then verifies', async () => {
     const wallet = Wallet.fromMnemonic(
