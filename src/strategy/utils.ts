@@ -5,6 +5,7 @@ import {
   defaultAbiCoder,
   getAddress,
   splitSignature,
+  joinSignature,
 } from 'ethers/lib/utils'
 import { Wallet, Signature } from 'ethers'
 import invariant from 'tiny-invariant'
@@ -277,6 +278,15 @@ export const signRootLocal = async (typedData: TypedData, wallet: Wallet) => {
   })
 
   return splitSignature(signature)
+}
+
+export const verifySignature = (typedData: TypedData, signature: Signature) => {
+  const recovered = ethSigUtil.recoverTypedSignature({
+    sig: joinSignature(signature),
+    data: typedData,
+  })
+
+  return recovered
 }
 
 export const getTypedData = (

@@ -10,8 +10,9 @@ import { StrategyTree } from '../src/strategy/StrategyTree'
 import {
   signRootRemote,
   signRootLocal,
-  getTypedData,
   encodeIPFSStrategyPayload,
+  verifySignature,
+  getTypedData,
 } from '../src/strategy/utils'
 import { Strategy } from '../src/types'
 
@@ -103,5 +104,27 @@ describe('util.signRoot using remote', () => {
     )
 
     expect(JSON.parse(strategyPayload)).toEqual(JSON.parse(expected))
+  })
+  test('signs merkle tree root using local then verifies', async () => {
+    const wallet = Wallet.fromMnemonic(
+      'junk junk junk junk junk junk junk junk junk junk junk test'
+    )
+    const verifyingContract = AddressZero
+    const strategy: Strategy = {
+      version: 0,
+      delegate: AddressZero,
+      expiration: BigNumber.from(0),
+      nonce: BigNumber.from(0),
+      vault: AddressZero,
+    }
+    const expected = wallet.address.toLowerCase()
+    const root =
+      '0x414cd89c8a2d6724f47829348352a78687a99c57ee83a47933f2021c84f405b9'
+
+    const typedData = getTypedData(strategy, root, verifyingContract, 0)
+    const signature = await signRootLocal(typedData, wallet)
+    const actual = verifySignature(typedData, signature)
+
+    expect(actual).toEqual(expected)
   })
 })
