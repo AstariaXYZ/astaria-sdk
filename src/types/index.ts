@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { BigNumber, Signature } from 'ethers'
 import { ParsedStrategyRow } from '../strategy/utils'
 
@@ -108,7 +109,7 @@ export interface UniV3Collateral extends StrategyRow {
 }
 
 export interface IPFSStrategyPayload {
-  typedData: any
+  typedData: TypedData
   signature: Signature
   leaves: ParsedStrategyRow
 }
@@ -139,4 +140,77 @@ export interface message {
   nonce: string
   deadline: string
   root: string
+}
+
+type HexType = {
+  hex: string
+  type: string
+}
+
+export interface LienInsidePayload {
+  /** `uint256` - Amount of $WETH in 10**18 that the borrower can borrow */
+  amount: HexType
+  /** `uint256` - Rate of interest accrual for the lien expressed as interest per second 10**18 */
+  rate: HexType
+  /** `uint256` - Maximum life of the lien without refinancing in epoch seconds 10**18 */
+  duration: HexType
+  /** `uint256` - a maximum total value of all liens higher in the lien queue calculated using their rate and remaining duration. Value is `$WETH` expressed as `10**18`. A zero value indicates that the lien is in the most senior position */
+  maxPotentialDebt: HexType
+  /** `uint256` - the value used as the starting price in the event of a liquidation dutch auction */
+  liquidationInitialAsk: HexType
+}
+export interface StrategyRowInsidePayload {
+  /** `uint8` - Type of leaf format */
+  leaf?: string
+  type:
+    | StrategyLeafType.Collateral
+    | StrategyLeafType.Collection
+    | StrategyLeafType.UniV3Collateral
+  /** `address` - Address of ERC721 collection */
+  token: string
+  /** `uint256` - Token ID of ERC721 inside the collection */
+  tokenId?: HexType
+  /** `address` - Address of the borrower that can commit to the lien, If the value is `address(0)` then any borrower can commit to the lien */
+  borrower: string
+  /** `Lien` - Lien data */
+  lien: LienInsidePayload
+}
+
+export interface CollateralInsidePayload extends StrategyRowInsidePayload {
+  /** `uint8` - Type of leaf format (`Collateral = 1`) */
+  type: StrategyLeafType.Collateral
+  /** `uint256` - Token ID of ERC721 inside the collection */
+  tokenId: HexType
+}
+
+export interface CollectionInsidePayload extends StrategyRowInsidePayload {
+  /** `uint8` - Type of leaf format (`Collection = 2`) */
+  type: StrategyLeafType.Collection
+}
+
+export interface UniV3CollateralInsidePayload extends StrategyRowInsidePayload {
+  /** `uint8` - Type of leaf format (`UniV3Collateral = 3`) */
+  type: StrategyLeafType.UniV3Collateral
+
+  /** UniV3 parameters */
+  token0: string
+  token1: string
+  fee: HexType
+  tickLower: HexType
+  tickUpper: HexType
+  minLiquidity: HexType
+  amount0Min: HexType
+  amount1Min: HexType
+}
+
+export type ParsedStrategyRowsInsidePayload = Array<
+  | CollateralInsidePayload
+  | CollectionInsidePayload
+  | UniV3CollateralInsidePayload
+>
+
+export interface IPFSStrategyPayloadInsidePayload {
+  typedData: TypedData
+  signature: Signature
+  leaves: ParsedStrategyRowsInsidePayload
 }

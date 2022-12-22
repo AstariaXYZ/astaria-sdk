@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { JsonRpcProvider } from '@ethersproject/providers'
 import { BigNumber } from '@ethersproject/bignumber'
 import {
@@ -17,6 +18,11 @@ import {
   IPFSStrategyPayload,
   TypedData,
   UniV3Collateral,
+  IPFSStrategyPayloadInsidePayload,
+  ParsedStrategyRowsInsidePayload,
+  CollectionInsidePayload,
+  UniV3CollateralInsidePayload,
+  CollateralInsidePayload,
 } from '../types'
 const ethSigUtil = require('eth-sig-util')
 const stringify = require('json-stringify-deterministic')
@@ -181,16 +187,14 @@ export const createCollateralOrCollection: StrategyObjectFactory<
 
   throw Error('invalid row')
 }
-export const RE_STRATEGY_ROW = /^(?<type>\d+)[,]{1}(?<token>0x[a-fA-F0-9]{40})[,]{1}((?<tokenId>\d{0,78})[,]{1}){0,1}(?<borrower>0x[a-fA-F0-9]{40})[,]{1}((?<token0>0x[a-fA-F0-9]{40})[,]{1}(?<token1>0x[a-fA-F0-9]{40})[,]{1}(?<fee>\d{1,8})[,]{1}(?<tickLower>[-]{0,1}\d{1,8})[,]{1}(?<tickUpper>[-]{0,1}\d{1,8})[,]{1}(?<minLiquidity>\d{1,39})[,]{1}(?<amount0Min>\d{0,78})[,]{1}(?<amount1Min>\d{0,78})[,]{1}){0,1}(?<amount>\d{0,78})[,]{1}(?<rate>\d{0,78})[,]{1}(?<duration>\d{1,20})[,]{1}(?<maxPotentialDebt>\d{0,78})$/
+export const RE_STRATEGY_ROW =
+  /^(?<type>\d+)[,]{1}(?<token>0x[a-fA-F0-9]{40})[,]{1}((?<tokenId>\d{0,78})[,]{1}){0,1}(?<borrower>0x[a-fA-F0-9]{40})[,]{1}((?<token0>0x[a-fA-F0-9]{40})[,]{1}(?<token1>0x[a-fA-F0-9]{40})[,]{1}(?<fee>\d{1,8})[,]{1}(?<tickLower>[-]{0,1}\d{1,8})[,]{1}(?<tickUpper>[-]{0,1}\d{1,8})[,]{1}(?<minLiquidity>\d{1,39})[,]{1}(?<amount0Min>\d{0,78})[,]{1}(?<amount1Min>\d{0,78})[,]{1}){0,1}(?<amount>\d{0,78})[,]{1}(?<rate>\d{0,78})[,]{1}(?<duration>\d{1,20})[,]{1}(?<maxPotentialDebt>\d{0,78})$/
 
 const validateCollateralOrCollectionRow = (row: string): boolean =>
   row.length > 0 && RE_STRATEGY_ROW.test(row)
 
 const trimAndSplitByLine = (csv: string): string[] =>
-  csv
-    .replaceAll(' ', '')
-    .replaceAll('\r', '')
-    .split('\n')
+  csv.replaceAll(' ', '').replaceAll('\r', '').split('\n')
 
 interface ValidateStrategyCSV {
   (csv: string): ParsedStrategyRow
@@ -317,4 +321,93 @@ export const decodeIPFSStrategyPayload = (
   strategy: string
 ): IPFSStrategyPayload => {
   return JSON.parse(strategy)
+}
+
+export const parseIPFSPayload = (
+  strategy: string //this is the json string
+) => {
+  const fullObject: IPFSStrategyPayloadInsidePayload = JSON.parse(strategy)
+  let leaves: ParsedStrategyRowsInsidePayload = fullObject.leaves
+  const newLeaves = fullObject.leaves.map(
+    (
+      leaf:
+        | CollateralInsidePayload
+        | CollectionInsidePayload
+        | UniV3CollateralInsidePayload
+    ) => {
+      switch (leaf.type) {
+        case StrategyLeafType.UniV3Collateral:
+          return {
+            amount0Min: BigNumber.from(`${leaf.amount0Min.hex}`),
+            amount1Min: BigNumber.from(`${leaf.amount1Min.hex}`),
+            borrower: getAddress(`${leaf.borrower}`),
+            fee: BigNumber.from(`${leaf.fee.hex}`),
+            leaf: `${leaf.leaf}`,
+            lien: {
+              amount: BigNumber.from(`${leaf.lien.amount.hex}`),
+              duration: BigNumber.from(`${leaf.lien.duration.hex}`),
+              liquidationInitialAsk: BigNumber.from(
+                `${leaf.lien.liquidationInitialAsk.hex}`
+              ),
+              maxPotentialDebt: BigNumber.from(
+                `${leaf.lien.maxPotentialDebt.hex}`
+              ),
+              rate: BigNumber.from(`${leaf.lien.rate.hex}`),
+            },
+            minLiquidity: BigNumber.from(`${leaf.minLiquidity.hex}`),
+            tickLower: BigNumber.from(`${leaf.tickLower.hex}`),
+            tickUpper: BigNumber.from(`${leaf.tickUpper.hex}`),
+            token: getAddress(`${leaf.token}`),
+            token0: getAddress(`${leaf.token0}`),
+            token1: getAddress(`${leaf.token1}`),
+            type: leaf.type,
+          }
+        case StrategyLeafType.Collateral:
+          return {
+            type: leaf.type,
+            tokenId: BigNumber.from(`${leaf.tokenId.hex}`),
+            borrower: getAddress(`${leaf.borrower}`),
+            lien: {
+              amount: BigNumber.from(`${leaf.lien.amount.hex}`),
+              duration: BigNumber.from(`${leaf.lien.duration.hex}`),
+              liquidationInitialAsk: BigNumber.from(
+                `${leaf.lien.liquidationInitialAsk.hex}`
+              ),
+              maxPotentialDebt: BigNumber.from(
+                `${leaf.lien.maxPotentialDebt.hex}`
+              ),
+              rate: BigNumber.from(`${leaf.lien.rate.hex}`),
+            },
+            token: getAddress(`${leaf.token}`),
+            leaf: `${leaf.leaf}`,
+          }
+        case StrategyLeafType.Collection:
+          return {
+            type: leaf.type,
+            borrower: getAddress(`${leaf.borrower}`),
+            lien: {
+              amount: BigNumber.from(`${leaf.lien.amount.hex}`),
+              duration: BigNumber.from(`${leaf.lien.duration.hex}`),
+              liquidationInitialAsk: BigNumber.from(
+                `${leaf.lien.liquidationInitialAsk.hex}`
+              ),
+              maxPotentialDebt: BigNumber.from(
+                `${leaf.lien.maxPotentialDebt.hex}`
+              ),
+              rate: BigNumber.from(`${leaf.lien.rate.hex}`),
+            },
+            token: getAddress(`${leaf.token}`),
+            leaf: `${leaf.leaf}`,
+          }
+      }
+    }
+  )
+
+  const returnObject: IPFSStrategyPayload = {
+    typedData: fullObject.typedData,
+    signature: fullObject.signature,
+    leaves: newLeaves,
+  }
+
+  return returnObject
 }
