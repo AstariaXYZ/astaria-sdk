@@ -9,7 +9,7 @@
     "test:watch": "tsdx test --watchAll",
     "test:coverage": "tsdx test --coverage",
     "lint": "tsdx lint",
-    "prepare": "tsdx build && husky install",
+    "prepare": "tsdx build --target node && husky install",
     "size": "size-limit",
     "analyze": "size-limit --why",
     "format": "prettier --write !src/contracts/**/* !src/test/__mocks__/**/* !abi !dist .",
