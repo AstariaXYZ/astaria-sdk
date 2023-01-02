@@ -21,15 +21,13 @@
 
 # [1.0.0-alpha.6](https://github.com/astariaxyz/astaria-sdk/compare/v1.0.0-alpha.5...v1.0.0-alpha.6) (2022-12-23)
 
-
 ### Bug Fixes
 
-* decodeIPFSStrategyPayload now properly handles BigNumbers ([355dbc4](https://github.com/astariaxyz/astaria-sdk/commit/355dbc4f1b10f397c59f0fb76e2d69e7d7dfb1d4))
-
+- decodeIPFSStrategyPayload now properly handles BigNumbers ([355dbc4](https://github.com/astariaxyz/astaria-sdk/commit/355dbc4f1b10f397c59f0fb76e2d69e7d7dfb1d4))
 
 ### Features
 
-* added fromParsedStrategyRow method to StrategyTree ([de6a54a](https://github.com/astariaxyz/astaria-sdk/commit/de6a54aeb8580185ef63a68d676492fd1f15d214))
+- added fromParsedStrategyRow method to StrategyTree ([de6a54a](https://github.com/astariaxyz/astaria-sdk/commit/de6a54aeb8580185ef63a68d676492fd1f15d214))
 
 # [1.0.0-alpha.5](https://github.com/astariaxyz/astaria-sdk/compare/v1.0.0-alpha.4...v1.0.0-alpha.5) (2022-12-21)
 

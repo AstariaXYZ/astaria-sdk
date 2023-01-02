@@ -1,144 +1,177 @@
-import { BigNumber, Signature } from 'ethers'
-import { ParsedStrategyRow } from '../strategy/utils'
-
-declare var __DEV__: boolean
+import z from 'zod'
+import {
+  TickSchema,
+  HexSchema,
+  AddressSchema,
+  Uint24Schema,
+  Uint128Schema,
+  Uint256Schema,
+  Uint256NonZeroSchema,
+} from './helpers'
+import { AddressZero } from '@ethersproject/constants'
 
 export enum StrategyLeafType {
-  Strategy = 0,
-  Collateral = 1,
-  Collection = 2,
-  UniV3Collateral = 3,
+  Collateral = 0,
+  Collection = 1,
+  UniV3Collateral = 2,
 }
 
 /**
- * Strategy
- *
- * Each strategy will have a `Strategy` leaf in index 0
- * to provide configuration data. Any format with `Strategy`
- * outside index 0 will be considered invalid and can result
- * in undesired behavior although the schema is uneforceable.
+ * StrategyDetails
  */
-export interface Strategy {
-  /** `uint8` - Type of leaf format (`Strategy = 0`) */
-  // type: StrategyLeafType.Strategy
+export const StrategyDetailsSchema = z.object({
   /** `uint8` - Version of strategy format (`0`) */
-  version: number
-  /** `address` - EOA of the strategist opening the vault, cannot be reassigned */
-  //strategist: string
-  /** `address` - EOA that can sign new strategy roots after Vault is initiated. Role cannot be reassigned without a new transaction. New strategies can be signed without needing a transaction. */
-  delegate: string
-  /** `boolean` - Indicates if a vault is public. Cannot be modified after vault opening. */
-  //public?: boolean
+  version: z.number(),
+
   /** `uint256` - Date past which strategy is no longer considered valid */
-  expiration: BigNumber
+  expiration: Uint256Schema,
+
   /** `uint256` - Value tracked on chain starting from 0 at the Vault opening. Incrementing the nonce on chain invalidates all lower strategies */
-  nonce: BigNumber
-  /** `address` - Contract address of the vault, if the vault address is ZeroAddress then this is the first merkle tree opening the vault */
-  vault: string
-}
+  nonce: Uint256Schema,
+
+  /** `address` - Contract address of the vault, if the vault address is ZeroHex then this is the first merkle tree opening the vault */
+  vault: AddressSchema,
+})
 
 /**
  * Lien
- *
- * `Lien` is a subtype, so the value will not be preceded with a type
- * value as it can only be nested in `Collateral` or `Collection` leaves.
  */
-export interface Lien {
+export const LienSchema = z.object({
   /** `uint256` - Amount of $WETH in 10**18 that the borrower can borrow */
-  amount: BigNumber
+  amount: Uint256NonZeroSchema,
+
   /** `uint256` - Rate of interest accrual for the lien expressed as interest per second 10**18 */
-  rate: BigNumber
-  /** `uint256` - Maximum life of the lien without refinancing in epoch seconds 10**18 */
-  duration: BigNumber
-  /** `uint256` - a maximum total value of all liens higher in the lien queue calculated using their rate and remaining duration. Value is `$WETH` expressed as `10**18`. A zero value indicates that the lien is in the most senior position */
-  maxPotentialDebt: BigNumber
+  rate: Uint256Schema,
+
+  /** `uint32` - Maximum life of the lien without refinancing in epoch seconds 10**18 */
+  duration: Uint256NonZeroSchema,
+
+  /** `uint256` - a maximum total value of all liens higher in the lien queue calculated using their rate and remaining duration. Value is `$WETH` expressed as `10**18`. A zero value indicates that the lien must be in the most senior position */
+  maxPotentialDebt: Uint256Schema,
+
   /** `uint256` - the value used as the starting price in the event of a liquidation dutch auction */
-  liquidationInitialAsk: BigNumber
-}
+  liquidationInitialAsk: Uint256NonZeroSchema,
+})
 
-/**
- * StrategyRow
- */
-export interface StrategyRow {
-  leaf?: string
-  /** `uint8` - Type of leaf format */
-  type:
-    | StrategyLeafType.Collateral
-    | StrategyLeafType.Collection
-    | StrategyLeafType.UniV3Collateral
-  /** `address` - Address of ERC721 collection */
-  token: string
-  /** `uint256` - Token ID of ERC721 inside the collection */
-  tokenId?: BigNumber
+const BaseDetailsSchema = z.object({
+  /** `address` - Address of the underlying NFT Contract*/
+  token: AddressSchema,
+
   /** `address` - Address of the borrower that can commit to the lien, If the value is `address(0)` then any borrower can commit to the lien */
-  borrower: string
+  borrower: AddressSchema.optional().default(AddressZero),
+
   /** `Lien` - Lien data */
-  lien: Lien
-}
+  lien: LienSchema,
 
-/**
- * Collateral
- */
-export interface Collateral extends StrategyRow {
-  /** `uint8` - Type of leaf format (`Collateral = 1`) */
-  type: StrategyLeafType.Collateral
+  leaf: HexSchema.optional(),
+})
+
+export const CollateralSchema = BaseDetailsSchema.extend({
+  /** `uint8` - Type of leaf format (`Collateral = 0`) */
+  type: z.literal(StrategyLeafType.Collateral),
+
   /** `uint256` - Token ID of ERC721 inside the collection */
-  tokenId: BigNumber
-}
+  tokenId: Uint256Schema,
+})
 
-/**
- * Collection
- */
-export interface Collection extends StrategyRow {
-  /** `uint8` - Type of leaf format (`Collection = 2`) */
-  type: StrategyLeafType.Collection
-}
+export const CollectionSchema = BaseDetailsSchema.extend({
+  /** `uint8` - Type of leaf format (`Collection = 1`) */
+  type: z.literal(StrategyLeafType.Collection),
+})
 
-export interface UniV3Collateral extends StrategyRow {
-  /** `uint8` - Type of leaf format (`UniV3Collateral = 3`) */
-  type: StrategyLeafType.UniV3Collateral
+export const UniV3CollateralSchema = BaseDetailsSchema.extend({
+  /** `uint8` - Type of leaf format (`UniV3Collateral = 2`) */
+  type: z.literal(StrategyLeafType.UniV3Collateral),
 
-  /** UniV3 parameters */
-  token0: string
-  token1: string
-  fee: BigNumber
-  tickLower: BigNumber
-  tickUpper: BigNumber
-  minLiquidity: BigNumber
-  amount0Min: BigNumber
-  amount1Min: BigNumber
-}
+  /** `address` - Token0*/
+  token0: AddressSchema,
 
-export interface IPFSStrategyPayload {
-  typedData: any
-  signature: Signature
-  leaves: ParsedStrategyRow
-}
+  /** `address` - Token1*/
+  token1: AddressSchema,
 
-export interface TypedData {
-  types: types
-  primaryType: string
-  domain: domain
-  message: message
-}
+  /** `uint24` - Fee*/
+  fee: Uint24Schema,
 
-export interface types {
-  EIP712Domain: Array<type>
-  StrategyDetails: Array<type>
-}
-export interface type {
-  name: string
-  type: string
-}
+  /** `int24` - TickLower*/
+  tickLower: TickSchema,
 
-export interface domain {
-  version: string
-  chainId: number
-  verifyingContract: string
-}
+  /** `int24` - TickUpper*/
+  tickUpper: TickSchema,
 
-export interface message {
-  nonce: string
-  deadline: string
-  root: string
-}
+  /** `uint128` - MinLiquidity*/
+  minLiquidity: Uint128Schema,
+
+  /** `uint256` - Amount0Min*/
+  amount0Min: Uint256Schema,
+
+  /** `uint256` - Amount1Min*/
+  amount1Min: Uint256Schema,
+})
+
+export const StrategyRowSchema = z.discriminatedUnion('type', [
+  CollateralSchema,
+  CollectionSchema,
+  UniV3CollateralSchema,
+])
+
+export const StrategySchema = z.array(StrategyRowSchema)
+
+export const TypeSchema = z.object({
+  name: z.string(),
+  type: z.string(),
+})
+
+export const TypesSchema = z.object({
+  EIP712Domain: z.array(TypeSchema),
+  StrategyDetails: z.array(TypeSchema),
+})
+
+export const DomainSchema = z.object({
+  version: z.string(),
+  chainId: z.number(),
+  verifyingContract: z.string(),
+})
+
+export const SignatureSchema = z.object({
+  r: z.string(),
+  s: z.string(),
+  _vs: z.string(),
+  recoveryParam: z.number(),
+  v: z.number(),
+  yParityAndS: z.string(),
+  compact: z.string(),
+})
+
+export const MessageSchema = z.object({
+  nonce: z.string(),
+  deadline: z.string(),
+  root: z.string(),
+})
+
+export const TypedDataSchema = z.object({
+  types: TypesSchema,
+  primaryType: z.string(),
+  domain: DomainSchema,
+  message: MessageSchema,
+})
+
+export const IPFSStrategyPayloadSchema = z.object({
+  typedData: TypedDataSchema,
+  signature: SignatureSchema,
+  strategy: StrategySchema,
+})
+
+export type Lien = z.infer<typeof LienSchema>
+export type Collection = z.infer<typeof CollectionSchema>
+export type Collateral = z.infer<typeof CollateralSchema>
+export type UniV3Collateral = z.infer<typeof UniV3CollateralSchema>
+export type StrategyDetails = z.infer<typeof StrategyDetailsSchema>
+export type StrategyRow = z.infer<typeof StrategyRowSchema>
+export type Strategy = z.infer<typeof StrategySchema>
+export type Type = z.infer<typeof TypeSchema>
+export type Types = z.infer<typeof TypesSchema>
+export type domain = z.infer<typeof DomainSchema>
+export type message = z.infer<typeof MessageSchema>
+export type TypedData = z.infer<typeof TypedDataSchema>
+export type Signature = z.infer<typeof SignatureSchema>
+export type IPFSStrategyPayload = z.infer<typeof IPFSStrategyPayloadSchema>

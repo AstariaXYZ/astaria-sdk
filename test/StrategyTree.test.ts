@@ -6,27 +6,24 @@ describe('StrategyTree', () => {
   test('test that all leaves are marshalled into StrategyTree', async () => {
     const csv = await readFile(join(__dirname, '__mocks__/test.csv'), 'utf8')
 
-    const strategyTree = new StrategyTree(csv)
-    const actual = strategyTree.getCSV.length
+    const strategyTree = StrategyTree.fromCSV(csv)
+    const actual = strategyTree.getStrategy.length
     const expected = 5
     expect(actual).toEqual(expected)
   })
-  test('convert parsedStrategyRow to StrategyTree', async () => {
+  test('convert Strategy to StrategyTree', async () => {
     const csv = await readFile(join(__dirname, '__mocks__/test.csv'), 'utf8')
-    const tempStrategyTree = new StrategyTree(csv)
-    const strategyTree = StrategyTree.fromParsedStrategyRow(
-      tempStrategyTree.getCSV
-    )
+    const tempStrategyTree = StrategyTree.fromCSV(csv)
+    const strategyTree = new StrategyTree(tempStrategyTree.getStrategy)
     expect(strategyTree.getHexRoot()).toEqual(tempStrategyTree.getHexRoot())
-    expect(strategyTree.getCSV).toEqual(tempStrategyTree.getCSV)
+    expect(strategyTree.getStrategy).toEqual(tempStrategyTree.getStrategy)
   })
   test('parses CSV into StrategyTree', async () => {
     const csv = await readFile(join(__dirname, '__mocks__/test.csv'), 'utf8')
-
-    const strategyTree = new StrategyTree(csv)
+    const strategyTree = StrategyTree.fromCSV(csv)
 
     expect(
-      '0x276a20acb0e3b40e3e98b20030585add5dd1c6c6f53b99b3bc0645809dd3eef0'
+      '0xcbeb8721b6594f56ddaa4fdac1ef416db4edd73b94d4be553ddb837dbe591d14'
     ).toEqual(strategyTree.getHexRoot())
   })
 })

@@ -1,9 +1,7 @@
 import { JsonRpcProvider } from '@ethersproject/providers'
-import { BigNumber } from '@ethersproject/bignumber'
 import {
   keccak256,
   defaultAbiCoder,
-  getAddress,
   splitSignature,
   joinSignature,
 } from 'ethers/lib/utils'
@@ -11,13 +9,15 @@ import { Wallet, Signature } from 'ethers'
 import invariant from 'tiny-invariant'
 
 import {
-  Lien,
   Collateral,
   Collection,
   Strategy,
   StrategyLeafType,
+  StrategyRowSchema,
+  IPFSStrategyPayloadSchema,
   IPFSStrategyPayload,
   TypedData,
+  StrategyDetails,
   UniV3Collateral,
 } from '../types'
 const ethSigUtil = require('eth-sig-util')
@@ -134,108 +134,36 @@ export const hashCollection = (collection: Collection): string => {
   return keccak256(encode)
 }
 
-export type ParsedStrategyRow = Array<Collateral | Collection | UniV3Collateral>
-
-export interface StrategyObjectFactory<RowType> {
-  (rowData: string): RowType
-}
-
-export const createCollateralOrCollection: StrategyObjectFactory<
-  Collateral | Collection | UniV3Collateral
-> = (rowData) => {
-  const row: any = RE_STRATEGY_ROW.exec(rowData)?.groups
-  switch (parseInt(row.type, 10)) {
-    case StrategyLeafType.Collateral: {
-      return {
-        type: StrategyLeafType.Collateral,
-        token: getAddress(row.token.toLowerCase()),
-        tokenId: BigNumber.from(String(row.tokenId)),
-        borrower: getAddress(row.borrower.toLowerCase()),
-        lien: {
-          amount: BigNumber.from(String(row.amount)),
-          rate: BigNumber.from(String(row.rate)),
-          duration: BigNumber.from(String(row.duration)),
-          maxPotentialDebt: BigNumber.from(String(row.maxPotentialDebt)),
-          liquidationInitialAsk: BigNumber.from(
-            String(row.liquidationInitialAsk)
-          ),
-        },
-      }
-    }
-
-    case StrategyLeafType.Collection: {
-      return {
-        type: StrategyLeafType.Collection,
-        token: getAddress(row.token.toLowerCase()),
-        borrower: getAddress(row.borrower.toLowerCase()),
-        lien: {
-          amount: BigNumber.from(String(row.amount)),
-          rate: BigNumber.from(String(row.rate)),
-          duration: BigNumber.from(String(row.duration)),
-          maxPotentialDebt: BigNumber.from(String(row.maxPotentialDebt)),
-          liquidationInitialAsk: BigNumber.from(
-            String(row.liquidationInitialAsk)
-          ),
-        },
-      }
-    }
-
-    case StrategyLeafType.UniV3Collateral: {
-      return {
-        type: StrategyLeafType.UniV3Collateral,
-        token: getAddress(row.token.toLowerCase()),
-        borrower: getAddress(row.borrower.toLowerCase()),
-        token0: getAddress(row.token0.toLowerCase()),
-        token1: getAddress(row.token1.toLowerCase()),
-        fee: BigNumber.from(String(row.fee)),
-        tickLower: BigNumber.from(String(row.tickLower)),
-        tickUpper: BigNumber.from(String(row.tickUpper)),
-        minLiquidity: BigNumber.from(String(row.minLiquidity)),
-        amount0Min: BigNumber.from(String(row.amount0Min)),
-        amount1Min: BigNumber.from(String(row.amount1Min)),
-        lien: {
-          amount: BigNumber.from(String(row.amount)),
-          rate: BigNumber.from(String(row.rate)),
-          duration: BigNumber.from(String(row.duration)),
-          maxPotentialDebt: BigNumber.from(String(row.maxPotentialDebt)),
-          liquidationInitialAsk: BigNumber.from(
-            String(row.liquidationInitialAsk)
-          ),
-        },
-      }
-    }
-  }
-
-  throw Error('invalid row')
-}
 export const RE_STRATEGY_ROW =
-  /^(?<type>\d+)[,]{1}(?<token>0x[a-fA-F0-9]{40})[,]{1}((?<tokenId>\d{0,78})[,]{1}){0,1}(?<borrower>0x[a-fA-F0-9]{40})[,]{1}((?<token0>0x[a-fA-F0-9]{40})[,]{1}(?<token1>0x[a-fA-F0-9]{40})[,]{1}(?<fee>\d{1,8})[,]{1}(?<tickLower>[-]{0,1}\d{1,8})[,]{1}(?<tickUpper>[-]{0,1}\d{1,8})[,]{1}(?<minLiquidity>\d{1,39})[,]{1}(?<amount0Min>\d{1,78})[,]{1}(?<amount1Min>\d{1,78})[,]{1}){0,1}(?<amount>\d{0,78})[,]{1}(?<rate>\d{0,78})[,]{1}(?<duration>\d{1,20})[,]{1}(?<maxPotentialDebt>\d{0,78})[,]{1}(?<liquidationInitialAsk>\d{0,78})$/
+  /^(?<type>[^,]*)[,](?<token>[^,]*)[,]((?<tokenId>[^,]*)[,]){0,1}(?<borrower>[^,]*)[,]((?<token0>[^,]*)[,](?<token1>[^,]*)[,](?<fee>[^,]*)[,](?<tickLower>[^,]*)[,](?<tickUpper>[^,]*)[,](?<minLiquidity>[^,]*)[,](?<amount0Min>[^,]*)[,](?<amount1Min>[^,]*)[,]){0,1}(?<amount>[^,]*)[,](?<rate>[^,]*)[,](?<duration>[^,]*)[,](?<maxPotentialDebt>[^,]*)[,](?<liquidationInitialAsk>[^,]*)$/
 
-const validateCollateralOrCollectionRow = (row: string): boolean =>
-  row.length > 0 && RE_STRATEGY_ROW.test(row)
+const trimAndSplitByLine = (strategy: string): string[] =>
+  strategy.replaceAll(' ', '').replaceAll('\r', '').split('\n')
 
-const trimAndSplitByLine = (csv: string): string[] =>
-  csv.replaceAll(' ', '').replaceAll('\r', '').split('\n')
-
-interface ValidateStrategyCSV {
-  (csv: string): ParsedStrategyRow
+export const getStrategyFromCSV = (csv: string): Strategy => {
+  return trimAndSplitByLine(csv)
+    .filter((row) => row.length > 0)
+    .map((row: string) => {
+      const data: any = RE_STRATEGY_ROW.exec(row)?.groups
+      const temp = {
+        ...data,
+        type: parseInt(data?.type),
+        lien: {
+          amount: data?.amount,
+          rate: data?.rate,
+          duration: data?.duration,
+          maxPotentialDebt: data?.maxPotentialDebt,
+          liquidationInitialAsk: data?.liquidationInitialAsk,
+        },
+      }
+      return StrategyRowSchema.parse(temp)
+    })
 }
-
-export const validate: ValidateStrategyCSV = (csv: string) => {
-  const rows = trimAndSplitByLine(csv)
-
-  const parsed = rows
-    .filter(validateCollateralOrCollectionRow)
-    .map(createCollateralOrCollection)
-
-  return parsed
-}
-
 // hashes the parameters of the terms and collateral to produce a single bytes32 value to act as the root
 export const prepareLeaves = (
-  csv: Array<Collateral | Collection | UniV3Collateral>
+  strategy: Array<Collateral | Collection | UniV3Collateral>
 ) => {
-  csv.forEach((row: Collateral | Collection | UniV3Collateral) => {
+  strategy.forEach((row: Collateral | Collection | UniV3Collateral) => {
     switch (row.type) {
       case StrategyLeafType.Collection: {
         row.leaf = hashCollection(row)
@@ -291,7 +219,7 @@ export const verifySignature = (typedData: TypedData, signature: Signature) => {
 }
 
 export const getTypedData = (
-  strategy: Strategy,
+  strategy: StrategyDetails,
   root: string,
   verifyingContract: string,
   chainId: number
@@ -326,53 +254,19 @@ export const getTypedData = (
 export const encodeIPFSStrategyPayload = (
   typedData: TypedData,
   signature: Signature,
-  csv: ParsedStrategyRow
+  strategy: Strategy
 ): string => {
   const payload: IPFSStrategyPayload = {
     typedData: typedData,
     signature: signature,
-    leaves: csv,
+    strategy: strategy,
   }
 
   return stringify(payload)
 }
 
 export const decodeIPFSStrategyPayload = (
-  strategy: string
+  ipfsStrategyPayload: string
 ): IPFSStrategyPayload => {
-  const data = JSON.parse(strategy)
-  let payload: IPFSStrategyPayload = data
-
-  payload.leaves = data.leaves.map((leaf: any) => {
-    leaf.lien = {
-      amount: BigNumber.from(`${leaf.lien.amount.hex}`),
-      duration: BigNumber.from(`${leaf.lien.duration.hex}`),
-      liquidationInitialAsk: BigNumber.from(
-        `${leaf.lien.liquidationInitialAsk.hex}`
-      ),
-      maxPotentialDebt: BigNumber.from(`${leaf.lien.maxPotentialDebt.hex}`),
-      rate: BigNumber.from(`${leaf.lien.rate.hex}`),
-    } as Lien
-
-    switch (leaf.type) {
-      case StrategyLeafType.Collateral: {
-        leaf.tokenId = BigNumber.from(`${leaf.tokenId.hex}`)
-        break
-      }
-      case StrategyLeafType.UniV3Collateral: {
-        leaf.amount0Min = BigNumber.from(leaf.amount0Min.hex)
-        leaf.amount1Min = BigNumber.from(leaf.amount1Min.hex)
-        leaf.fee = BigNumber.from(leaf.fee.hex)
-        leaf.minLiquidity = BigNumber.from(`${leaf.minLiquidity.hex}`)
-        leaf.tickLower = BigNumber.from(`${leaf.tickLower.hex}`)
-        leaf.tickUpper = BigNumber.from(`${leaf.tickUpper.hex}`)
-        break
-      }
-      default:
-        break
-    }
-    return leaf
-  })
-
-  return payload
+  return IPFSStrategyPayloadSchema.parse(JSON.parse(ipfsStrategyPayload))
 }

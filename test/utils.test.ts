@@ -14,7 +14,7 @@ import {
   verifySignature,
   getTypedData,
 } from '../src/strategy/utils'
-import { Strategy } from '../src/types'
+import { StrategyDetails } from '../src/types'
 
 const Hash = require('ipfs-only-hash')
 
@@ -33,9 +33,8 @@ describe('util.signRoot using remote', () => {
     const provider = new Web3Provider(ganacheProvider as ExternalProvider)
 
     const verifyingContract = AddressZero
-    const strategy: Strategy = {
+    const strategy: StrategyDetails = {
       version: 0,
-      delegate: AddressZero,
       expiration: BigNumber.from(0),
       nonce: BigNumber.from(0),
       vault: AddressZero,
@@ -57,9 +56,8 @@ describe('util.signRoot using remote', () => {
       'junk junk junk junk junk junk junk junk junk junk junk test'
     )
     const verifyingContract = AddressZero
-    const strategy: Strategy = {
+    const strategy: StrategyDetails = {
       version: 0,
-      delegate: AddressZero,
       expiration: BigNumber.from(0),
       nonce: BigNumber.from(0),
       vault: AddressZero,
@@ -78,17 +76,16 @@ describe('util.signRoot using remote', () => {
   })
   test('encoding and hashing for IPFS deterministically', async () => {
     const csv = await readFile(join(__dirname, '__mocks__/test.csv'), 'utf8')
-    const expected = 'QmSsqABZ2U72yJ8riiuaK3LccmapmCYY1tY1WB1DsUowgD'
-    const strategyTree = new StrategyTree(csv)
+    const expected = 'QmT4RWQy42Dtiiasb6s4RpqiVvVHMPneyJ5CA7adXf9StN'
+    const strategyTree = StrategyTree.fromCSV(csv)
 
     const root = strategyTree.getHexRoot()
     const wallet = Wallet.fromMnemonic(
       'junk junk junk junk junk junk junk junk junk junk junk test'
     )
     const verifyingContract = AddressZero
-    const strategy: Strategy = {
+    const strategy: StrategyDetails = {
       version: 0,
-      delegate: AddressZero,
       expiration: BigNumber.from(0),
       nonce: BigNumber.from(0),
       vault: AddressZero,
@@ -98,7 +95,7 @@ describe('util.signRoot using remote', () => {
     const strategyPayload = encodeIPFSStrategyPayload(
       typedData,
       signature,
-      strategyTree.getCSV
+      strategyTree.getStrategy
     )
     const actual = await Hash.of(strategyPayload)
     expect(actual).toEqual(expected)
@@ -108,9 +105,8 @@ describe('util.signRoot using remote', () => {
       'junk junk junk junk junk junk junk junk junk junk junk test'
     )
     const verifyingContract = AddressZero
-    const strategy: Strategy = {
+    const strategy: StrategyDetails = {
       version: 0,
-      delegate: AddressZero,
       expiration: BigNumber.from(0),
       nonce: BigNumber.from(0),
       vault: AddressZero,
