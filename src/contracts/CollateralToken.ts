@@ -200,103 +200,6 @@ export declare namespace ICollateralToken {
     what: number
     data: string
   }
-
-  export type ListUnderlyingForSaleParamsStruct = {
-    stack: ILienToken.StackStruct[]
-    listPrice: PromiseOrValue<BigNumberish>
-    maxDuration: PromiseOrValue<BigNumberish>
-  }
-
-  export type ListUnderlyingForSaleParamsStructOutput = [
-    ILienToken.StackStructOutput[],
-    BigNumber,
-    BigNumber
-  ] & {
-    stack: ILienToken.StackStructOutput[]
-    listPrice: BigNumber
-    maxDuration: BigNumber
-  }
-}
-
-export declare namespace ILienToken {
-  export type DetailsStruct = {
-    maxAmount: PromiseOrValue<BigNumberish>
-    rate: PromiseOrValue<BigNumberish>
-    duration: PromiseOrValue<BigNumberish>
-    maxPotentialDebt: PromiseOrValue<BigNumberish>
-    liquidationInitialAsk: PromiseOrValue<BigNumberish>
-  }
-
-  export type DetailsStructOutput = [
-    BigNumber,
-    BigNumber,
-    BigNumber,
-    BigNumber,
-    BigNumber
-  ] & {
-    maxAmount: BigNumber
-    rate: BigNumber
-    duration: BigNumber
-    maxPotentialDebt: BigNumber
-    liquidationInitialAsk: BigNumber
-  }
-
-  export type LienStruct = {
-    token: PromiseOrValue<string>
-    vault: PromiseOrValue<string>
-    strategyRoot: PromiseOrValue<BytesLike>
-    collateralId: PromiseOrValue<BigNumberish>
-    details: ILienToken.DetailsStruct
-  }
-
-  export type LienStructOutput = [
-    string,
-    string,
-    string,
-    BigNumber,
-    ILienToken.DetailsStructOutput
-  ] & {
-    token: string
-    vault: string
-    strategyRoot: string
-    collateralId: BigNumber
-    details: ILienToken.DetailsStructOutput
-  }
-
-  export type PointStruct = {
-    amount: PromiseOrValue<BigNumberish>
-    position: PromiseOrValue<BigNumberish>
-    last: PromiseOrValue<BigNumberish>
-    end: PromiseOrValue<BigNumberish>
-    lienId: PromiseOrValue<BigNumberish>
-  }
-
-  export type PointStructOutput = [
-    BigNumber,
-    number,
-    number,
-    number,
-    BigNumber
-  ] & {
-    amount: BigNumber
-    position: number
-    last: number
-    end: number
-    lienId: BigNumber
-  }
-
-  export type StackStruct = {
-    lien: ILienToken.LienStruct
-    point: ILienToken.PointStruct
-  }
-
-  export type StackStructOutput = [
-    ILienToken.LienStructOutput,
-    ILienToken.PointStructOutput
-  ] & {
-    lien: ILienToken.LienStructOutput
-    point: ILienToken.PointStructOutput
-  }
 }
 
 export interface CollateralTokenInterface extends utils.Interface {
@@ -313,13 +216,13 @@ export interface CollateralTokenInterface extends utils.Interface {
     'getClearingHouse(uint256)': FunctionFragment
     'getConduit()': FunctionFragment
     'getConduitKey()': FunctionFragment
-    'getOpenSeaData()': FunctionFragment
     'getUnderlying(uint256)': FunctionFragment
+    'initialize(address,address,address,address)': FunctionFragment
     'isApprovedForAll(address,address)': FunctionFragment
     'isValidOrder(bytes32,address,address,bytes32)': FunctionFragment
     'isValidOrderIncludingExtraData(bytes32,address,((address,address,(uint8,address,uint256,uint256,uint256)[],(uint8,address,uint256,uint256,uint256,address)[],uint8,uint256,uint256,bytes32,uint256,bytes32,uint256),uint120,uint120,bytes,bytes),bytes32[],(uint256,uint8,uint256,uint256,bytes32[])[])': FunctionFragment
     'liquidatorNFTClaim((address,address,(uint8,address,uint256,uint256,uint256)[],(uint8,address,uint256,uint256,uint256,address)[],uint8,uint256,uint256,bytes32,uint256,bytes32,uint256))': FunctionFragment
-    'listForSaleOnSeaport((((address,address,bytes32,uint256,(uint256,uint256,uint256,uint256,uint256)),(uint88,uint8,uint40,uint40,uint256))[],uint256,uint56))': FunctionFragment
+    'name()': FunctionFragment
     'onERC721Received(address,address,uint256,bytes)': FunctionFragment
     'owner()': FunctionFragment
     'ownerOf(uint256)': FunctionFragment
@@ -331,6 +234,7 @@ export interface CollateralTokenInterface extends utils.Interface {
     'setAuthority(address)': FunctionFragment
     'settleAuction(uint256)': FunctionFragment
     'supportsInterface(bytes4)': FunctionFragment
+    'symbol()': FunctionFragment
     'tokenURI(uint256)': FunctionFragment
     'transferFrom(address,address,uint256)': FunctionFragment
     'transferOwnership(address)': FunctionFragment
@@ -350,13 +254,13 @@ export interface CollateralTokenInterface extends utils.Interface {
       | 'getClearingHouse'
       | 'getConduit'
       | 'getConduitKey'
-      | 'getOpenSeaData'
       | 'getUnderlying'
+      | 'initialize'
       | 'isApprovedForAll'
       | 'isValidOrder'
       | 'isValidOrderIncludingExtraData'
       | 'liquidatorNFTClaim'
-      | 'listForSaleOnSeaport'
+      | 'name'
       | 'onERC721Received'
       | 'owner'
       | 'ownerOf'
@@ -368,6 +272,7 @@ export interface CollateralTokenInterface extends utils.Interface {
       | 'setAuthority'
       | 'settleAuction'
       | 'supportsInterface'
+      | 'symbol'
       | 'tokenURI'
       | 'transferFrom'
       | 'transferOwnership'
@@ -417,12 +322,17 @@ export interface CollateralTokenInterface extends utils.Interface {
     values?: undefined
   ): string
   encodeFunctionData(
-    functionFragment: 'getOpenSeaData',
-    values?: undefined
-  ): string
-  encodeFunctionData(
     functionFragment: 'getUnderlying',
     values: [PromiseOrValue<BigNumberish>]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'initialize',
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<string>,
+      PromiseOrValue<string>,
+      PromiseOrValue<string>
+    ]
   ): string
   encodeFunctionData(
     functionFragment: 'isApprovedForAll',
@@ -451,10 +361,7 @@ export interface CollateralTokenInterface extends utils.Interface {
     functionFragment: 'liquidatorNFTClaim',
     values: [OrderParametersStruct]
   ): string
-  encodeFunctionData(
-    functionFragment: 'listForSaleOnSeaport',
-    values: [ICollateralToken.ListUnderlyingForSaleParamsStruct]
-  ): string
+  encodeFunctionData(functionFragment: 'name', values?: undefined): string
   encodeFunctionData(
     functionFragment: 'onERC721Received',
     values: [
@@ -510,6 +417,7 @@ export interface CollateralTokenInterface extends utils.Interface {
     functionFragment: 'supportsInterface',
     values: [PromiseOrValue<BytesLike>]
   ): string
+  encodeFunctionData(functionFragment: 'symbol', values?: undefined): string
   encodeFunctionData(
     functionFragment: 'tokenURI',
     values: [PromiseOrValue<BigNumberish>]
@@ -549,13 +457,10 @@ export interface CollateralTokenInterface extends utils.Interface {
     data: BytesLike
   ): Result
   decodeFunctionResult(
-    functionFragment: 'getOpenSeaData',
-    data: BytesLike
-  ): Result
-  decodeFunctionResult(
     functionFragment: 'getUnderlying',
     data: BytesLike
   ): Result
+  decodeFunctionResult(functionFragment: 'initialize', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'isApprovedForAll',
     data: BytesLike
@@ -572,10 +477,7 @@ export interface CollateralTokenInterface extends utils.Interface {
     functionFragment: 'liquidatorNFTClaim',
     data: BytesLike
   ): Result
-  decodeFunctionResult(
-    functionFragment: 'listForSaleOnSeaport',
-    data: BytesLike
-  ): Result
+  decodeFunctionResult(functionFragment: 'name', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'onERC721Received',
     data: BytesLike
@@ -614,6 +516,7 @@ export interface CollateralTokenInterface extends utils.Interface {
     functionFragment: 'supportsInterface',
     data: BytesLike
   ): Result
+  decodeFunctionResult(functionFragment: 'symbol', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'tokenURI', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'transferFrom',
@@ -630,6 +533,7 @@ export interface CollateralTokenInterface extends utils.Interface {
     'AuthorityUpdated(address,address)': EventFragment
     'Deposit721(address,uint256,uint256,address)': EventFragment
     'FileUpdated(uint8,bytes)': EventFragment
+    'Initialized(uint8)': EventFragment
     'ListedOnSeaport(uint256,tuple)': EventFragment
     'OwnershipTransferred(address,address)': EventFragment
     'ReleaseTo(address,uint256,address)': EventFragment
@@ -641,6 +545,7 @@ export interface CollateralTokenInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: 'AuthorityUpdated'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Deposit721'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'FileUpdated'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'Initialized'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'ListedOnSeaport'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'OwnershipTransferred'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'ReleaseTo'): EventFragment
@@ -706,6 +611,13 @@ export type FileUpdatedEvent = TypedEvent<
 >
 
 export type FileUpdatedEventFilter = TypedEventFilter<FileUpdatedEvent>
+
+export interface InitializedEventObject {
+  version: number
+}
+export type InitializedEvent = TypedEvent<[number], InitializedEventObject>
+
+export type InitializedEventFilter = TypedEventFilter<InitializedEvent>
 
 export interface ListedOnSeaportEventObject {
   collateralId: BigNumber
@@ -832,12 +744,18 @@ export interface CollateralToken extends BaseContract {
 
     getConduitKey(overrides?: CallOverrides): Promise<[string]>
 
-    getOpenSeaData(overrides?: CallOverrides): Promise<[string, number, number]>
-
     getUnderlying(
       collateralId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[string, BigNumber]>
+
+    initialize(
+      AUTHORITY_: PromiseOrValue<string>,
+      TRANSFER_PROXY_: PromiseOrValue<string>,
+      LIEN_TOKEN_: PromiseOrValue<string>,
+      SEAPORT_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>
 
     isApprovedForAll(
       owner: PromiseOrValue<string>,
@@ -867,16 +785,13 @@ export interface CollateralToken extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>
 
-    listForSaleOnSeaport(
-      params: ICollateralToken.ListUnderlyingForSaleParamsStruct,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>
+    name(overrides?: CallOverrides): Promise<[string]>
 
     onERC721Received(
-      operator_: PromiseOrValue<string>,
+      arg0: PromiseOrValue<string>,
       from_: PromiseOrValue<string>,
       tokenId_: PromiseOrValue<BigNumberish>,
-      data_: PromiseOrValue<BytesLike>,
+      arg3: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>
 
@@ -933,6 +848,8 @@ export interface CollateralToken extends BaseContract {
       interfaceId: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<[boolean]>
+
+    symbol(overrides?: CallOverrides): Promise<[string]>
 
     tokenURI(
       collateralId: PromiseOrValue<BigNumberish>,
@@ -1003,12 +920,18 @@ export interface CollateralToken extends BaseContract {
 
   getConduitKey(overrides?: CallOverrides): Promise<string>
 
-  getOpenSeaData(overrides?: CallOverrides): Promise<[string, number, number]>
-
   getUnderlying(
     collateralId: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<[string, BigNumber]>
+
+  initialize(
+    AUTHORITY_: PromiseOrValue<string>,
+    TRANSFER_PROXY_: PromiseOrValue<string>,
+    LIEN_TOKEN_: PromiseOrValue<string>,
+    SEAPORT_: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>
 
   isApprovedForAll(
     owner: PromiseOrValue<string>,
@@ -1038,16 +961,13 @@ export interface CollateralToken extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>
 
-  listForSaleOnSeaport(
-    params: ICollateralToken.ListUnderlyingForSaleParamsStruct,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>
+  name(overrides?: CallOverrides): Promise<string>
 
   onERC721Received(
-    operator_: PromiseOrValue<string>,
+    arg0: PromiseOrValue<string>,
     from_: PromiseOrValue<string>,
     tokenId_: PromiseOrValue<BigNumberish>,
-    data_: PromiseOrValue<BytesLike>,
+    arg3: PromiseOrValue<BytesLike>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>
 
@@ -1104,6 +1024,8 @@ export interface CollateralToken extends BaseContract {
     interfaceId: PromiseOrValue<BytesLike>,
     overrides?: CallOverrides
   ): Promise<boolean>
+
+  symbol(overrides?: CallOverrides): Promise<string>
 
   tokenURI(
     collateralId: PromiseOrValue<BigNumberish>,
@@ -1174,12 +1096,18 @@ export interface CollateralToken extends BaseContract {
 
     getConduitKey(overrides?: CallOverrides): Promise<string>
 
-    getOpenSeaData(overrides?: CallOverrides): Promise<[string, number, number]>
-
     getUnderlying(
       collateralId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[string, BigNumber]>
+
+    initialize(
+      AUTHORITY_: PromiseOrValue<string>,
+      TRANSFER_PROXY_: PromiseOrValue<string>,
+      LIEN_TOKEN_: PromiseOrValue<string>,
+      SEAPORT_: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>
 
     isApprovedForAll(
       owner: PromiseOrValue<string>,
@@ -1209,16 +1137,13 @@ export interface CollateralToken extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>
 
-    listForSaleOnSeaport(
-      params: ICollateralToken.ListUnderlyingForSaleParamsStruct,
-      overrides?: CallOverrides
-    ): Promise<void>
+    name(overrides?: CallOverrides): Promise<string>
 
     onERC721Received(
-      operator_: PromiseOrValue<string>,
+      arg0: PromiseOrValue<string>,
       from_: PromiseOrValue<string>,
       tokenId_: PromiseOrValue<BigNumberish>,
-      data_: PromiseOrValue<BytesLike>,
+      arg3: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<string>
 
@@ -1275,6 +1200,8 @@ export interface CollateralToken extends BaseContract {
       interfaceId: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<boolean>
+
+    symbol(overrides?: CallOverrides): Promise<string>
 
     tokenURI(
       collateralId: PromiseOrValue<BigNumberish>,
@@ -1341,6 +1268,9 @@ export interface CollateralToken extends BaseContract {
 
     'FileUpdated(uint8,bytes)'(what?: null, data?: null): FileUpdatedEventFilter
     FileUpdated(what?: null, data?: null): FileUpdatedEventFilter
+
+    'Initialized(uint8)'(version?: null): InitializedEventFilter
+    Initialized(version?: null): InitializedEventFilter
 
     'ListedOnSeaport(uint256,tuple)'(
       collateralId?: null,
@@ -1435,11 +1365,17 @@ export interface CollateralToken extends BaseContract {
 
     getConduitKey(overrides?: CallOverrides): Promise<BigNumber>
 
-    getOpenSeaData(overrides?: CallOverrides): Promise<BigNumber>
-
     getUnderlying(
       collateralId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
+    ): Promise<BigNumber>
+
+    initialize(
+      AUTHORITY_: PromiseOrValue<string>,
+      TRANSFER_PROXY_: PromiseOrValue<string>,
+      LIEN_TOKEN_: PromiseOrValue<string>,
+      SEAPORT_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>
 
     isApprovedForAll(
@@ -1470,16 +1406,13 @@ export interface CollateralToken extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>
 
-    listForSaleOnSeaport(
-      params: ICollateralToken.ListUnderlyingForSaleParamsStruct,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>
+    name(overrides?: CallOverrides): Promise<BigNumber>
 
     onERC721Received(
-      operator_: PromiseOrValue<string>,
+      arg0: PromiseOrValue<string>,
       from_: PromiseOrValue<string>,
       tokenId_: PromiseOrValue<BigNumberish>,
-      data_: PromiseOrValue<BytesLike>,
+      arg3: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>
 
@@ -1536,6 +1469,8 @@ export interface CollateralToken extends BaseContract {
       interfaceId: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<BigNumber>
+
+    symbol(overrides?: CallOverrides): Promise<BigNumber>
 
     tokenURI(
       collateralId: PromiseOrValue<BigNumberish>,
@@ -1607,11 +1542,17 @@ export interface CollateralToken extends BaseContract {
 
     getConduitKey(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    getOpenSeaData(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
     getUnderlying(
       collateralId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
+    initialize(
+      AUTHORITY_: PromiseOrValue<string>,
+      TRANSFER_PROXY_: PromiseOrValue<string>,
+      LIEN_TOKEN_: PromiseOrValue<string>,
+      SEAPORT_: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>
 
     isApprovedForAll(
@@ -1642,16 +1583,13 @@ export interface CollateralToken extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>
 
-    listForSaleOnSeaport(
-      params: ICollateralToken.ListUnderlyingForSaleParamsStruct,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>
+    name(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     onERC721Received(
-      operator_: PromiseOrValue<string>,
+      arg0: PromiseOrValue<string>,
       from_: PromiseOrValue<string>,
       tokenId_: PromiseOrValue<BigNumberish>,
-      data_: PromiseOrValue<BytesLike>,
+      arg3: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>
 
@@ -1708,6 +1646,8 @@ export interface CollateralToken extends BaseContract {
       interfaceId: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
+
+    symbol(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     tokenURI(
       collateralId: PromiseOrValue<BigNumberish>,

@@ -57,11 +57,11 @@ export declare namespace IPublicVault {
   }
 
   export type LiquidationPaymentParamsStruct = {
-    lienEnd: PromiseOrValue<BigNumberish>
+    remaining: PromiseOrValue<BigNumberish>
   }
 
   export type LiquidationPaymentParamsStructOutput = [BigNumber] & {
-    lienEnd: BigNumber
+    remaining: BigNumber
   }
 
   export type AfterLiquidationParamsStruct = {
@@ -75,77 +75,6 @@ export declare namespace IPublicVault {
     BigNumber,
     number
   ] & { lienSlope: BigNumber; newAmount: BigNumber; lienEnd: number }
-}
-
-export declare namespace IAstariaRouter {
-  export type StrategyDetailsStruct = {
-    version: PromiseOrValue<BigNumberish>
-    deadline: PromiseOrValue<BigNumberish>
-    vault: PromiseOrValue<string>
-  }
-
-  export type StrategyDetailsStructOutput = [number, BigNumber, string] & {
-    version: number
-    deadline: BigNumber
-    vault: string
-  }
-
-  export type MerkleDataStruct = {
-    root: PromiseOrValue<BytesLike>
-    proof: PromiseOrValue<BytesLike>[]
-  }
-
-  export type MerkleDataStructOutput = [string, string[]] & {
-    root: string
-    proof: string[]
-  }
-
-  export type NewLienRequestStruct = {
-    strategy: IAstariaRouter.StrategyDetailsStruct
-    stack: ILienToken.StackStruct[]
-    nlrDetails: PromiseOrValue<BytesLike>
-    merkle: IAstariaRouter.MerkleDataStruct
-    amount: PromiseOrValue<BigNumberish>
-    v: PromiseOrValue<BigNumberish>
-    r: PromiseOrValue<BytesLike>
-    s: PromiseOrValue<BytesLike>
-  }
-
-  export type NewLienRequestStructOutput = [
-    IAstariaRouter.StrategyDetailsStructOutput,
-    ILienToken.StackStructOutput[],
-    string,
-    IAstariaRouter.MerkleDataStructOutput,
-    BigNumber,
-    number,
-    string,
-    string
-  ] & {
-    strategy: IAstariaRouter.StrategyDetailsStructOutput
-    stack: ILienToken.StackStructOutput[]
-    nlrDetails: string
-    merkle: IAstariaRouter.MerkleDataStructOutput
-    amount: BigNumber
-    v: number
-    r: string
-    s: string
-  }
-
-  export type CommitmentStruct = {
-    tokenContract: PromiseOrValue<string>
-    tokenId: PromiseOrValue<BigNumberish>
-    lienRequest: IAstariaRouter.NewLienRequestStruct
-  }
-
-  export type CommitmentStructOutput = [
-    string,
-    BigNumber,
-    IAstariaRouter.NewLienRequestStructOutput
-  ] & {
-    tokenContract: string
-    tokenId: BigNumber
-    lienRequest: IAstariaRouter.NewLienRequestStructOutput
-  }
 }
 
 export declare namespace ILienToken {
@@ -172,6 +101,7 @@ export declare namespace ILienToken {
   }
 
   export type LienStruct = {
+    collateralType: PromiseOrValue<BigNumberish>
     token: PromiseOrValue<string>
     vault: PromiseOrValue<string>
     strategyRoot: PromiseOrValue<BytesLike>
@@ -180,12 +110,14 @@ export declare namespace ILienToken {
   }
 
   export type LienStructOutput = [
+    number,
     string,
     string,
     string,
     BigNumber,
     ILienToken.DetailsStructOutput
   ] & {
+    collateralType: number
     token: string
     vault: string
     strategyRoot: string
@@ -195,21 +127,13 @@ export declare namespace ILienToken {
 
   export type PointStruct = {
     amount: PromiseOrValue<BigNumberish>
-    position: PromiseOrValue<BigNumberish>
     last: PromiseOrValue<BigNumberish>
     end: PromiseOrValue<BigNumberish>
     lienId: PromiseOrValue<BigNumberish>
   }
 
-  export type PointStructOutput = [
-    BigNumber,
-    number,
-    number,
-    number,
-    BigNumber
-  ] & {
+  export type PointStructOutput = [BigNumber, number, number, BigNumber] & {
     amount: BigNumber
-    position: number
     last: number
     end: number
     lienId: BigNumber
@@ -226,6 +150,77 @@ export declare namespace ILienToken {
   ] & {
     lien: ILienToken.LienStructOutput
     point: ILienToken.PointStructOutput
+  }
+}
+
+export declare namespace IAstariaRouter {
+  export type StrategyDetailsParamStruct = {
+    version: PromiseOrValue<BigNumberish>
+    deadline: PromiseOrValue<BigNumberish>
+    vault: PromiseOrValue<string>
+  }
+
+  export type StrategyDetailsParamStructOutput = [number, BigNumber, string] & {
+    version: number
+    deadline: BigNumber
+    vault: string
+  }
+
+  export type MerkleDataStruct = {
+    root: PromiseOrValue<BytesLike>
+    proof: PromiseOrValue<BytesLike>[]
+  }
+
+  export type MerkleDataStructOutput = [string, string[]] & {
+    root: string
+    proof: string[]
+  }
+
+  export type NewLienRequestStruct = {
+    strategy: IAstariaRouter.StrategyDetailsParamStruct
+    stack: ILienToken.StackStruct[]
+    nlrDetails: PromiseOrValue<BytesLike>
+    merkle: IAstariaRouter.MerkleDataStruct
+    amount: PromiseOrValue<BigNumberish>
+    v: PromiseOrValue<BigNumberish>
+    r: PromiseOrValue<BytesLike>
+    s: PromiseOrValue<BytesLike>
+  }
+
+  export type NewLienRequestStructOutput = [
+    IAstariaRouter.StrategyDetailsParamStructOutput,
+    ILienToken.StackStructOutput[],
+    string,
+    IAstariaRouter.MerkleDataStructOutput,
+    BigNumber,
+    number,
+    string,
+    string
+  ] & {
+    strategy: IAstariaRouter.StrategyDetailsParamStructOutput
+    stack: ILienToken.StackStructOutput[]
+    nlrDetails: string
+    merkle: IAstariaRouter.MerkleDataStructOutput
+    amount: BigNumber
+    v: number
+    r: string
+    s: string
+  }
+
+  export type CommitmentStruct = {
+    tokenContract: PromiseOrValue<string>
+    tokenId: PromiseOrValue<BigNumberish>
+    lienRequest: IAstariaRouter.NewLienRequestStruct
+  }
+
+  export type CommitmentStructOutput = [
+    string,
+    BigNumber,
+    IAstariaRouter.NewLienRequestStructOutput
+  ] & {
+    tokenContract: string
+    tokenId: BigNumber
+    lienRequest: IAstariaRouter.NewLienRequestStructOutput
   }
 }
 
@@ -268,9 +263,9 @@ export interface PublicVaultInterface extends utils.Interface {
     'asset()': FunctionFragment
     'balanceOf(address)': FunctionFragment
     'beforePayment((uint256,uint256,uint256))': FunctionFragment
-    'buyoutLien(uint256,uint8,(address,uint256,((uint8,uint256,address),((address,address,bytes32,uint256,(uint256,uint256,uint256,uint256,uint256)),(uint88,uint8,uint40,uint40,uint256))[],bytes,(bytes32,bytes32[]),uint256,uint8,bytes32,bytes32)),((address,address,bytes32,uint256,(uint256,uint256,uint256,uint256,uint256)),(uint88,uint8,uint40,uint40,uint256))[])': FunctionFragment
+    'buyoutLien(((uint8,address,address,bytes32,uint256,(uint256,uint256,uint256,uint256,uint256)),(uint88,uint40,uint40,uint256))[],uint8,(address,uint256,((uint8,uint256,address),((uint8,address,address,bytes32,uint256,(uint256,uint256,uint256,uint256,uint256)),(uint88,uint40,uint40,uint256))[],bytes,(bytes32,bytes32[]),uint256,uint8,bytes32,bytes32)))': FunctionFragment
     'claim()': FunctionFragment
-    'commitToLien((address,uint256,((uint8,uint256,address),((address,address,bytes32,uint256,(uint256,uint256,uint256,uint256,uint256)),(uint88,uint8,uint40,uint40,uint256))[],bytes,(bytes32,bytes32[]),uint256,uint8,bytes32,bytes32)),address)': FunctionFragment
+    'commitToLien((address,uint256,((uint8,uint256,address),((uint8,address,address,bytes32,uint256,(uint256,uint256,uint256,uint256,uint256)),(uint88,uint40,uint40,uint256))[],bytes,(bytes32,bytes32[]),uint256,uint8,bytes32,bytes32)),address)': FunctionFragment
     'convertToAssets(uint256)': FunctionFragment
     'convertToShares(uint256)': FunctionFragment
     'decimals()': FunctionFragment
@@ -292,12 +287,14 @@ export interface PublicVaultInterface extends utils.Interface {
     'getWithdrawReserve()': FunctionFragment
     'getYIntercept()': FunctionFragment
     'handleBuyoutLien((uint256,uint256,uint256))': FunctionFragment
+    'increaseYIntercept(uint256)': FunctionFragment
     'incrementNonce()': FunctionFragment
     'init((address,bool,address[],uint256))': FunctionFragment
     'maxDeposit(address)': FunctionFragment
     'maxMint(address)': FunctionFragment
     'maxRedeem(address)': FunctionFragment
     'maxWithdraw(address)': FunctionFragment
+    'minDepositAmount()': FunctionFragment
     'mint(uint256,address)': FunctionFragment
     'modifyAllowList(address,bool)': FunctionFragment
     'modifyDepositCap(uint256)': FunctionFragment
@@ -372,12 +369,14 @@ export interface PublicVaultInterface extends utils.Interface {
       | 'getWithdrawReserve'
       | 'getYIntercept'
       | 'handleBuyoutLien'
+      | 'increaseYIntercept'
       | 'incrementNonce'
       | 'init'
       | 'maxDeposit'
       | 'maxMint'
       | 'maxRedeem'
       | 'maxWithdraw'
+      | 'minDepositAmount'
       | 'mint'
       | 'modifyAllowList'
       | 'modifyDepositCap'
@@ -456,10 +455,9 @@ export interface PublicVaultInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: 'buyoutLien',
     values: [
+      ILienToken.StackStruct[],
       PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>,
-      IAstariaRouter.CommitmentStruct,
-      ILienToken.StackStruct[]
+      IAstariaRouter.CommitmentStruct
     ]
   ): string
   encodeFunctionData(functionFragment: 'claim', values?: undefined): string
@@ -502,7 +500,10 @@ export interface PublicVaultInterface extends utils.Interface {
   ): string
   encodeFunctionData(
     functionFragment: 'encodeStrategyData',
-    values: [IAstariaRouter.StrategyDetailsStruct, PromiseOrValue<BytesLike>]
+    values: [
+      IAstariaRouter.StrategyDetailsParamStruct,
+      PromiseOrValue<BytesLike>
+    ]
   ): string
   encodeFunctionData(
     functionFragment: 'getCurrentEpoch',
@@ -546,6 +547,10 @@ export interface PublicVaultInterface extends utils.Interface {
     values: [IPublicVault.BuyoutLienParamsStruct]
   ): string
   encodeFunctionData(
+    functionFragment: 'increaseYIntercept',
+    values: [PromiseOrValue<BigNumberish>]
+  ): string
+  encodeFunctionData(
     functionFragment: 'incrementNonce',
     values?: undefined
   ): string
@@ -568,6 +573,10 @@ export interface PublicVaultInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: 'maxWithdraw',
     values: [PromiseOrValue<string>]
+  ): string
+  encodeFunctionData(
+    functionFragment: 'minDepositAmount',
+    values?: undefined
   ): string
   encodeFunctionData(
     functionFragment: 'mint',
@@ -818,6 +827,10 @@ export interface PublicVaultInterface extends utils.Interface {
     data: BytesLike
   ): Result
   decodeFunctionResult(
+    functionFragment: 'increaseYIntercept',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
     functionFragment: 'incrementNonce',
     data: BytesLike
   ): Result
@@ -826,6 +839,10 @@ export interface PublicVaultInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'maxMint', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'maxRedeem', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'maxWithdraw', data: BytesLike): Result
+  decodeFunctionResult(
+    functionFragment: 'minDepositAmount',
+    data: BytesLike
+  ): Result
   decodeFunctionResult(functionFragment: 'mint', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'modifyAllowList',
@@ -906,11 +923,17 @@ export interface PublicVaultInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'withdraw', data: BytesLike): Result
 
   events: {
+    'AllowListEnabled(bool)': EventFragment
+    'AllowListUpdated(address,bool)': EventFragment
     'Approval(address,address,uint256)': EventFragment
+    'DelegateUpdated(address)': EventFragment
     'Deposit(address,address,uint256,uint256)': EventFragment
-    'IncrementNonce(uint32)': EventFragment
+    'IncrementNonce(uint256)': EventFragment
     'LienOpen(uint256,uint256)': EventFragment
-    'NonceUpdated(uint32)': EventFragment
+    'LiensOpenForEpochRemaining(uint64,uint256)': EventFragment
+    'NonceUpdated(uint256)': EventFragment
+    'SlopeUpdated(uint48)': EventFragment
+    'StrategistFee(uint88)': EventFragment
     'Transfer(address,address,uint256)': EventFragment
     'VaultShutdown()': EventFragment
     'Withdraw(address,address,address,uint256,uint256)': EventFragment
@@ -918,17 +941,46 @@ export interface PublicVaultInterface extends utils.Interface {
     'YInterceptChanged(uint88)': EventFragment
   }
 
+  getEvent(nameOrSignatureOrTopic: 'AllowListEnabled'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'AllowListUpdated'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Approval'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'DelegateUpdated'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Deposit'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'IncrementNonce'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'LienOpen'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'LiensOpenForEpochRemaining'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'NonceUpdated'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'SlopeUpdated'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'StrategistFee'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Transfer'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'VaultShutdown'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Withdraw'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'WithdrawReserveTransferred'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'YInterceptChanged'): EventFragment
 }
+
+export interface AllowListEnabledEventObject {
+  arg0: boolean
+}
+export type AllowListEnabledEvent = TypedEvent<
+  [boolean],
+  AllowListEnabledEventObject
+>
+
+export type AllowListEnabledEventFilter =
+  TypedEventFilter<AllowListEnabledEvent>
+
+export interface AllowListUpdatedEventObject {
+  arg0: string
+  arg1: boolean
+}
+export type AllowListUpdatedEvent = TypedEvent<
+  [string, boolean],
+  AllowListUpdatedEventObject
+>
+
+export type AllowListUpdatedEventFilter =
+  TypedEventFilter<AllowListUpdatedEvent>
 
 export interface ApprovalEventObject {
   owner: string
@@ -941,6 +993,16 @@ export type ApprovalEvent = TypedEvent<
 >
 
 export type ApprovalEventFilter = TypedEventFilter<ApprovalEvent>
+
+export interface DelegateUpdatedEventObject {
+  arg0: string
+}
+export type DelegateUpdatedEvent = TypedEvent<
+  [string],
+  DelegateUpdatedEventObject
+>
+
+export type DelegateUpdatedEventFilter = TypedEventFilter<DelegateUpdatedEvent>
 
 export interface DepositEventObject {
   sender: string
@@ -956,10 +1018,10 @@ export type DepositEvent = TypedEvent<
 export type DepositEventFilter = TypedEventFilter<DepositEvent>
 
 export interface IncrementNonceEventObject {
-  nonce: number
+  nonce: BigNumber
 }
 export type IncrementNonceEvent = TypedEvent<
-  [number],
+  [BigNumber],
   IncrementNonceEventObject
 >
 
@@ -976,12 +1038,41 @@ export type LienOpenEvent = TypedEvent<
 
 export type LienOpenEventFilter = TypedEventFilter<LienOpenEvent>
 
-export interface NonceUpdatedEventObject {
-  nonce: number
+export interface LiensOpenForEpochRemainingEventObject {
+  epoch: BigNumber
+  liensOpenForEpoch: BigNumber
 }
-export type NonceUpdatedEvent = TypedEvent<[number], NonceUpdatedEventObject>
+export type LiensOpenForEpochRemainingEvent = TypedEvent<
+  [BigNumber, BigNumber],
+  LiensOpenForEpochRemainingEventObject
+>
+
+export type LiensOpenForEpochRemainingEventFilter =
+  TypedEventFilter<LiensOpenForEpochRemainingEvent>
+
+export interface NonceUpdatedEventObject {
+  nonce: BigNumber
+}
+export type NonceUpdatedEvent = TypedEvent<[BigNumber], NonceUpdatedEventObject>
 
 export type NonceUpdatedEventFilter = TypedEventFilter<NonceUpdatedEvent>
+
+export interface SlopeUpdatedEventObject {
+  newSlope: number
+}
+export type SlopeUpdatedEvent = TypedEvent<[number], SlopeUpdatedEventObject>
+
+export type SlopeUpdatedEventFilter = TypedEventFilter<SlopeUpdatedEvent>
+
+export interface StrategistFeeEventObject {
+  feeInShares: BigNumber
+}
+export type StrategistFeeEvent = TypedEvent<
+  [BigNumber],
+  StrategistFeeEventObject
+>
+
+export type StrategistFeeEventFilter = TypedEventFilter<StrategistFeeEvent>
 
 export interface TransferEventObject {
   from: string
@@ -1115,10 +1206,9 @@ export interface PublicVault extends BaseContract {
     ): Promise<ContractTransaction>
 
     buyoutLien(
-      collateralId: PromiseOrValue<BigNumberish>,
+      stack: ILienToken.StackStruct[],
       position: PromiseOrValue<BigNumberish>,
       incomingTerms: IAstariaRouter.CommitmentStruct,
-      stack: ILienToken.StackStruct[],
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>
 
@@ -1171,7 +1261,7 @@ export interface PublicVault extends BaseContract {
     ): Promise<ContractTransaction>
 
     encodeStrategyData(
-      strategy: IAstariaRouter.StrategyDetailsStruct,
+      strategy: IAstariaRouter.StrategyDetailsParamStruct,
       root: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<[string]>
@@ -1194,7 +1284,7 @@ export interface PublicVault extends BaseContract {
 
     getSlope(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    getStrategistNonce(overrides?: CallOverrides): Promise<[number]>
+    getStrategistNonce(overrides?: CallOverrides): Promise<[BigNumber]>
 
     getWithdrawProxy(
       epoch: PromiseOrValue<BigNumberish>,
@@ -1207,6 +1297,11 @@ export interface PublicVault extends BaseContract {
 
     handleBuyoutLien(
       params: IPublicVault.BuyoutLienParamsStruct,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>
+
+    increaseYIntercept(
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>
 
@@ -1239,6 +1334,8 @@ export interface PublicVault extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber]>
 
+    minDepositAmount(overrides?: CallOverrides): Promise<[BigNumber]>
+
     mint(
       shares: PromiseOrValue<BigNumberish>,
       receiver: PromiseOrValue<string>,
@@ -1259,10 +1356,10 @@ export interface PublicVault extends BaseContract {
     name(overrides?: CallOverrides): Promise<[string]>
 
     onERC721Received(
-      operator_: PromiseOrValue<string>,
-      from_: PromiseOrValue<string>,
-      tokenId_: PromiseOrValue<BigNumberish>,
-      data_: PromiseOrValue<BytesLike>,
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<string>,
+      arg2: PromiseOrValue<BigNumberish>,
+      arg3: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<[string]>
 
@@ -1437,10 +1534,9 @@ export interface PublicVault extends BaseContract {
   ): Promise<ContractTransaction>
 
   buyoutLien(
-    collateralId: PromiseOrValue<BigNumberish>,
+    stack: ILienToken.StackStruct[],
     position: PromiseOrValue<BigNumberish>,
     incomingTerms: IAstariaRouter.CommitmentStruct,
-    stack: ILienToken.StackStruct[],
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>
 
@@ -1493,7 +1589,7 @@ export interface PublicVault extends BaseContract {
   ): Promise<ContractTransaction>
 
   encodeStrategyData(
-    strategy: IAstariaRouter.StrategyDetailsStruct,
+    strategy: IAstariaRouter.StrategyDetailsParamStruct,
     root: PromiseOrValue<BytesLike>,
     overrides?: CallOverrides
   ): Promise<string>
@@ -1516,7 +1612,7 @@ export interface PublicVault extends BaseContract {
 
   getSlope(overrides?: CallOverrides): Promise<BigNumber>
 
-  getStrategistNonce(overrides?: CallOverrides): Promise<number>
+  getStrategistNonce(overrides?: CallOverrides): Promise<BigNumber>
 
   getWithdrawProxy(
     epoch: PromiseOrValue<BigNumberish>,
@@ -1529,6 +1625,11 @@ export interface PublicVault extends BaseContract {
 
   handleBuyoutLien(
     params: IPublicVault.BuyoutLienParamsStruct,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>
+
+  increaseYIntercept(
+    amount: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>
 
@@ -1561,6 +1662,8 @@ export interface PublicVault extends BaseContract {
     overrides?: CallOverrides
   ): Promise<BigNumber>
 
+  minDepositAmount(overrides?: CallOverrides): Promise<BigNumber>
+
   mint(
     shares: PromiseOrValue<BigNumberish>,
     receiver: PromiseOrValue<string>,
@@ -1581,10 +1684,10 @@ export interface PublicVault extends BaseContract {
   name(overrides?: CallOverrides): Promise<string>
 
   onERC721Received(
-    operator_: PromiseOrValue<string>,
-    from_: PromiseOrValue<string>,
-    tokenId_: PromiseOrValue<BigNumberish>,
-    data_: PromiseOrValue<BytesLike>,
+    arg0: PromiseOrValue<string>,
+    arg1: PromiseOrValue<string>,
+    arg2: PromiseOrValue<BigNumberish>,
+    arg3: PromiseOrValue<BytesLike>,
     overrides?: CallOverrides
   ): Promise<string>
 
@@ -1757,10 +1860,9 @@ export interface PublicVault extends BaseContract {
     ): Promise<void>
 
     buyoutLien(
-      collateralId: PromiseOrValue<BigNumberish>,
+      stack: ILienToken.StackStruct[],
       position: PromiseOrValue<BigNumberish>,
       incomingTerms: IAstariaRouter.CommitmentStruct,
-      stack: ILienToken.StackStruct[],
       overrides?: CallOverrides
     ): Promise<[ILienToken.StackStructOutput[], ILienToken.StackStructOutput]>
 
@@ -1771,9 +1873,10 @@ export interface PublicVault extends BaseContract {
       receiver: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<
-      [BigNumber, ILienToken.StackStructOutput[]] & {
+      [BigNumber, ILienToken.StackStructOutput[], BigNumber] & {
         lienId: BigNumber
         stack: ILienToken.StackStructOutput[]
+        payout: BigNumber
       }
     >
 
@@ -1812,7 +1915,7 @@ export interface PublicVault extends BaseContract {
     enableAllowList(overrides?: CallOverrides): Promise<void>
 
     encodeStrategyData(
-      strategy: IAstariaRouter.StrategyDetailsStruct,
+      strategy: IAstariaRouter.StrategyDetailsParamStruct,
       root: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<string>
@@ -1835,7 +1938,7 @@ export interface PublicVault extends BaseContract {
 
     getSlope(overrides?: CallOverrides): Promise<BigNumber>
 
-    getStrategistNonce(overrides?: CallOverrides): Promise<number>
+    getStrategistNonce(overrides?: CallOverrides): Promise<BigNumber>
 
     getWithdrawProxy(
       epoch: PromiseOrValue<BigNumberish>,
@@ -1848,6 +1951,11 @@ export interface PublicVault extends BaseContract {
 
     handleBuyoutLien(
       params: IPublicVault.BuyoutLienParamsStruct,
+      overrides?: CallOverrides
+    ): Promise<void>
+
+    increaseYIntercept(
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>
 
@@ -1878,6 +1986,8 @@ export interface PublicVault extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>
 
+    minDepositAmount(overrides?: CallOverrides): Promise<BigNumber>
+
     mint(
       shares: PromiseOrValue<BigNumberish>,
       receiver: PromiseOrValue<string>,
@@ -1898,10 +2008,10 @@ export interface PublicVault extends BaseContract {
     name(overrides?: CallOverrides): Promise<string>
 
     onERC721Received(
-      operator_: PromiseOrValue<string>,
-      from_: PromiseOrValue<string>,
-      tokenId_: PromiseOrValue<BigNumberish>,
-      data_: PromiseOrValue<BytesLike>,
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<string>,
+      arg2: PromiseOrValue<BigNumberish>,
+      arg3: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<string>
 
@@ -2019,6 +2129,15 @@ export interface PublicVault extends BaseContract {
   }
 
   filters: {
+    'AllowListEnabled(bool)'(arg0?: null): AllowListEnabledEventFilter
+    AllowListEnabled(arg0?: null): AllowListEnabledEventFilter
+
+    'AllowListUpdated(address,bool)'(
+      arg0?: null,
+      arg1?: null
+    ): AllowListUpdatedEventFilter
+    AllowListUpdated(arg0?: null, arg1?: null): AllowListUpdatedEventFilter
+
     'Approval(address,address,uint256)'(
       owner?: PromiseOrValue<string> | null,
       spender?: PromiseOrValue<string> | null,
@@ -2029,6 +2148,9 @@ export interface PublicVault extends BaseContract {
       spender?: PromiseOrValue<string> | null,
       value?: null
     ): ApprovalEventFilter
+
+    'DelegateUpdated(address)'(arg0?: null): DelegateUpdatedEventFilter
+    DelegateUpdated(arg0?: null): DelegateUpdatedEventFilter
 
     'Deposit(address,address,uint256,uint256)'(
       sender?: PromiseOrValue<string> | null,
@@ -2043,7 +2165,7 @@ export interface PublicVault extends BaseContract {
       shares?: null
     ): DepositEventFilter
 
-    'IncrementNonce(uint32)'(nonce?: null): IncrementNonceEventFilter
+    'IncrementNonce(uint256)'(nonce?: null): IncrementNonceEventFilter
     IncrementNonce(nonce?: null): IncrementNonceEventFilter
 
     'LienOpen(uint256,uint256)'(
@@ -2052,8 +2174,23 @@ export interface PublicVault extends BaseContract {
     ): LienOpenEventFilter
     LienOpen(lienId?: null, epoch?: null): LienOpenEventFilter
 
-    'NonceUpdated(uint32)'(nonce?: null): NonceUpdatedEventFilter
+    'LiensOpenForEpochRemaining(uint64,uint256)'(
+      epoch?: null,
+      liensOpenForEpoch?: null
+    ): LiensOpenForEpochRemainingEventFilter
+    LiensOpenForEpochRemaining(
+      epoch?: null,
+      liensOpenForEpoch?: null
+    ): LiensOpenForEpochRemainingEventFilter
+
+    'NonceUpdated(uint256)'(nonce?: null): NonceUpdatedEventFilter
     NonceUpdated(nonce?: null): NonceUpdatedEventFilter
+
+    'SlopeUpdated(uint48)'(newSlope?: null): SlopeUpdatedEventFilter
+    SlopeUpdated(newSlope?: null): SlopeUpdatedEventFilter
+
+    'StrategistFee(uint88)'(feeInShares?: null): StrategistFeeEventFilter
+    StrategistFee(feeInShares?: null): StrategistFeeEventFilter
 
     'Transfer(address,address,uint256)'(
       from?: PromiseOrValue<string> | null,
@@ -2150,10 +2287,9 @@ export interface PublicVault extends BaseContract {
     ): Promise<BigNumber>
 
     buyoutLien(
-      collateralId: PromiseOrValue<BigNumberish>,
+      stack: ILienToken.StackStruct[],
       position: PromiseOrValue<BigNumberish>,
       incomingTerms: IAstariaRouter.CommitmentStruct,
-      stack: ILienToken.StackStruct[],
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>
 
@@ -2206,7 +2342,7 @@ export interface PublicVault extends BaseContract {
     ): Promise<BigNumber>
 
     encodeStrategyData(
-      strategy: IAstariaRouter.StrategyDetailsStruct,
+      strategy: IAstariaRouter.StrategyDetailsParamStruct,
       root: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<BigNumber>
@@ -2245,6 +2381,11 @@ export interface PublicVault extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>
 
+    increaseYIntercept(
+      amount: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>
+
     incrementNonce(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>
@@ -2274,6 +2415,8 @@ export interface PublicVault extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>
 
+    minDepositAmount(overrides?: CallOverrides): Promise<BigNumber>
+
     mint(
       shares: PromiseOrValue<BigNumberish>,
       receiver: PromiseOrValue<string>,
@@ -2294,10 +2437,10 @@ export interface PublicVault extends BaseContract {
     name(overrides?: CallOverrides): Promise<BigNumber>
 
     onERC721Received(
-      operator_: PromiseOrValue<string>,
-      from_: PromiseOrValue<string>,
-      tokenId_: PromiseOrValue<BigNumberish>,
-      data_: PromiseOrValue<BytesLike>,
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<string>,
+      arg2: PromiseOrValue<BigNumberish>,
+      arg3: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<BigNumber>
 
@@ -2473,10 +2616,9 @@ export interface PublicVault extends BaseContract {
     ): Promise<PopulatedTransaction>
 
     buyoutLien(
-      collateralId: PromiseOrValue<BigNumberish>,
+      stack: ILienToken.StackStruct[],
       position: PromiseOrValue<BigNumberish>,
       incomingTerms: IAstariaRouter.CommitmentStruct,
-      stack: ILienToken.StackStruct[],
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>
 
@@ -2529,7 +2671,7 @@ export interface PublicVault extends BaseContract {
     ): Promise<PopulatedTransaction>
 
     encodeStrategyData(
-      strategy: IAstariaRouter.StrategyDetailsStruct,
+      strategy: IAstariaRouter.StrategyDetailsParamStruct,
       root: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
@@ -2570,6 +2712,11 @@ export interface PublicVault extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>
 
+    increaseYIntercept(
+      amount: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>
+
     incrementNonce(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>
@@ -2599,6 +2746,8 @@ export interface PublicVault extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 
+    minDepositAmount(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
     mint(
       shares: PromiseOrValue<BigNumberish>,
       receiver: PromiseOrValue<string>,
@@ -2619,10 +2768,10 @@ export interface PublicVault extends BaseContract {
     name(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     onERC721Received(
-      operator_: PromiseOrValue<string>,
-      from_: PromiseOrValue<string>,
-      tokenId_: PromiseOrValue<BigNumberish>,
-      data_: PromiseOrValue<BytesLike>,
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<string>,
+      arg2: PromiseOrValue<BigNumberish>,
+      arg3: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 

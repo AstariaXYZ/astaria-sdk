@@ -2,14 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 export { AstariaRouter__factory } from './AstariaRouter__factory'
-export { AuctionHouse__factory } from './AuctionHouse__factory'
-export { ClearingHouse__factory } from './ClearingHouse__factory'
 export { CollateralToken__factory } from './CollateralToken__factory'
-export { CollectionValidator__factory } from './CollectionValidator__factory'
-export { ICollectionValidator__factory } from './ICollectionValidator__factory'
-export { IFlashAction__factory } from './IFlashAction__factory'
 export { LienToken__factory } from './LienToken__factory'
 export { PublicVault__factory } from './PublicVault__factory'
 export { Vault__factory } from './Vault__factory'
-export { VaultImplementation__factory } from './VaultImplementation__factory'
 export { WithdrawProxy__factory } from './WithdrawProxy__factory'

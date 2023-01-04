@@ -53,9 +53,9 @@ export interface WithdrawProxyInterface extends utils.Interface {
     'maxMint(address)': FunctionFragment
     'maxRedeem(address)': FunctionFragment
     'maxWithdraw(address)': FunctionFragment
+    'minDepositAmount()': FunctionFragment
     'mint(uint256,address)': FunctionFragment
     'name()': FunctionFragment
-    'owner()': FunctionFragment
     'permit(address,address,uint256,uint256,uint8,bytes32,bytes32)': FunctionFragment
     'previewDeposit(uint256)': FunctionFragment
     'previewMint(uint256)': FunctionFragment
@@ -98,9 +98,9 @@ export interface WithdrawProxyInterface extends utils.Interface {
       | 'maxMint'
       | 'maxRedeem'
       | 'maxWithdraw'
+      | 'minDepositAmount'
       | 'mint'
       | 'name'
-      | 'owner'
       | 'permit'
       | 'previewDeposit'
       | 'previewMint'
@@ -196,11 +196,14 @@ export interface WithdrawProxyInterface extends utils.Interface {
     values: [PromiseOrValue<string>]
   ): string
   encodeFunctionData(
+    functionFragment: 'minDepositAmount',
+    values?: undefined
+  ): string
+  encodeFunctionData(
     functionFragment: 'mint',
     values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
   ): string
   encodeFunctionData(functionFragment: 'name', values?: undefined): string
-  encodeFunctionData(functionFragment: 'owner', values?: undefined): string
   encodeFunctionData(
     functionFragment: 'permit',
     values: [
@@ -323,9 +326,12 @@ export interface WithdrawProxyInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'maxMint', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'maxRedeem', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'maxWithdraw', data: BytesLike): Result
+  decodeFunctionResult(
+    functionFragment: 'minDepositAmount',
+    data: BytesLike
+  ): Result
   decodeFunctionResult(functionFragment: 'mint', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'name', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'owner', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'permit', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'previewDeposit',
@@ -559,6 +565,8 @@ export interface WithdrawProxy extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber]>
 
+    minDepositAmount(overrides?: CallOverrides): Promise<[BigNumber]>
+
     mint(
       shares: PromiseOrValue<BigNumberish>,
       receiver: PromiseOrValue<string>,
@@ -566,8 +574,6 @@ export interface WithdrawProxy extends BaseContract {
     ): Promise<ContractTransaction>
 
     name(overrides?: CallOverrides): Promise<[string]>
-
-    owner(overrides?: CallOverrides): Promise<[string]>
 
     permit(
       owner: PromiseOrValue<string>,
@@ -738,6 +744,8 @@ export interface WithdrawProxy extends BaseContract {
     overrides?: CallOverrides
   ): Promise<BigNumber>
 
+  minDepositAmount(overrides?: CallOverrides): Promise<BigNumber>
+
   mint(
     shares: PromiseOrValue<BigNumberish>,
     receiver: PromiseOrValue<string>,
@@ -745,8 +753,6 @@ export interface WithdrawProxy extends BaseContract {
   ): Promise<ContractTransaction>
 
   name(overrides?: CallOverrides): Promise<string>
-
-  owner(overrides?: CallOverrides): Promise<string>
 
   permit(
     owner: PromiseOrValue<string>,
@@ -915,6 +921,8 @@ export interface WithdrawProxy extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>
 
+    minDepositAmount(overrides?: CallOverrides): Promise<BigNumber>
+
     mint(
       shares: PromiseOrValue<BigNumberish>,
       receiver: PromiseOrValue<string>,
@@ -922,8 +930,6 @@ export interface WithdrawProxy extends BaseContract {
     ): Promise<BigNumber>
 
     name(overrides?: CallOverrides): Promise<string>
-
-    owner(overrides?: CallOverrides): Promise<string>
 
     permit(
       owner: PromiseOrValue<string>,
@@ -1160,6 +1166,8 @@ export interface WithdrawProxy extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>
 
+    minDepositAmount(overrides?: CallOverrides): Promise<BigNumber>
+
     mint(
       shares: PromiseOrValue<BigNumberish>,
       receiver: PromiseOrValue<string>,
@@ -1167,8 +1175,6 @@ export interface WithdrawProxy extends BaseContract {
     ): Promise<BigNumber>
 
     name(overrides?: CallOverrides): Promise<BigNumber>
-
-    owner(overrides?: CallOverrides): Promise<BigNumber>
 
     permit(
       owner: PromiseOrValue<string>,
@@ -1340,6 +1346,8 @@ export interface WithdrawProxy extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 
+    minDepositAmount(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
     mint(
       shares: PromiseOrValue<BigNumberish>,
       receiver: PromiseOrValue<string>,
@@ -1347,8 +1355,6 @@ export interface WithdrawProxy extends BaseContract {
     ): Promise<PopulatedTransaction>
 
     name(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
-    owner(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     permit(
       owner: PromiseOrValue<string>,

@@ -139,6 +139,7 @@ export declare namespace ILienToken {
   }
 
   export type LienStruct = {
+    collateralType: PromiseOrValue<BigNumberish>
     token: PromiseOrValue<string>
     vault: PromiseOrValue<string>
     strategyRoot: PromiseOrValue<BytesLike>
@@ -147,12 +148,14 @@ export declare namespace ILienToken {
   }
 
   export type LienStructOutput = [
+    number,
     string,
     string,
     string,
     BigNumber,
     ILienToken.DetailsStructOutput
   ] & {
+    collateralType: number
     token: string
     vault: string
     strategyRoot: string
@@ -162,21 +165,13 @@ export declare namespace ILienToken {
 
   export type PointStruct = {
     amount: PromiseOrValue<BigNumberish>
-    position: PromiseOrValue<BigNumberish>
     last: PromiseOrValue<BigNumberish>
     end: PromiseOrValue<BigNumberish>
     lienId: PromiseOrValue<BigNumberish>
   }
 
-  export type PointStructOutput = [
-    BigNumber,
-    number,
-    number,
-    number,
-    BigNumber
-  ] & {
+  export type PointStructOutput = [BigNumber, number, number, BigNumber] & {
     amount: BigNumber
-    position: number
     last: number
     end: number
     lienId: BigNumber
@@ -197,13 +192,13 @@ export declare namespace ILienToken {
 }
 
 export declare namespace IAstariaRouter {
-  export type StrategyDetailsStruct = {
+  export type StrategyDetailsParamStruct = {
     version: PromiseOrValue<BigNumberish>
     deadline: PromiseOrValue<BigNumberish>
     vault: PromiseOrValue<string>
   }
 
-  export type StrategyDetailsStructOutput = [number, BigNumber, string] & {
+  export type StrategyDetailsParamStructOutput = [number, BigNumber, string] & {
     version: number
     deadline: BigNumber
     vault: string
@@ -220,7 +215,7 @@ export declare namespace IAstariaRouter {
   }
 
   export type NewLienRequestStruct = {
-    strategy: IAstariaRouter.StrategyDetailsStruct
+    strategy: IAstariaRouter.StrategyDetailsParamStruct
     stack: ILienToken.StackStruct[]
     nlrDetails: PromiseOrValue<BytesLike>
     merkle: IAstariaRouter.MerkleDataStruct
@@ -231,7 +226,7 @@ export declare namespace IAstariaRouter {
   }
 
   export type NewLienRequestStructOutput = [
-    IAstariaRouter.StrategyDetailsStructOutput,
+    IAstariaRouter.StrategyDetailsParamStructOutput,
     ILienToken.StackStructOutput[],
     string,
     IAstariaRouter.MerkleDataStructOutput,
@@ -240,7 +235,7 @@ export declare namespace IAstariaRouter {
     string,
     string
   ] & {
-    strategy: IAstariaRouter.StrategyDetailsStructOutput
+    strategy: IAstariaRouter.StrategyDetailsParamStructOutput
     stack: ILienToken.StackStructOutput[]
     nlrDetails: string
     merkle: IAstariaRouter.MerkleDataStructOutput
@@ -283,12 +278,13 @@ export interface AstariaRouterInterface extends utils.Interface {
     'COLLATERAL_TOKEN()': FunctionFragment
     'LIEN_TOKEN()': FunctionFragment
     'TRANSFER_PROXY()': FunctionFragment
-    'WETH()': FunctionFragment
+    '__acceptGuardian()': FunctionFragment
     '__emergencyPause()': FunctionFragment
     '__emergencyUnpause()': FunctionFragment
+    '__renounceGuardian()': FunctionFragment
     'authority()': FunctionFragment
-    'canLiquidate(((address,address,bytes32,uint256,(uint256,uint256,uint256,uint256,uint256)),(uint88,uint8,uint40,uint40,uint256)))': FunctionFragment
-    'commitToLiens((address,uint256,((uint8,uint256,address),((address,address,bytes32,uint256,(uint256,uint256,uint256,uint256,uint256)),(uint88,uint8,uint40,uint40,uint256))[],bytes,(bytes32,bytes32[]),uint256,uint8,bytes32,bytes32))[])': FunctionFragment
+    'canLiquidate(((uint8,address,address,bytes32,uint256,(uint256,uint256,uint256,uint256,uint256)),(uint88,uint40,uint40,uint256)))': FunctionFragment
+    'commitToLiens((address,uint256,((uint8,uint256,address),((uint8,address,address,bytes32,uint256,(uint256,uint256,uint256,uint256,uint256)),(uint88,uint40,uint40,uint256))[],bytes,(bytes32,bytes32[]),uint256,uint8,bytes32,bytes32))[])': FunctionFragment
     'deposit(address,address,uint256,uint256)': FunctionFragment
     'depositMax(address,address,uint256)': FunctionFragment
     'depositToVault(address,address,uint256,uint256)': FunctionFragment
@@ -301,26 +297,25 @@ export interface AstariaRouterInterface extends utils.Interface {
     'getImpl(uint8)': FunctionFragment
     'getLiquidatorFee(uint256)': FunctionFragment
     'getProtocolFee(uint256)': FunctionFragment
-    'getStrategistFee(uint256)': FunctionFragment
-    'isValidRefinance((address,address,bytes32,uint256,(uint256,uint256,uint256,uint256,uint256)),uint8,((address,address,bytes32,uint256,(uint256,uint256,uint256,uint256,uint256)),(uint88,uint8,uint40,uint40,uint256))[])': FunctionFragment
+    'initialize(address,address,address,address,address,address,address,address,address)': FunctionFragment
+    'isValidRefinance((uint8,address,address,bytes32,uint256,(uint256,uint256,uint256,uint256,uint256)),uint8,((uint8,address,address,bytes32,uint256,(uint256,uint256,uint256,uint256,uint256)),(uint88,uint40,uint40,uint256))[])': FunctionFragment
     'isValidVault(address)': FunctionFragment
-    'liquidate(((address,address,bytes32,uint256,(uint256,uint256,uint256,uint256,uint256)),(uint88,uint8,uint40,uint40,uint256))[],uint8)': FunctionFragment
-    'maxInterestRate()': FunctionFragment
+    'liquidate(((uint8,address,address,bytes32,uint256,(uint256,uint256,uint256,uint256,uint256)),(uint88,uint40,uint40,uint256))[],uint8)': FunctionFragment
     'mint(address,address,uint256,uint256)': FunctionFragment
     'multicall(bytes[])': FunctionFragment
-    'newPublicVault(uint256,address,uint256,bool,address[],uint256)': FunctionFragment
-    'newVault(address)': FunctionFragment
+    'newPublicVault(uint256,address,address,uint256,bool,address[],uint256)': FunctionFragment
+    'newVault(address,address)': FunctionFragment
     'owner()': FunctionFragment
     'paused()': FunctionFragment
     'pullToken(address,uint256,address)': FunctionFragment
     'redeem(address,address,uint256,uint256)': FunctionFragment
     'redeemFutureEpoch(address,uint256,address,uint64)': FunctionFragment
     'redeemMax(address,address,uint256)': FunctionFragment
-    'requestLienPosition((address,uint256,((uint8,uint256,address),((address,address,bytes32,uint256,(uint256,uint256,uint256,uint256,uint256)),(uint88,uint8,uint40,uint40,uint256))[],bytes,(bytes32,bytes32[]),uint256,uint8,bytes32,bytes32)),address)': FunctionFragment
+    'requestLienPosition((address,uint256,((uint8,uint256,address),((uint8,address,address,bytes32,uint256,(uint256,uint256,uint256,uint256,uint256)),(uint88,uint40,uint40,uint256))[],bytes,(bytes32,bytes32[]),uint256,uint8,bytes32,bytes32)),address)': FunctionFragment
     'setAuthority(address)': FunctionFragment
     'setNewGuardian(address)': FunctionFragment
     'transferOwnership(address)': FunctionFragment
-    'validateCommitment((address,uint256,((uint8,uint256,address),((address,address,bytes32,uint256,(uint256,uint256,uint256,uint256,uint256)),(uint88,uint8,uint40,uint40,uint256))[],bytes,(bytes32,bytes32[]),uint256,uint8,bytes32,bytes32)),uint256)': FunctionFragment
+    'validateCommitment((address,uint256,((uint8,uint256,address),((uint8,address,address,bytes32,uint256,(uint256,uint256,uint256,uint256,uint256)),(uint88,uint40,uint40,uint256))[],bytes,(bytes32,bytes32[]),uint256,uint8,bytes32,bytes32)),uint256)': FunctionFragment
     'withdraw(address,address,uint256,uint256)': FunctionFragment
   }
 
@@ -330,9 +325,10 @@ export interface AstariaRouterInterface extends utils.Interface {
       | 'COLLATERAL_TOKEN'
       | 'LIEN_TOKEN'
       | 'TRANSFER_PROXY'
-      | 'WETH'
+      | '__acceptGuardian'
       | '__emergencyPause'
       | '__emergencyUnpause'
+      | '__renounceGuardian'
       | 'authority'
       | 'canLiquidate'
       | 'commitToLiens'
@@ -348,11 +344,10 @@ export interface AstariaRouterInterface extends utils.Interface {
       | 'getImpl'
       | 'getLiquidatorFee'
       | 'getProtocolFee'
-      | 'getStrategistFee'
+      | 'initialize'
       | 'isValidRefinance'
       | 'isValidVault'
       | 'liquidate'
-      | 'maxInterestRate'
       | 'mint'
       | 'multicall'
       | 'newPublicVault'
@@ -384,13 +379,20 @@ export interface AstariaRouterInterface extends utils.Interface {
     functionFragment: 'TRANSFER_PROXY',
     values?: undefined
   ): string
-  encodeFunctionData(functionFragment: 'WETH', values?: undefined): string
+  encodeFunctionData(
+    functionFragment: '__acceptGuardian',
+    values?: undefined
+  ): string
   encodeFunctionData(
     functionFragment: '__emergencyPause',
     values?: undefined
   ): string
   encodeFunctionData(
     functionFragment: '__emergencyUnpause',
+    values?: undefined
+  ): string
+  encodeFunctionData(
+    functionFragment: '__renounceGuardian',
     values?: undefined
   ): string
   encodeFunctionData(functionFragment: 'authority', values?: undefined): string
@@ -462,8 +464,18 @@ export interface AstariaRouterInterface extends utils.Interface {
     values: [PromiseOrValue<BigNumberish>]
   ): string
   encodeFunctionData(
-    functionFragment: 'getStrategistFee',
-    values: [PromiseOrValue<BigNumberish>]
+    functionFragment: 'initialize',
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<string>,
+      PromiseOrValue<string>,
+      PromiseOrValue<string>,
+      PromiseOrValue<string>,
+      PromiseOrValue<string>,
+      PromiseOrValue<string>,
+      PromiseOrValue<string>,
+      PromiseOrValue<string>
+    ]
   ): string
   encodeFunctionData(
     functionFragment: 'isValidRefinance',
@@ -480,10 +492,6 @@ export interface AstariaRouterInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: 'liquidate',
     values: [ILienToken.StackStruct[], PromiseOrValue<BigNumberish>]
-  ): string
-  encodeFunctionData(
-    functionFragment: 'maxInterestRate',
-    values?: undefined
   ): string
   encodeFunctionData(
     functionFragment: 'mint',
@@ -503,6 +511,7 @@ export interface AstariaRouterInterface extends utils.Interface {
     values: [
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<string>,
+      PromiseOrValue<string>,
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<boolean>,
       PromiseOrValue<string>[],
@@ -511,7 +520,7 @@ export interface AstariaRouterInterface extends utils.Interface {
   ): string
   encodeFunctionData(
     functionFragment: 'newVault',
-    values: [PromiseOrValue<string>]
+    values: [PromiseOrValue<string>, PromiseOrValue<string>]
   ): string
   encodeFunctionData(functionFragment: 'owner', values?: undefined): string
   encodeFunctionData(functionFragment: 'paused', values?: undefined): string
@@ -592,13 +601,20 @@ export interface AstariaRouterInterface extends utils.Interface {
     functionFragment: 'TRANSFER_PROXY',
     data: BytesLike
   ): Result
-  decodeFunctionResult(functionFragment: 'WETH', data: BytesLike): Result
+  decodeFunctionResult(
+    functionFragment: '__acceptGuardian',
+    data: BytesLike
+  ): Result
   decodeFunctionResult(
     functionFragment: '__emergencyPause',
     data: BytesLike
   ): Result
   decodeFunctionResult(
     functionFragment: '__emergencyUnpause',
+    data: BytesLike
+  ): Result
+  decodeFunctionResult(
+    functionFragment: '__renounceGuardian',
     data: BytesLike
   ): Result
   decodeFunctionResult(functionFragment: 'authority', data: BytesLike): Result
@@ -640,10 +656,7 @@ export interface AstariaRouterInterface extends utils.Interface {
     functionFragment: 'getProtocolFee',
     data: BytesLike
   ): Result
-  decodeFunctionResult(
-    functionFragment: 'getStrategistFee',
-    data: BytesLike
-  ): Result
+  decodeFunctionResult(functionFragment: 'initialize', data: BytesLike): Result
   decodeFunctionResult(
     functionFragment: 'isValidRefinance',
     data: BytesLike
@@ -653,10 +666,6 @@ export interface AstariaRouterInterface extends utils.Interface {
     data: BytesLike
   ): Result
   decodeFunctionResult(functionFragment: 'liquidate', data: BytesLike): Result
-  decodeFunctionResult(
-    functionFragment: 'maxInterestRate',
-    data: BytesLike
-  ): Result
   decodeFunctionResult(functionFragment: 'mint', data: BytesLike): Result
   decodeFunctionResult(functionFragment: 'multicall', data: BytesLike): Result
   decodeFunctionResult(
@@ -698,6 +707,7 @@ export interface AstariaRouterInterface extends utils.Interface {
   events: {
     'AuthorityUpdated(address,address)': EventFragment
     'FileUpdated(uint8,bytes)': EventFragment
+    'Initialized(uint8)': EventFragment
     'Liquidation(uint256,uint256)': EventFragment
     'NewVault(address,address,address,uint8)': EventFragment
     'OwnershipTransferred(address,address)': EventFragment
@@ -707,6 +717,7 @@ export interface AstariaRouterInterface extends utils.Interface {
 
   getEvent(nameOrSignatureOrTopic: 'AuthorityUpdated'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'FileUpdated'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'Initialized'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'Liquidation'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'NewVault'): EventFragment
   getEvent(nameOrSignatureOrTopic: 'OwnershipTransferred'): EventFragment
@@ -736,6 +747,13 @@ export type FileUpdatedEvent = TypedEvent<
 >
 
 export type FileUpdatedEventFilter = TypedEventFilter<FileUpdatedEvent>
+
+export interface InitializedEventObject {
+  version: number
+}
+export type InitializedEvent = TypedEvent<[number], InitializedEventObject>
+
+export type InitializedEventFilter = TypedEventFilter<InitializedEvent>
 
 export interface LiquidationEventObject {
   collateralId: BigNumber
@@ -822,13 +840,19 @@ export interface AstariaRouter extends BaseContract {
 
     TRANSFER_PROXY(overrides?: CallOverrides): Promise<[string]>
 
-    WETH(overrides?: CallOverrides): Promise<[string]>
+    __acceptGuardian(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>
 
     __emergencyPause(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>
 
     __emergencyUnpause(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>
+
+    __renounceGuardian(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>
 
@@ -909,10 +933,18 @@ export interface AstariaRouter extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber]>
 
-    getStrategistFee(
-      amountIn: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>
+    initialize(
+      _AUTHORITY: PromiseOrValue<string>,
+      _COLLATERAL_TOKEN: PromiseOrValue<string>,
+      _LIEN_TOKEN: PromiseOrValue<string>,
+      _TRANSFER_PROXY: PromiseOrValue<string>,
+      _VAULT_IMPL: PromiseOrValue<string>,
+      _SOLO_IMPL: PromiseOrValue<string>,
+      _WITHDRAW_IMPL: PromiseOrValue<string>,
+      _BEACON_PROXY_IMPL: PromiseOrValue<string>,
+      _CLEARING_HOUSE_IMPL: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>
 
     isValidRefinance(
       newLien: ILienToken.LienStruct,
@@ -932,8 +964,6 @@ export interface AstariaRouter extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>
 
-    maxInterestRate(overrides?: CallOverrides): Promise<[BigNumber]>
-
     mint(
       vault: PromiseOrValue<string>,
       to: PromiseOrValue<string>,
@@ -950,6 +980,7 @@ export interface AstariaRouter extends BaseContract {
     newPublicVault(
       epochLength: PromiseOrValue<BigNumberish>,
       delegate: PromiseOrValue<string>,
+      underlying: PromiseOrValue<string>,
       vaultFee: PromiseOrValue<BigNumberish>,
       allowListEnabled: PromiseOrValue<boolean>,
       allowList: PromiseOrValue<string>[],
@@ -959,6 +990,7 @@ export interface AstariaRouter extends BaseContract {
 
     newVault(
       delegate: PromiseOrValue<string>,
+      underlying: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>
 
@@ -1042,13 +1074,19 @@ export interface AstariaRouter extends BaseContract {
 
   TRANSFER_PROXY(overrides?: CallOverrides): Promise<string>
 
-  WETH(overrides?: CallOverrides): Promise<string>
+  __acceptGuardian(
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>
 
   __emergencyPause(
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>
 
   __emergencyUnpause(
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>
+
+  __renounceGuardian(
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>
 
@@ -1129,10 +1167,18 @@ export interface AstariaRouter extends BaseContract {
     overrides?: CallOverrides
   ): Promise<BigNumber>
 
-  getStrategistFee(
-    amountIn: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>
+  initialize(
+    _AUTHORITY: PromiseOrValue<string>,
+    _COLLATERAL_TOKEN: PromiseOrValue<string>,
+    _LIEN_TOKEN: PromiseOrValue<string>,
+    _TRANSFER_PROXY: PromiseOrValue<string>,
+    _VAULT_IMPL: PromiseOrValue<string>,
+    _SOLO_IMPL: PromiseOrValue<string>,
+    _WITHDRAW_IMPL: PromiseOrValue<string>,
+    _BEACON_PROXY_IMPL: PromiseOrValue<string>,
+    _CLEARING_HOUSE_IMPL: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>
 
   isValidRefinance(
     newLien: ILienToken.LienStruct,
@@ -1152,8 +1198,6 @@ export interface AstariaRouter extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>
 
-  maxInterestRate(overrides?: CallOverrides): Promise<BigNumber>
-
   mint(
     vault: PromiseOrValue<string>,
     to: PromiseOrValue<string>,
@@ -1170,6 +1214,7 @@ export interface AstariaRouter extends BaseContract {
   newPublicVault(
     epochLength: PromiseOrValue<BigNumberish>,
     delegate: PromiseOrValue<string>,
+    underlying: PromiseOrValue<string>,
     vaultFee: PromiseOrValue<BigNumberish>,
     allowListEnabled: PromiseOrValue<boolean>,
     allowList: PromiseOrValue<string>[],
@@ -1179,6 +1224,7 @@ export interface AstariaRouter extends BaseContract {
 
   newVault(
     delegate: PromiseOrValue<string>,
+    underlying: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>
 
@@ -1260,11 +1306,13 @@ export interface AstariaRouter extends BaseContract {
 
     TRANSFER_PROXY(overrides?: CallOverrides): Promise<string>
 
-    WETH(overrides?: CallOverrides): Promise<string>
+    __acceptGuardian(overrides?: CallOverrides): Promise<void>
 
     __emergencyPause(overrides?: CallOverrides): Promise<void>
 
     __emergencyUnpause(overrides?: CallOverrides): Promise<void>
+
+    __renounceGuardian(overrides?: CallOverrides): Promise<void>
 
     authority(overrides?: CallOverrides): Promise<string>
 
@@ -1348,10 +1396,18 @@ export interface AstariaRouter extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>
 
-    getStrategistFee(
-      amountIn: PromiseOrValue<BigNumberish>,
+    initialize(
+      _AUTHORITY: PromiseOrValue<string>,
+      _COLLATERAL_TOKEN: PromiseOrValue<string>,
+      _LIEN_TOKEN: PromiseOrValue<string>,
+      _TRANSFER_PROXY: PromiseOrValue<string>,
+      _VAULT_IMPL: PromiseOrValue<string>,
+      _SOLO_IMPL: PromiseOrValue<string>,
+      _WITHDRAW_IMPL: PromiseOrValue<string>,
+      _BEACON_PROXY_IMPL: PromiseOrValue<string>,
+      _CLEARING_HOUSE_IMPL: PromiseOrValue<string>,
       overrides?: CallOverrides
-    ): Promise<BigNumber>
+    ): Promise<void>
 
     isValidRefinance(
       newLien: ILienToken.LienStruct,
@@ -1371,8 +1427,6 @@ export interface AstariaRouter extends BaseContract {
       overrides?: CallOverrides
     ): Promise<OrderParametersStructOutput>
 
-    maxInterestRate(overrides?: CallOverrides): Promise<BigNumber>
-
     mint(
       vault: PromiseOrValue<string>,
       to: PromiseOrValue<string>,
@@ -1389,6 +1443,7 @@ export interface AstariaRouter extends BaseContract {
     newPublicVault(
       epochLength: PromiseOrValue<BigNumberish>,
       delegate: PromiseOrValue<string>,
+      underlying: PromiseOrValue<string>,
       vaultFee: PromiseOrValue<BigNumberish>,
       allowListEnabled: PromiseOrValue<boolean>,
       allowList: PromiseOrValue<string>[],
@@ -1398,6 +1453,7 @@ export interface AstariaRouter extends BaseContract {
 
     newVault(
       delegate: PromiseOrValue<string>,
+      underlying: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<string>
 
@@ -1484,6 +1540,9 @@ export interface AstariaRouter extends BaseContract {
     'FileUpdated(uint8,bytes)'(what?: null, data?: null): FileUpdatedEventFilter
     FileUpdated(what?: null, data?: null): FileUpdatedEventFilter
 
+    'Initialized(uint8)'(version?: null): InitializedEventFilter
+    Initialized(version?: null): InitializedEventFilter
+
     'Liquidation(uint256,uint256)'(
       collateralId?: null,
       position?: null
@@ -1528,13 +1587,19 @@ export interface AstariaRouter extends BaseContract {
 
     TRANSFER_PROXY(overrides?: CallOverrides): Promise<BigNumber>
 
-    WETH(overrides?: CallOverrides): Promise<BigNumber>
+    __acceptGuardian(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>
 
     __emergencyPause(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>
 
     __emergencyUnpause(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>
+
+    __renounceGuardian(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>
 
@@ -1615,9 +1680,17 @@ export interface AstariaRouter extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>
 
-    getStrategistFee(
-      amountIn: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+    initialize(
+      _AUTHORITY: PromiseOrValue<string>,
+      _COLLATERAL_TOKEN: PromiseOrValue<string>,
+      _LIEN_TOKEN: PromiseOrValue<string>,
+      _TRANSFER_PROXY: PromiseOrValue<string>,
+      _VAULT_IMPL: PromiseOrValue<string>,
+      _SOLO_IMPL: PromiseOrValue<string>,
+      _WITHDRAW_IMPL: PromiseOrValue<string>,
+      _BEACON_PROXY_IMPL: PromiseOrValue<string>,
+      _CLEARING_HOUSE_IMPL: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>
 
     isValidRefinance(
@@ -1638,8 +1711,6 @@ export interface AstariaRouter extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>
 
-    maxInterestRate(overrides?: CallOverrides): Promise<BigNumber>
-
     mint(
       vault: PromiseOrValue<string>,
       to: PromiseOrValue<string>,
@@ -1656,6 +1727,7 @@ export interface AstariaRouter extends BaseContract {
     newPublicVault(
       epochLength: PromiseOrValue<BigNumberish>,
       delegate: PromiseOrValue<string>,
+      underlying: PromiseOrValue<string>,
       vaultFee: PromiseOrValue<BigNumberish>,
       allowListEnabled: PromiseOrValue<boolean>,
       allowList: PromiseOrValue<string>[],
@@ -1665,6 +1737,7 @@ export interface AstariaRouter extends BaseContract {
 
     newVault(
       delegate: PromiseOrValue<string>,
+      underlying: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>
 
@@ -1749,13 +1822,19 @@ export interface AstariaRouter extends BaseContract {
 
     TRANSFER_PROXY(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    WETH(overrides?: CallOverrides): Promise<PopulatedTransaction>
+    __acceptGuardian(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>
 
     __emergencyPause(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>
 
     __emergencyUnpause(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>
+
+    __renounceGuardian(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>
 
@@ -1836,9 +1915,17 @@ export interface AstariaRouter extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 
-    getStrategistFee(
-      amountIn: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+    initialize(
+      _AUTHORITY: PromiseOrValue<string>,
+      _COLLATERAL_TOKEN: PromiseOrValue<string>,
+      _LIEN_TOKEN: PromiseOrValue<string>,
+      _TRANSFER_PROXY: PromiseOrValue<string>,
+      _VAULT_IMPL: PromiseOrValue<string>,
+      _SOLO_IMPL: PromiseOrValue<string>,
+      _WITHDRAW_IMPL: PromiseOrValue<string>,
+      _BEACON_PROXY_IMPL: PromiseOrValue<string>,
+      _CLEARING_HOUSE_IMPL: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>
 
     isValidRefinance(
@@ -1859,8 +1946,6 @@ export interface AstariaRouter extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>
 
-    maxInterestRate(overrides?: CallOverrides): Promise<PopulatedTransaction>
-
     mint(
       vault: PromiseOrValue<string>,
       to: PromiseOrValue<string>,
@@ -1877,6 +1962,7 @@ export interface AstariaRouter extends BaseContract {
     newPublicVault(
       epochLength: PromiseOrValue<BigNumberish>,
       delegate: PromiseOrValue<string>,
+      underlying: PromiseOrValue<string>,
       vaultFee: PromiseOrValue<BigNumberish>,
       allowListEnabled: PromiseOrValue<boolean>,
       allowList: PromiseOrValue<string>[],
@@ -1886,6 +1972,7 @@ export interface AstariaRouter extends BaseContract {
 
     newVault(
       delegate: PromiseOrValue<string>,
+      underlying: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>
 
