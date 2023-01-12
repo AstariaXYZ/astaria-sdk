@@ -125,6 +125,7 @@ describe('util.signRoot using remote', () => {
     const json = await readFile(join(__dirname, '__mocks__/test.json'), 'utf8')
     const { strategy, signature, typedData } = decodeIPFSStrategyPayload(json)
     expect(strategy).toBeDefined()
-    console.log(verifySignature(typedData, signature))
+    const actual = '0x286055c312ac3f939d1409619396ed6a88401d08'
+    expect(actual).toEqual(verifySignature(typedData, signature))
   })
 })

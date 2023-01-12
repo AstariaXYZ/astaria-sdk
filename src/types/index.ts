@@ -161,6 +161,20 @@ export const IPFSStrategyPayloadSchema = z.object({
   strategy: StrategySchema,
 })
 
+export const ProofSchema = z.array(z.string())
+
+export const MerkleDataStructSchema = z.object({
+  root: z.string(),
+  proof: ProofSchema,
+})
+
+export const ProofServiceResponseSchema = z.object({
+  proof: ProofSchema,
+  cid: z.string(),
+  typedData: TypedDataSchema,
+  signature: SignatureSchema,
+})
+
 export type Lien = z.infer<typeof LienSchema>
 export type Collection = z.infer<typeof CollectionSchema>
 export type Collateral = z.infer<typeof CollateralSchema>
@@ -175,3 +189,5 @@ export type message = z.infer<typeof MessageSchema>
 export type TypedData = z.infer<typeof TypedDataSchema>
 export type Signature = z.infer<typeof SignatureSchema>
 export type IPFSStrategyPayload = z.infer<typeof IPFSStrategyPayloadSchema>
+export type ProofServiceResponse = z.infer<typeof ProofServiceResponseSchema>
+export type MerkleDataStruct = z.infer<typeof MerkleDataStructSchema>

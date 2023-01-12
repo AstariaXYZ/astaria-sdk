@@ -1,0 +1,62 @@
+[
+  {
+    "type": "1",
+    "cid": "QmVnJ5gAmZ63qNibaxLbuvPdpJQ1G5wcwxizXQttoAxV7p",
+    "expiration": "1674242547",
+    "leaf": "0x91fbc2bb317dfcd6a6ce9ef21abfa54c2296e373bfd4923db10aaac817ff9293",
+    "token": "0xd6ef92fa2ef2cb702f0bfff54b111b076ac0237d",
+    "tokenId": "209",
+    "lien": {
+      "amount": "500",
+      "rate": "15",
+      "duration": "17",
+      "maxPotentialDebt": "1",
+      "liquidationInitialAsk": "500"
+    }
+  },
+  {
+    "type": "2",
+    "cid": "QmVnJ5gAmZ63qNibaxLbuvPdpJQ1G5wcwxizXQttoAxV7p",
+    "expiration": "1674242547",
+    "leaf": "0xb42032b9bc6fec523d7830632d218899faeef64c457f42a264d8b68f7b69ffe7",
+    "token": "0xd6ef92fa2ef2cb702f0bfff54b111b076ac0237d",
+    "lien": {
+      "amount": "500",
+      "rate": "10",
+      "duration": "10",
+      "maxPotentialDebt": "0",
+      "liquidationInitialAsk": "500"
+    }
+  },
+  {
+    "type": "1",
+    "cid": "QmVnJ5gAmZ63qNibaxLbuvPdpJQ1G5wcwxizXQttoAxV7p",
+    "expiration": "1674242547",
+    "leaf": "0xb7dc7a42b37f2a7fdc3f73c5464d10eaabffdc2723bed19cf096f124d397dc68",
+    "token": "0xd6ef92fa2ef2cb702f0bfff54b111b076ac0237d",
+    "borrower": "0x286055c312AC3F939d1409619396ed6a88401D08",
+    "tokenId": "209",
+    "lien": {
+      "amount": "500",
+      "rate": "15",
+      "duration": "17",
+      "maxPotentialDebt": "1",
+      "liquidationInitialAsk": "500"
+    }
+  },
+  {
+    "type": "2",
+    "cid": "QmVnJ5gAmZ63qNibaxLbuvPdpJQ1G5wcwxizXQttoAxV7p",
+    "expiration": "1674242547",
+    "leaf": "0xbc698ee11f3ebe231b0b92ae60b9b3146e6ec3d34736d13d038702317742b72f",
+    "token": "0xd6ef92fa2ef2cb702f0bfff54b111b076ac0237d",
+    "borrower": "0x286055c312AC3F939d1409619396ed6a88401D08",
+    "lien": {
+      "amount": "500",
+      "rate": "10",
+      "duration": "10",
+      "maxPotentialDebt": "0",
+      "liquidationInitialAsk": "500"
+    }
+  }
+]

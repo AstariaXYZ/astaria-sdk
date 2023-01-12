@@ -97,10 +97,11 @@ export declare namespace ILienToken {
   }
 }
 
-export declare namespace ICollectionValidator {
+export declare namespace IUniqueValidator {
   export type DetailsStruct = {
     version: PromiseOrValue<BigNumberish>
     token: PromiseOrValue<string>
+    tokenId: PromiseOrValue<BigNumberish>
     borrower: PromiseOrValue<string>
     lien: ILienToken.DetailsStruct
   }
@@ -108,11 +109,13 @@ export declare namespace ICollectionValidator {
   export type DetailsStructOutput = [
     number,
     string,
+    BigNumber,
     string,
     ILienToken.DetailsStructOutput
   ] & {
     version: number
     token: string
+    tokenId: BigNumber
     borrower: string
     lien: ILienToken.DetailsStructOutput
   }
@@ -173,10 +176,10 @@ export declare namespace IAstariaRouter {
   }
 }
 
-export interface CollectionValidatorInterface extends utils.Interface {
+export interface UniqueValidatorInterface extends utils.Interface {
   functions: {
     'VERSION_TYPE()': FunctionFragment
-    'assembleLeaf((uint8,address,address,(uint256,uint256,uint256,uint256,uint256)))': FunctionFragment
+    'assembleLeaf((uint8,address,uint256,address,(uint256,uint256,uint256,uint256,uint256)))': FunctionFragment
     'getLeafDetails(bytes)': FunctionFragment
     'validateAndParse(((uint8,uint256,address),((uint8,address,address,bytes32,uint256,(uint256,uint256,uint256,uint256,uint256)),(uint88,uint40,uint40,uint256))[],bytes,(bytes32,bytes32[]),uint256,uint8,bytes32,bytes32),address,address,uint256)': FunctionFragment
   }
@@ -195,7 +198,7 @@ export interface CollectionValidatorInterface extends utils.Interface {
   ): string
   encodeFunctionData(
     functionFragment: 'assembleLeaf',
-    values: [ICollectionValidator.DetailsStruct]
+    values: [IUniqueValidator.DetailsStruct]
   ): string
   encodeFunctionData(
     functionFragment: 'getLeafDetails',
@@ -231,12 +234,12 @@ export interface CollectionValidatorInterface extends utils.Interface {
   events: {}
 }
 
-export interface CollectionValidator extends BaseContract {
+export interface UniqueValidator extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this
   attach(addressOrName: string): this
   deployed(): Promise<this>
 
-  interface: CollectionValidatorInterface
+  interface: UniqueValidatorInterface
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
@@ -261,20 +264,20 @@ export interface CollectionValidator extends BaseContract {
     VERSION_TYPE(overrides?: CallOverrides): Promise<[number]>
 
     assembleLeaf(
-      details: ICollectionValidator.DetailsStruct,
+      details: IUniqueValidator.DetailsStruct,
       overrides?: CallOverrides
     ): Promise<[string]>
 
     getLeafDetails(
       nlrDetails: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
-    ): Promise<[ICollectionValidator.DetailsStructOutput]>
+    ): Promise<[IUniqueValidator.DetailsStructOutput]>
 
     validateAndParse(
       params: IAstariaRouter.NewLienRequestStruct,
       borrower: PromiseOrValue<string>,
       collateralTokenContract: PromiseOrValue<string>,
-      arg3: PromiseOrValue<BigNumberish>,
+      collateralTokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<
       [string, ILienToken.DetailsStructOutput] & {
@@ -287,20 +290,20 @@ export interface CollectionValidator extends BaseContract {
   VERSION_TYPE(overrides?: CallOverrides): Promise<number>
 
   assembleLeaf(
-    details: ICollectionValidator.DetailsStruct,
+    details: IUniqueValidator.DetailsStruct,
     overrides?: CallOverrides
   ): Promise<string>
 
   getLeafDetails(
     nlrDetails: PromiseOrValue<BytesLike>,
     overrides?: CallOverrides
-  ): Promise<ICollectionValidator.DetailsStructOutput>
+  ): Promise<IUniqueValidator.DetailsStructOutput>
 
   validateAndParse(
     params: IAstariaRouter.NewLienRequestStruct,
     borrower: PromiseOrValue<string>,
     collateralTokenContract: PromiseOrValue<string>,
-    arg3: PromiseOrValue<BigNumberish>,
+    collateralTokenId: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<
     [string, ILienToken.DetailsStructOutput] & {
@@ -313,20 +316,20 @@ export interface CollectionValidator extends BaseContract {
     VERSION_TYPE(overrides?: CallOverrides): Promise<number>
 
     assembleLeaf(
-      details: ICollectionValidator.DetailsStruct,
+      details: IUniqueValidator.DetailsStruct,
       overrides?: CallOverrides
     ): Promise<string>
 
     getLeafDetails(
       nlrDetails: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
-    ): Promise<ICollectionValidator.DetailsStructOutput>
+    ): Promise<IUniqueValidator.DetailsStructOutput>
 
     validateAndParse(
       params: IAstariaRouter.NewLienRequestStruct,
       borrower: PromiseOrValue<string>,
       collateralTokenContract: PromiseOrValue<string>,
-      arg3: PromiseOrValue<BigNumberish>,
+      collateralTokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<
       [string, ILienToken.DetailsStructOutput] & {
@@ -342,7 +345,7 @@ export interface CollectionValidator extends BaseContract {
     VERSION_TYPE(overrides?: CallOverrides): Promise<BigNumber>
 
     assembleLeaf(
-      details: ICollectionValidator.DetailsStruct,
+      details: IUniqueValidator.DetailsStruct,
       overrides?: CallOverrides
     ): Promise<BigNumber>
 
@@ -355,7 +358,7 @@ export interface CollectionValidator extends BaseContract {
       params: IAstariaRouter.NewLienRequestStruct,
       borrower: PromiseOrValue<string>,
       collateralTokenContract: PromiseOrValue<string>,
-      arg3: PromiseOrValue<BigNumberish>,
+      collateralTokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>
   }
@@ -364,7 +367,7 @@ export interface CollectionValidator extends BaseContract {
     VERSION_TYPE(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     assembleLeaf(
-      details: ICollectionValidator.DetailsStruct,
+      details: IUniqueValidator.DetailsStruct,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 
@@ -377,7 +380,7 @@ export interface CollectionValidator extends BaseContract {
       params: IAstariaRouter.NewLienRequestStruct,
       borrower: PromiseOrValue<string>,
       collateralTokenContract: PromiseOrValue<string>,
-      arg3: PromiseOrValue<BigNumberish>,
+      collateralTokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
   }

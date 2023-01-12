@@ -3,8 +3,11 @@
 /* eslint-disable */
 export { AstariaRouter__factory } from './AstariaRouter__factory'
 export { CollateralToken__factory } from './CollateralToken__factory'
+export { CollectionValidator__factory } from './CollectionValidator__factory'
 export { LienToken__factory } from './LienToken__factory'
 export { PublicVault__factory } from './PublicVault__factory'
+export { UNI_V3Validator__factory } from './UNI_V3Validator__factory'
+export { UniqueValidator__factory } from './UniqueValidator__factory'
 export { Vault__factory } from './Vault__factory'
 export { VaultImplementation__factory } from './VaultImplementation__factory'
 export { WithdrawProxy__factory } from './WithdrawProxy__factory'

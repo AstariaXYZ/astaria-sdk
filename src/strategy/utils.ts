@@ -5,7 +5,13 @@ import {
   splitSignature,
   joinSignature,
 } from 'ethers/lib/utils'
-import { Wallet, Signature } from 'ethers'
+import {
+  Wallet,
+  Signature,
+  Signer,
+  ContractTransaction,
+  BigNumber,
+} from 'ethers'
 import invariant from 'tiny-invariant'
 
 import { parse as parseCSV } from 'papaparse'
@@ -21,11 +27,21 @@ import {
   TypedData,
   StrategyDetails,
   UniV3Collateral,
+  ProofServiceResponse,
+  MerkleDataStruct,
+  MerkleDataStructSchema,
+  UniV3CollateralSchema,
+  CollectionSchema,
+  ProofServiceResponseSchema,
 } from '../types'
+import { AstariaRouter__factory } from '../contracts/factories/AstariaRouter__factory'
+import { IAstariaRouter } from '../contracts/AstariaRouter'
+import { ILienToken } from '../contracts/LienToken'
+import axios from 'axios'
 const ethSigUtil = require('eth-sig-util')
 const stringify = require('json-stringify-deterministic')
 
-export const hashCollateral = (collateral: Collateral): string => {
+export const encodeCollateral = (collateral: Collateral): string => {
   invariant(collateral, 'hashCollateral: collateral must be defined')
 
   let encode = defaultAbiCoder.encode(
@@ -53,10 +69,10 @@ export const hashCollateral = (collateral: Collateral): string => {
     ]
   )
 
-  return keccak256(encode)
+  return encode
 }
 
-export const hashUniV3Collateral = (collateral: UniV3Collateral): string => {
+export const encodeUniV3Collateral = (collateral: UniV3Collateral): string => {
   invariant(collateral, 'hashUniV3Collateral: collateral must be defined')
 
   let encode = defaultAbiCoder.encode(
@@ -102,10 +118,10 @@ export const hashUniV3Collateral = (collateral: UniV3Collateral): string => {
     ]
   )
 
-  return keccak256(encode)
+  return encode
 }
 
-export const hashCollection = (collection: Collection): string => {
+export const encodeCollection = (collection: Collection): string => {
   invariant(collection, 'hashCollection: collection must be defined')
 
   const encode = defaultAbiCoder.encode(
@@ -133,7 +149,7 @@ export const hashCollection = (collection: Collection): string => {
     ]
   )
 
-  return keccak256(encode)
+  return encode
 }
 
 export const getStrategyFromCSV = (csv: string): Strategy => {
@@ -160,17 +176,17 @@ export const prepareLeaves = (strategy: Strategy): string[] => {
   return strategy.map((row: StrategyRow) => {
     switch (row.type) {
       case StrategyLeafType.Collection: {
-        row.leaf = hashCollection(row)
+        row.leaf = keccak256(encodeCollection(row))
         break
       }
 
       case StrategyLeafType.Collateral: {
-        row.leaf = hashCollateral(row)
+        row.leaf = keccak256(encodeCollateral(row))
         break
       }
 
       case StrategyLeafType.UniV3Collateral: {
-        row.leaf = hashUniV3Collateral(row)
+        row.leaf = keccak256(encodeUniV3Collateral(row))
         break
       }
     }
@@ -261,4 +277,130 @@ export const decodeIPFSStrategyPayload = (
   ipfsStrategyPayload: string
 ): IPFSStrategyPayload => {
   return IPFSStrategyPayloadSchema.parse(JSON.parse(ipfsStrategyPayload))
+}
+
+export const commitToLiens = async (
+  router: string,
+  commitments: Array<IAstariaRouter.CommitmentStruct>,
+  signer: Signer
+): Promise<ContractTransaction> => {
+  //get contract instance
+
+  const contract = AstariaRouter__factory.connect(router, signer)
+  console.log('Henlo')
+  const gasLimit = await contract.callStatic.commitToLiens(commitments)
+  console.log('Bark: ' + gasLimit)
+  return await contract.commitToLiens(commitments)
+}
+
+export const getStackByCollateral = (
+  token: string,
+  id: BigNumber
+): ILienToken.StackStruct[] => {
+  // call to the subgraph to get the stack
+  const stack: ILienToken.StackStruct[] = []
+  return stack
+}
+
+export const convertProofServiceResponseToCommitment = (
+  proofServiceResponse: ProofServiceResponse,
+  collateral: StrategyRow,
+  tokenId: BigNumber,
+  amount: BigNumber,
+  stack: ILienToken.StackStruct[]
+): IAstariaRouter.CommitmentStruct => {
+  let nlrDetails: string
+  if (collateral.type === StrategyLeafType.Collateral) {
+    nlrDetails = encodeCollateral(collateral)
+  } else if (collateral.type === StrategyLeafType.Collection) {
+    nlrDetails = encodeCollection(collateral)
+  } else {
+    nlrDetails = encodeUniV3Collateral(collateral)
+  }
+
+  const merkle = MerkleDataStructSchema.parse({
+    root: proofServiceResponse.typedData.message.root,
+    proof: proofServiceResponse.proof,
+  })
+  return {
+    tokenContract: collateral.token,
+    tokenId: tokenId,
+    lienRequest: {
+      strategy: {
+        version: proofServiceResponse.typedData.domain.version,
+        deadline: proofServiceResponse.typedData.message.deadline,
+        vault: proofServiceResponse.typedData.domain.verifyingContract,
+      },
+      stack: stack,
+      nlrDetails: nlrDetails,
+      merkle: merkle,
+      amount: amount,
+      v: proofServiceResponse.signature.v,
+      r: proofServiceResponse.signature.r,
+      s: proofServiceResponse.signature.s,
+    },
+  }
+}
+
+const STRATEGY_BASE_URL = 'https://api.astaria.xyz/strategy/'
+
+export const getOffersByCollateral = async (
+  token: string,
+  id: string,
+  borrower: string
+): Promise<StrategyRow[]> => {
+  const OFFER_PATH = `offer/${token}/${id}/`
+
+  const response = await axios.post(
+    STRATEGY_BASE_URL + OFFER_PATH,
+    { borrower: borrower },
+    {
+      headers: {
+        'Accept-Encoding': 'gzip,deflate,compress',
+        'Content-Type': 'application/json',
+      },
+    }
+  )
+  return response?.data?.forEach((offer: any) => {
+    if (offer.type === StrategyLeafType.Collateral) {
+      return CollectionSchema.parse(offer)
+    } else if (offer.type === StrategyLeafType.Collection) {
+      return CollectionSchema.parse(offer)
+    }
+    return UniV3CollateralSchema.parse(offer)
+  })
+}
+
+export const getProofByCidAndLeaf = async (
+  cid: string,
+  leaf: string
+): Promise<ProofServiceResponse> => {
+  const PROOF_PATH = `proof/`
+
+  const response = await axios.post(
+    STRATEGY_BASE_URL + PROOF_PATH,
+    { cid: cid, leaf: leaf },
+    {
+      headers: {
+        'Accept-Encoding': 'gzip,deflate,compress',
+        'Content-Type': 'application/json',
+      },
+    }
+  )
+  return ProofServiceResponseSchema.parse(response?.data)
+}
+
+export const getIsValidated = async (
+  delegateAddress: string,
+  cid: string
+): Promise<string> => {
+  const VALIDATED_PATH = `${delegateAddress}/${cid}/validated`
+  const response = await axios.get(STRATEGY_BASE_URL + VALIDATED_PATH, {
+    headers: {
+      'Accept-Encoding': 'gzip,deflate,compress',
+      'Content-Type': 'application/json',
+    },
+  })
+  // valid, invalid, or pending
+  return response?.data?.validated
 }

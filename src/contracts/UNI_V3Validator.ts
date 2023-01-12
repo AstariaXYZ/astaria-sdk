@@ -97,11 +97,19 @@ export declare namespace ILienToken {
   }
 }
 
-export declare namespace ICollectionValidator {
+export declare namespace IUNI_V3Validator {
   export type DetailsStruct = {
     version: PromiseOrValue<BigNumberish>
-    token: PromiseOrValue<string>
+    lp: PromiseOrValue<string>
     borrower: PromiseOrValue<string>
+    token0: PromiseOrValue<string>
+    token1: PromiseOrValue<string>
+    fee: PromiseOrValue<BigNumberish>
+    tickLower: PromiseOrValue<BigNumberish>
+    tickUpper: PromiseOrValue<BigNumberish>
+    minLiquidity: PromiseOrValue<BigNumberish>
+    amount0Min: PromiseOrValue<BigNumberish>
+    amount1Min: PromiseOrValue<BigNumberish>
     lien: ILienToken.DetailsStruct
   }
 
@@ -109,11 +117,27 @@ export declare namespace ICollectionValidator {
     number,
     string,
     string,
+    string,
+    string,
+    number,
+    number,
+    number,
+    BigNumber,
+    BigNumber,
+    BigNumber,
     ILienToken.DetailsStructOutput
   ] & {
     version: number
-    token: string
+    lp: string
     borrower: string
+    token0: string
+    token1: string
+    fee: number
+    tickLower: number
+    tickUpper: number
+    minLiquidity: BigNumber
+    amount0Min: BigNumber
+    amount1Min: BigNumber
     lien: ILienToken.DetailsStructOutput
   }
 }
@@ -173,29 +197,38 @@ export declare namespace IAstariaRouter {
   }
 }
 
-export interface CollectionValidatorInterface extends utils.Interface {
+export interface UNI_V3ValidatorInterface extends utils.Interface {
   functions: {
+    'V3_FACTORY()': FunctionFragment
+    'V3_NFT_POSITION_MGR()': FunctionFragment
     'VERSION_TYPE()': FunctionFragment
-    'assembleLeaf((uint8,address,address,(uint256,uint256,uint256,uint256,uint256)))': FunctionFragment
+    'assembleLeaf((uint8,address,address,address,address,uint24,int24,int24,uint128,uint256,uint256,(uint256,uint256,uint256,uint256,uint256)))': FunctionFragment
     'getLeafDetails(bytes)': FunctionFragment
     'validateAndParse(((uint8,uint256,address),((uint8,address,address,bytes32,uint256,(uint256,uint256,uint256,uint256,uint256)),(uint88,uint40,uint40,uint256))[],bytes,(bytes32,bytes32[]),uint256,uint8,bytes32,bytes32),address,address,uint256)': FunctionFragment
   }
 
   getFunction(
     nameOrSignatureOrTopic:
+      | 'V3_FACTORY'
+      | 'V3_NFT_POSITION_MGR'
       | 'VERSION_TYPE'
       | 'assembleLeaf'
       | 'getLeafDetails'
       | 'validateAndParse'
   ): FunctionFragment
 
+  encodeFunctionData(functionFragment: 'V3_FACTORY', values?: undefined): string
+  encodeFunctionData(
+    functionFragment: 'V3_NFT_POSITION_MGR',
+    values?: undefined
+  ): string
   encodeFunctionData(
     functionFragment: 'VERSION_TYPE',
     values?: undefined
   ): string
   encodeFunctionData(
     functionFragment: 'assembleLeaf',
-    values: [ICollectionValidator.DetailsStruct]
+    values: [IUNI_V3Validator.DetailsStruct]
   ): string
   encodeFunctionData(
     functionFragment: 'getLeafDetails',
@@ -211,6 +244,11 @@ export interface CollectionValidatorInterface extends utils.Interface {
     ]
   ): string
 
+  decodeFunctionResult(functionFragment: 'V3_FACTORY', data: BytesLike): Result
+  decodeFunctionResult(
+    functionFragment: 'V3_NFT_POSITION_MGR',
+    data: BytesLike
+  ): Result
   decodeFunctionResult(
     functionFragment: 'VERSION_TYPE',
     data: BytesLike
@@ -231,12 +269,12 @@ export interface CollectionValidatorInterface extends utils.Interface {
   events: {}
 }
 
-export interface CollectionValidator extends BaseContract {
+export interface UNI_V3Validator extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this
   attach(addressOrName: string): this
   deployed(): Promise<this>
 
-  interface: CollectionValidatorInterface
+  interface: UNI_V3ValidatorInterface
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
@@ -258,23 +296,27 @@ export interface CollectionValidator extends BaseContract {
   removeListener: OnEvent<this>
 
   functions: {
+    V3_FACTORY(overrides?: CallOverrides): Promise<[string]>
+
+    V3_NFT_POSITION_MGR(overrides?: CallOverrides): Promise<[string]>
+
     VERSION_TYPE(overrides?: CallOverrides): Promise<[number]>
 
     assembleLeaf(
-      details: ICollectionValidator.DetailsStruct,
+      details: IUNI_V3Validator.DetailsStruct,
       overrides?: CallOverrides
     ): Promise<[string]>
 
     getLeafDetails(
       nlrDetails: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
-    ): Promise<[ICollectionValidator.DetailsStructOutput]>
+    ): Promise<[IUNI_V3Validator.DetailsStructOutput]>
 
     validateAndParse(
       params: IAstariaRouter.NewLienRequestStruct,
       borrower: PromiseOrValue<string>,
       collateralTokenContract: PromiseOrValue<string>,
-      arg3: PromiseOrValue<BigNumberish>,
+      collateralTokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<
       [string, ILienToken.DetailsStructOutput] & {
@@ -284,23 +326,27 @@ export interface CollectionValidator extends BaseContract {
     >
   }
 
+  V3_FACTORY(overrides?: CallOverrides): Promise<string>
+
+  V3_NFT_POSITION_MGR(overrides?: CallOverrides): Promise<string>
+
   VERSION_TYPE(overrides?: CallOverrides): Promise<number>
 
   assembleLeaf(
-    details: ICollectionValidator.DetailsStruct,
+    details: IUNI_V3Validator.DetailsStruct,
     overrides?: CallOverrides
   ): Promise<string>
 
   getLeafDetails(
     nlrDetails: PromiseOrValue<BytesLike>,
     overrides?: CallOverrides
-  ): Promise<ICollectionValidator.DetailsStructOutput>
+  ): Promise<IUNI_V3Validator.DetailsStructOutput>
 
   validateAndParse(
     params: IAstariaRouter.NewLienRequestStruct,
     borrower: PromiseOrValue<string>,
     collateralTokenContract: PromiseOrValue<string>,
-    arg3: PromiseOrValue<BigNumberish>,
+    collateralTokenId: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<
     [string, ILienToken.DetailsStructOutput] & {
@@ -310,23 +356,27 @@ export interface CollectionValidator extends BaseContract {
   >
 
   callStatic: {
+    V3_FACTORY(overrides?: CallOverrides): Promise<string>
+
+    V3_NFT_POSITION_MGR(overrides?: CallOverrides): Promise<string>
+
     VERSION_TYPE(overrides?: CallOverrides): Promise<number>
 
     assembleLeaf(
-      details: ICollectionValidator.DetailsStruct,
+      details: IUNI_V3Validator.DetailsStruct,
       overrides?: CallOverrides
     ): Promise<string>
 
     getLeafDetails(
       nlrDetails: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
-    ): Promise<ICollectionValidator.DetailsStructOutput>
+    ): Promise<IUNI_V3Validator.DetailsStructOutput>
 
     validateAndParse(
       params: IAstariaRouter.NewLienRequestStruct,
       borrower: PromiseOrValue<string>,
       collateralTokenContract: PromiseOrValue<string>,
-      arg3: PromiseOrValue<BigNumberish>,
+      collateralTokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<
       [string, ILienToken.DetailsStructOutput] & {
@@ -339,10 +389,14 @@ export interface CollectionValidator extends BaseContract {
   filters: {}
 
   estimateGas: {
+    V3_FACTORY(overrides?: CallOverrides): Promise<BigNumber>
+
+    V3_NFT_POSITION_MGR(overrides?: CallOverrides): Promise<BigNumber>
+
     VERSION_TYPE(overrides?: CallOverrides): Promise<BigNumber>
 
     assembleLeaf(
-      details: ICollectionValidator.DetailsStruct,
+      details: IUNI_V3Validator.DetailsStruct,
       overrides?: CallOverrides
     ): Promise<BigNumber>
 
@@ -355,16 +409,22 @@ export interface CollectionValidator extends BaseContract {
       params: IAstariaRouter.NewLienRequestStruct,
       borrower: PromiseOrValue<string>,
       collateralTokenContract: PromiseOrValue<string>,
-      arg3: PromiseOrValue<BigNumberish>,
+      collateralTokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>
   }
 
   populateTransaction: {
+    V3_FACTORY(overrides?: CallOverrides): Promise<PopulatedTransaction>
+
+    V3_NFT_POSITION_MGR(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>
+
     VERSION_TYPE(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     assembleLeaf(
-      details: ICollectionValidator.DetailsStruct,
+      details: IUNI_V3Validator.DetailsStruct,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
 
@@ -377,7 +437,7 @@ export interface CollectionValidator extends BaseContract {
       params: IAstariaRouter.NewLienRequestStruct,
       borrower: PromiseOrValue<string>,
       collateralTokenContract: PromiseOrValue<string>,
-      arg3: PromiseOrValue<BigNumberish>,
+      collateralTokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>
   }

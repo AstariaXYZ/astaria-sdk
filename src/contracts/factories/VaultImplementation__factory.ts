@@ -26,9 +26,54 @@ const _abi = [
     inputs: [
       {
         indexed: false,
-        internalType: 'uint32',
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
+    name: 'AllowListEnabled',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+      {
+        indexed: false,
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
+    name: 'AllowListUpdated',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    name: 'DelegateUpdated',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
         name: 'nonce',
-        type: 'uint32',
+        type: 'uint256',
       },
     ],
     name: 'IncrementNonce',
@@ -39,9 +84,9 @@ const _abi = [
     inputs: [
       {
         indexed: false,
-        internalType: 'uint32',
+        internalType: 'uint256',
         name: 'nonce',
-        type: 'uint32',
+        type: 'uint256',
       },
     ],
     name: 'NonceUpdated',
@@ -160,9 +205,102 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: 'uint256',
-        name: 'collateralId',
-        type: 'uint256',
+        components: [
+          {
+            components: [
+              {
+                internalType: 'uint8',
+                name: 'collateralType',
+                type: 'uint8',
+              },
+              {
+                internalType: 'address',
+                name: 'token',
+                type: 'address',
+              },
+              {
+                internalType: 'address',
+                name: 'vault',
+                type: 'address',
+              },
+              {
+                internalType: 'bytes32',
+                name: 'strategyRoot',
+                type: 'bytes32',
+              },
+              {
+                internalType: 'uint256',
+                name: 'collateralId',
+                type: 'uint256',
+              },
+              {
+                components: [
+                  {
+                    internalType: 'uint256',
+                    name: 'maxAmount',
+                    type: 'uint256',
+                  },
+                  {
+                    internalType: 'uint256',
+                    name: 'rate',
+                    type: 'uint256',
+                  },
+                  {
+                    internalType: 'uint256',
+                    name: 'duration',
+                    type: 'uint256',
+                  },
+                  {
+                    internalType: 'uint256',
+                    name: 'maxPotentialDebt',
+                    type: 'uint256',
+                  },
+                  {
+                    internalType: 'uint256',
+                    name: 'liquidationInitialAsk',
+                    type: 'uint256',
+                  },
+                ],
+                internalType: 'struct ILienToken.Details',
+                name: 'details',
+                type: 'tuple',
+              },
+            ],
+            internalType: 'struct ILienToken.Lien',
+            name: 'lien',
+            type: 'tuple',
+          },
+          {
+            components: [
+              {
+                internalType: 'uint88',
+                name: 'amount',
+                type: 'uint88',
+              },
+              {
+                internalType: 'uint40',
+                name: 'last',
+                type: 'uint40',
+              },
+              {
+                internalType: 'uint40',
+                name: 'end',
+                type: 'uint40',
+              },
+              {
+                internalType: 'uint256',
+                name: 'lienId',
+                type: 'uint256',
+              },
+            ],
+            internalType: 'struct ILienToken.Point',
+            name: 'point',
+            type: 'tuple',
+          },
+        ],
+        internalType: 'struct ILienToken.Stack[]',
+        name: 'stack',
+        type: 'tuple[]',
       },
       {
         internalType: 'uint8',
@@ -201,7 +339,7 @@ const _abi = [
                     type: 'address',
                   },
                 ],
-                internalType: 'struct IAstariaRouter.StrategyDetails',
+                internalType: 'struct IAstariaRouter.StrategyDetailsParam',
                 name: 'strategy',
                 type: 'tuple',
               },
@@ -209,6 +347,11 @@ const _abi = [
                 components: [
                   {
                     components: [
+                      {
+                        internalType: 'uint8',
+                        name: 'collateralType',
+                        type: 'uint8',
+                      },
                       {
                         internalType: 'address',
                         name: 'token',
@@ -272,11 +415,6 @@ const _abi = [
                         internalType: 'uint88',
                         name: 'amount',
                         type: 'uint88',
-                      },
-                      {
-                        internalType: 'uint8',
-                        name: 'position',
-                        type: 'uint8',
                       },
                       {
                         internalType: 'uint40',
@@ -355,104 +493,6 @@ const _abi = [
         name: 'incomingTerms',
         type: 'tuple',
       },
-      {
-        components: [
-          {
-            components: [
-              {
-                internalType: 'address',
-                name: 'token',
-                type: 'address',
-              },
-              {
-                internalType: 'address',
-                name: 'vault',
-                type: 'address',
-              },
-              {
-                internalType: 'bytes32',
-                name: 'strategyRoot',
-                type: 'bytes32',
-              },
-              {
-                internalType: 'uint256',
-                name: 'collateralId',
-                type: 'uint256',
-              },
-              {
-                components: [
-                  {
-                    internalType: 'uint256',
-                    name: 'maxAmount',
-                    type: 'uint256',
-                  },
-                  {
-                    internalType: 'uint256',
-                    name: 'rate',
-                    type: 'uint256',
-                  },
-                  {
-                    internalType: 'uint256',
-                    name: 'duration',
-                    type: 'uint256',
-                  },
-                  {
-                    internalType: 'uint256',
-                    name: 'maxPotentialDebt',
-                    type: 'uint256',
-                  },
-                  {
-                    internalType: 'uint256',
-                    name: 'liquidationInitialAsk',
-                    type: 'uint256',
-                  },
-                ],
-                internalType: 'struct ILienToken.Details',
-                name: 'details',
-                type: 'tuple',
-              },
-            ],
-            internalType: 'struct ILienToken.Lien',
-            name: 'lien',
-            type: 'tuple',
-          },
-          {
-            components: [
-              {
-                internalType: 'uint88',
-                name: 'amount',
-                type: 'uint88',
-              },
-              {
-                internalType: 'uint8',
-                name: 'position',
-                type: 'uint8',
-              },
-              {
-                internalType: 'uint40',
-                name: 'last',
-                type: 'uint40',
-              },
-              {
-                internalType: 'uint40',
-                name: 'end',
-                type: 'uint40',
-              },
-              {
-                internalType: 'uint256',
-                name: 'lienId',
-                type: 'uint256',
-              },
-            ],
-            internalType: 'struct ILienToken.Point',
-            name: 'point',
-            type: 'tuple',
-          },
-        ],
-        internalType: 'struct ILienToken.Stack[]',
-        name: 'stack',
-        type: 'tuple[]',
-      },
     ],
     name: 'buyoutLien',
     outputs: [
@@ -461,6 +501,11 @@ const _abi = [
           {
             components: [
               {
+                internalType: 'uint8',
+                name: 'collateralType',
+                type: 'uint8',
+              },
+              {
                 internalType: 'address',
                 name: 'token',
                 type: 'address',
@@ -523,11 +568,6 @@ const _abi = [
                 internalType: 'uint88',
                 name: 'amount',
                 type: 'uint88',
-              },
-              {
-                internalType: 'uint8',
-                name: 'position',
-                type: 'uint8',
               },
               {
                 internalType: 'uint40',
@@ -559,6 +599,11 @@ const _abi = [
           {
             components: [
               {
+                internalType: 'uint8',
+                name: 'collateralType',
+                type: 'uint8',
+              },
+              {
                 internalType: 'address',
                 name: 'token',
                 type: 'address',
@@ -621,11 +666,6 @@ const _abi = [
                 internalType: 'uint88',
                 name: 'amount',
                 type: 'uint88',
-              },
-              {
-                internalType: 'uint8',
-                name: 'position',
-                type: 'uint8',
               },
               {
                 internalType: 'uint40',
@@ -690,7 +730,7 @@ const _abi = [
                     type: 'address',
                   },
                 ],
-                internalType: 'struct IAstariaRouter.StrategyDetails',
+                internalType: 'struct IAstariaRouter.StrategyDetailsParam',
                 name: 'strategy',
                 type: 'tuple',
               },
@@ -698,6 +738,11 @@ const _abi = [
                 components: [
                   {
                     components: [
+                      {
+                        internalType: 'uint8',
+                        name: 'collateralType',
+                        type: 'uint8',
+                      },
                       {
                         internalType: 'address',
                         name: 'token',
@@ -761,11 +806,6 @@ const _abi = [
                         internalType: 'uint88',
                         name: 'amount',
                         type: 'uint88',
-                      },
-                      {
-                        internalType: 'uint8',
-                        name: 'position',
-                        type: 'uint8',
                       },
                       {
                         internalType: 'uint40',
@@ -862,6 +902,11 @@ const _abi = [
           {
             components: [
               {
+                internalType: 'uint8',
+                name: 'collateralType',
+                type: 'uint8',
+              },
+              {
                 internalType: 'address',
                 name: 'token',
                 type: 'address',
@@ -926,11 +971,6 @@ const _abi = [
                 type: 'uint88',
               },
               {
-                internalType: 'uint8',
-                name: 'position',
-                type: 'uint8',
-              },
-              {
                 internalType: 'uint40',
                 name: 'last',
                 type: 'uint40',
@@ -954,6 +994,11 @@ const _abi = [
         internalType: 'struct ILienToken.Stack[]',
         name: 'stack',
         type: 'tuple[]',
+      },
+      {
+        internalType: 'uint256',
+        name: 'payout',
+        type: 'uint256',
       },
     ],
     stateMutability: 'nonpayable',
@@ -1006,7 +1051,7 @@ const _abi = [
             type: 'address',
           },
         ],
-        internalType: 'struct IAstariaRouter.StrategyDetails',
+        internalType: 'struct IAstariaRouter.StrategyDetailsParam',
         name: 'strategy',
         type: 'tuple',
       },
@@ -1045,9 +1090,9 @@ const _abi = [
     name: 'getStrategistNonce',
     outputs: [
       {
-        internalType: 'uint32',
+        internalType: 'uint256',
         name: '',
-        type: 'uint32',
+        type: 'uint256',
       },
     ],
     stateMutability: 'view',
@@ -1143,22 +1188,22 @@ const _abi = [
     inputs: [
       {
         internalType: 'address',
-        name: 'operator_',
+        name: '',
         type: 'address',
       },
       {
         internalType: 'address',
-        name: 'from_',
+        name: '',
         type: 'address',
       },
       {
         internalType: 'uint256',
-        name: 'tokenId_',
+        name: '',
         type: 'uint256',
       },
       {
         internalType: 'bytes',
-        name: 'data_',
+        name: '',
         type: 'bytes',
       },
     ],

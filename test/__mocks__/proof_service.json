@@ -1,0 +1,59 @@
+{
+  "proof": [
+    "0x91fbc2bb317dfcd6a6ce9ef21abfa54c2296e373bfd4923db10aaac817ff9293",
+    "0x79ef3a9d344d3d71394066865e82a2d9008a877adad30dcc8ae12b48cd28dd5e"
+  ],
+  "signature": {
+    "r": "0x5b104c4c97ed1b0713c4318a97c35656853eb32187286ec42fe94ef8864d6168",
+    "s": "0x3fc26e8b7dd349945408eb380fcc09ab1d4065aa5823f66c4b0370d0aa02d281",
+    "_vs": "0xbfc26e8b7dd349945408eb380fcc09ab1d4065aa5823f66c4b0370d0aa02d281",
+    "recoveryParam": 1,
+    "v": 28,
+    "yParityAndS": "0xbfc26e8b7dd349945408eb380fcc09ab1d4065aa5823f66c4b0370d0aa02d281",
+    "compact": "0x5b104c4c97ed1b0713c4318a97c35656853eb32187286ec42fe94ef8864d6168bfc26e8b7dd349945408eb380fcc09ab1d4065aa5823f66c4b0370d0aa02d281"
+  },
+  "cid": "QmVnJ5gAmZ63qNibaxLbuvPdpJQ1G5wcwxizXQttoAxV7p",
+  "typedData": {
+    "types": {
+      "EIP712Domain": [
+        {
+          "name": "version",
+          "type": "string"
+        },
+        {
+          "name": "chainId",
+          "type": "uint256"
+        },
+        {
+          "name": "verifyingContract",
+          "type": "address"
+        }
+      ],
+      "StrategyDetails": [
+        {
+          "name": "nonce",
+          "type": "uint256"
+        },
+        {
+          "name": "deadline",
+          "type": "uint256"
+        },
+        {
+          "name": "root",
+          "type": "bytes32"
+        }
+      ]
+    },
+    "primaryType": "StrategyDetails",
+    "domain": {
+      "version": "0",
+      "chainId": 5,
+      "verifyingContract": "0xc3F235148C06e930D99Fc5eaB08F8ADB31e0B335"
+    },
+    "message": {
+      "nonce": "0x00",
+      "deadline": "1674242547",
+      "root": "0xc1014fa16c8c916f2e0b40dfba06396209992122c27b944ed4e31a3d40591f14"
+    }
+  }
+}
